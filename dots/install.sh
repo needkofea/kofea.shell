@@ -49,6 +49,6 @@ source_folders=(
     "hypr"
 )
 
-destination=".test-config"
+destination="$HOME/.config"
 
 install_symlinks source_folders[@] "$destination"
