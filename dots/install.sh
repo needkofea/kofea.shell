@@ -50,6 +50,7 @@ source_folders=(
     "dunst"
     "starship"
     "rofi"
+    "waybar"
 )
 
 destination="$HOME/.config"
