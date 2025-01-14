@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+SCRIPT_DIR=$(dirname "$(realpath "$0")")
+
 # Function to symlink folders with backup renaming if necessary
 install_symlinks() {
     # Arguments:
@@ -13,13 +15,12 @@ install_symlinks() {
     mkdir -p "$destination"
 
     for source_raw in "${source_folders[@]}"; do
-        source_path=$(realpath $source_raw)
+        source_path=$(realpath "$SCRIPT_DIR/$source_raw")
         # Extract the base name (folder or file) from the source path
         local base_name=$(basename "$source_path")
 
         # Define the destination path
         local dest_path="$destination/$base_name"
-
         # Check if the path (file or directory) already exists at the destination
         if [ -e "$dest_path" ]; then
 
@@ -42,11 +43,12 @@ install_symlinks() {
 }
 
 
+# Relative to path of script!
 source_folders=(
-    "ags",
+    "ags"
     "hypr"
 )
 
-destination="${HOME}/.test-config"
+destination=".test-config"
 
 install_symlinks source_folders[@] "$destination"
