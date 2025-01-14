@@ -35,7 +35,7 @@ install_symlinks() {
         fi
 
         # Create the symlink at the destination
-        ln -s "$source_path" "$dest_path"
+        ln -s "$source_path" "$dest_path" -f
         echo "Created symlink from $source_path to $dest_path"
     done
 

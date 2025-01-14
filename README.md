@@ -1,4 +1,4 @@
-# dots.kofea
+# kofea.shell
 
 > [!CAUTION]
 > These dots file are designed for use in arch environment.

@@ -94,7 +94,7 @@
     },
   },
   "custom/spotify": {
-    "exec": "python3 $HOME/kofea-shell/bin/mediaplayer.py --player spotify",
+    "exec": "python3 $HOME/kofea.shell/bin/mediaplayer.py --player spotify",
     "format": "{}",
     "rotate": 0,
     "return-type": "json",

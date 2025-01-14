@@ -2,7 +2,7 @@
 
 _DIR=$(dirname "$(realpath "$0")")
 
-ASSET_DIR="$HOME/kofea-shell/assets/icons"
+ASSET_DIR="$HOME/kofea.shell/assets/icons"
 
 # Check if pamixer is installed
 if ! command -v pamixer &>/dev/null; then
