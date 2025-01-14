@@ -1,0 +1,3 @@
+[submodule "dots/starship"]
+	path = dots/starship
+	url = https://github.com/needkofea/config-starship

@@ -47,6 +47,8 @@ install_symlinks() {
 source_folders=(
     "ags"
     "hypr"
+    "dunst"
+    "starship"
 )
 
 destination="$HOME/.config"

@@ -1,0 +1,132 @@
+[global]
+   
+    ### Display ###
+
+    # Display notifications on monitor with mouse focus
+    follow = mouse
+    
+    # Show number of hidden notifications
+    indicate_hidden = yes
+    # Shrink window if smaller than width
+    shrink = no
+    # Set transparency of notifications
+    transparency = 0
+    # Height of whole notification    
+    notification_height = (, 100)
+    width = (250,500)
+    
+    # Text and seperator padding
+    padding = 8
+    # Horizontal padding
+    horizontal_padding = 8
+    # Width of frame around window
+    frame_width = 1
+    # Color of frame around window
+    frame_color = "#f2d5cf"
+    # Sort messages by urgency
+    sort = yes
+    # Idle seconds
+    idle_threshold = 0
+
+    ### Text ###
+    
+    # Set font of notifications
+    
+    font = NotoSansM Nerd Font Propo 9
+    # Spacing between lines 
+    line-height = 0
+    # Markup parsing
+    markup = full
+    # Message format:
+    # %a - appname
+    # %s - summary
+    # %b - body
+    # %i - iconname (with path)
+    # %I - iconname (without path)
+    # %p - progress value (if set)
+    # %n - progress value no extra characters
+    # %% - literal %
+    format = "<span rise=""><b>%s</b>\n%b\n<i>%a</i></span>"
+    # Align message text horizontally
+    alignment = left
+    # Align message text vertically
+    vertical_alignment = top
+    # Show age of message if message is older than x seconds
+    show_age_threshold = -1
+    # Split notifications into multiple lines
+    word_wrap = yes
+    # If message too long, add ellipsize to...
+    ellipsize = middle
+    # Ignore newlines in notifications
+    ignore_newline = no
+    # Stack duplicate notifications
+    stack_duplicates = false
+    # Hide number of duplicate notifications
+    hide_duplicate_count = true
+    # Show indicatiors  for urls and actions
+    show_indicators = no
+    offset = (10, 10)
+    origin = top-right
+    max_icon_size = 48
+    ### Icons ###
+    
+    # Disable icons
+    icon_position = left
+
+    ### History ###
+    
+    # Length of history
+    history_length = 20
+    
+    ### Misc ###
+    
+    # Dmenu path
+    dmenu = /usr/bin/dmenu -p dunst:
+    # Browser
+    browser = xdg-open
+    # Always run scripts
+    always_run_script = true
+    # Title of notification
+    title = Dunst
+    # Notification class
+    class = Dunst
+    # Print notification on startup
+    startup_notification = false
+    # Dunst verbosity
+    verbosity = mesg
+    # Corner radius of dunst
+    corner_radius = 8
+    # Ignore dbus closeNotification message
+    ignore_dbusclose = false
+    gap_size = 4
+    ### Mouse ###
+
+    # Left click
+    mouse_left_click = close_current
+    # Middle click
+    mouse_middle_click = do_action
+    # Right click
+    mouse_right_click = do_action
+
+    background = "#11111b"
+
+[urgency_low]
+
+    # Normal urgency notifications
+    frame_color = "#a6adc8"
+    foreground = "#ffffff"
+    timeout = 5
+
+[urgency_normal]
+
+    # Normal urgency notifications
+    
+    foreground = "#ffffff"
+    timeout = 5
+
+[urgency_critical]
+
+    # High urgency notifications
+    format = "<b><span color='#ff6969'>!</span> %a - %s</b>\n%b"
+    frame_color = "#ff6969"
+    timeout = 0
