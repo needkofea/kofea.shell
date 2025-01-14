@@ -43,9 +43,10 @@ install_symlinks() {
 
 
 source_folders=(
-    "ags"
+    "ags",
+    "hypr"
 )
 
-destination="../test-dots"
+destination="${HOME}/.test-config"
 
 install_symlinks source_folders[@] "$destination"
