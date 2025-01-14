@@ -49,6 +49,7 @@ source_folders=(
     "hypr"
     "dunst"
     "starship"
+    "rofi"
 )
 
 destination="$HOME/.config"
