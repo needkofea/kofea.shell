@@ -11,39 +11,67 @@ window.Bar {
 
     & > centerbox {
         background: transparent;
-        min-height: 32px;
+        min-height: 24px;
         padding: 0 2px;
     }
 
     button {
         border-radius: 8px;
-        margin: 2px;
+        margin: 0px;
     }
+}
+
+button {
+    padding: 0;
+    background: transparent;
+    font-size: 10px;
+}
+
+button:hover {
+    background: initial;
 }
 
 .container {
     background: $bg-color;
     margin: 2px;
-    min-height: 28px;
+    min-height: 20px;
     border-radius: 8px;
+    padding: 2px;
 }
 
 .taskbar {
     button {
         padding: 0 4px;
         min-width: 24px;
-        background: transparent;
-        font-size: 10px;
     }
     button:hover {
         background: initial;
     }
+
     icon {
         font-size: 2em;
     }
+
     label {
         margin-left: 3px;
         font-family: $font;
         font-weight: 800;
     }
+}
+
+.systray {
+    icon {
+        font-size: 1.4em;
+    }
+    button {
+        padding: 0 4px;
+        min-width: 8px;
+    }
+}
+
+.time {
+    font-size: 11px;
+    font-weight: 800;
+    font-family: $font;
+    padding: 0 8px;
 }
