@@ -12,6 +12,7 @@ window.Bar {
     & > centerbox {
         background: transparent;
         min-height: 32px;
+        padding: 0 2px;
     }
 
     button {
@@ -22,7 +23,7 @@ window.Bar {
 
 .container {
     background: $bg-color;
-    margin: 2px 0;
+    margin: 2px;
     min-height: 28px;
     border-radius: 8px;
 }
@@ -38,7 +39,7 @@ window.Bar {
         background: initial;
     }
     icon {
-        font-size: 1.25em;
+        font-size: 2em;
     }
     label {
         margin-left: 3px;

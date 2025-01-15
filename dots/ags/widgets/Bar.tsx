@@ -2,6 +2,7 @@ import { App, Astal, Gtk, Gdk } from "astal/gtk3";
 import Taskbar from "./Taskbar";
 import { Variable } from "astal";
 import { LAYER_NAMESPACE } from "../globals";
+import TrayBar from "./TrayBar";
 
 export default function Bar(gdkmonitor: Gdk.Monitor) {
   const { BOTTOM, LEFT, RIGHT } = Astal.WindowAnchor;
@@ -16,12 +17,14 @@ export default function Bar(gdkmonitor: Gdk.Monitor) {
       application={App}
     >
       <centerbox>
-        <box vexpand halign={Gtk.Align.START}>
+        <box vexpand halign={Gtk.Align.START} className="container">
           a
         </box>
-        <Taskbar gdkmonitor={gdkmonitor}></Taskbar>
-        <box vexpand halign={Gtk.Align.END}>
-          c
+        <box className="container">
+          <Taskbar gdkmonitor={gdkmonitor}></Taskbar>
+        </box>
+        <box vexpand halign={Gtk.Align.END} className="container">
+          <TrayBar> </TrayBar>
         </box>
       </centerbox>
     </window>

@@ -15,31 +15,27 @@ const apps = new Apps.Apps({
 
 const hypr = Hyprland.get_default();
 
+const workspaces = Variable<Hyprland.Workspace[]>([]).poll(
+  200,
+  () => hypr.workspaces,
+);
+
 const hyprclients_raw = Variable<Hyprland.Client[]>([]).poll(
   200,
   () => hypr.clients,
 );
 
-let oldMonitorAppsHash: number = -1;
-
 const hyprclients = Variable<Hyprland.Client[]>([]);
-hyprclients_raw.subscribe((newValue: Hyprland.Client[]) => {
-  const current = [...hyprclients.get()];
+let last_hash = 0;
+workspaces.subscribe((workspaces_) => {
+  let clients = workspaces_.flatMap((x) => x.clients);
+  let hash = clients
+    .map((x) => x.workspace.id)
+    .reduce((a, b) => (a + 1) * (b + 2));
 
-  if (newValue.length != current.length) {
-    hyprclients.set(newValue);
-    return;
-  }
-
-  const new_hash = newValue
-    .map((x) => (x.get_pid() + 1) * (x.monitor.id + 1) * (x.workspace.id + 1))
-    .reduce((prev, current) => prev * current, 1);
-  const old_hash = oldMonitorAppsHash;
-
-  oldMonitorAppsHash = new_hash;
-  if (new_hash != old_hash) {
-    hyprclients.set(newValue);
-    return;
+  if (hash != last_hash) {
+    hyprclients.set(clients);
+    last_hash = hash;
   }
 });
 
@@ -64,7 +60,7 @@ export default function Taskbar({ gdkmonitor }: TaskbarProps) {
 
   return (
     <box
-      className="container taskbar"
+      className="taskbar"
       halign={Gtk.Align.CENTER}
       visible={clients.as((x) => x.length > 0)}
     >
