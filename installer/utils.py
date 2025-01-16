@@ -2,6 +2,7 @@ from pathlib import Path
 import os
 
 USER_HOME = os.environ["HOME"];
+KOFEA_HOME = f"{USER_HOME}/kofea.shell/"
 KOFEA_DOTS = f"{USER_HOME}/kofea.shell/dots"
 DOTS_CONFIG = f"{USER_HOME}/.config"
 DOTS_LOCAL = f"{USER_HOME}/.local"

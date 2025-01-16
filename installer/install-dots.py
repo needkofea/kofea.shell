@@ -1,6 +1,6 @@
 #! /usr/bin/env python3
 
-from utils import install_target, TargetInstaller, KOFEA_DOTS, DOTS_CONFIG
+from utils import  TargetInstaller, KOFEA_DOTS, DOTS_CONFIG
 
 
 dots = TargetInstaller(KOFEA_DOTS, DOTS_CONFIG)
