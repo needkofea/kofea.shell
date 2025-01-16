@@ -2,6 +2,8 @@
 $fg-color: #{"@theme_fg_color"};
 $bg-color: #{"@theme_bg_color"};
 
+$accent: #f5e0dc;
+
 $font: "JetbrainsMonoNerdFont";
 
 window.Bar {
@@ -74,4 +76,12 @@ button:hover {
     font-weight: 800;
     font-family: $font;
     padding: 0 8px;
+}
+
+.start-logo {
+    min-width: 24px;
+    background: #626880;
+    &:hover {
+        background: $accent;
+    }
 }

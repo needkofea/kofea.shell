@@ -5,6 +5,8 @@ import { LAYER_NAMESPACE } from "../globals";
 import SysTray from "./SysTray";
 import Clock from "./Clock";
 
+const theme = Gtk.IconTheme.get_default();
+
 export default function Bar(gdkmonitor: Gdk.Monitor) {
   const { BOTTOM, LEFT, RIGHT } = Astal.WindowAnchor;
 
@@ -20,8 +22,8 @@ export default function Bar(gdkmonitor: Gdk.Monitor) {
       <centerbox>
         <box vexpand halign={Gtk.Align.START}>
           <box className="container">
-            <button>
-              <icon iconName={GLib.get_os_info("LOGO") || "missing-symbolic"} />
+            <button className={"start-logo"}>
+              <icon icon={GLib.get_os_info("LOGO") || "missing-symbolic"} />
             </button>
           </box>
         </box>
