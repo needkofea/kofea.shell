@@ -1,6 +1,6 @@
 import { App, Astal, Gtk, Gdk } from "astal/gtk3";
 import Taskbar from "./Taskbar";
-import { Variable } from "astal";
+import { GLib, Variable } from "astal";
 import { LAYER_NAMESPACE } from "../globals";
 import SysTray from "./SysTray";
 import Clock from "./Clock";
@@ -18,8 +18,12 @@ export default function Bar(gdkmonitor: Gdk.Monitor) {
       application={App}
     >
       <centerbox>
-        <box vexpand halign={Gtk.Align.START} className="container">
-          a
+        <box vexpand halign={Gtk.Align.START}>
+          <box className="container">
+            <button>
+              <icon iconName={GLib.get_os_info("LOGO") || "missing-symbolic"} />
+            </button>
+          </box>
         </box>
         <box className="container">
           <Taskbar gdkmonitor={gdkmonitor}></Taskbar>

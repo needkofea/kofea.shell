@@ -12,6 +12,7 @@ const trayItems_ = Variable<Tray.TrayItem[]>([]).poll(200, () =>
 
 const trayItems = Variable<Tray.TrayItem[]>([]);
 trayItems_.subscribe((items) => {
+  if (items.length < 1) return;
   let hash = items.map((x) => x.id).reduce((a, b) => a + b);
   if (last_hash != hash) {
     trayItems.set(items);
