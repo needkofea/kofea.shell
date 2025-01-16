@@ -1,15 +1,17 @@
 #! /usr/bin/env python3
 
-from utils import install_target
+from utils import install_target, TargetInstaller, KOFEA_DOTS, DOTS_CONFIG
 
+
+dots = TargetInstaller(KOFEA_DOTS, DOTS_CONFIG)
 
 def install_self():
-    install_target("ags")
-    install_target("hypr")
-    install_target("dunst")
-    install_target("starship")
-    install_target("rofi")
-    install_target("waybar")
+    dots.install("ags")
+    dots.install("hypr")
+    dots.install("dunst")
+    dots.install("starship")
+    dots.install("rofi")
+    dots.install("waybar")
     pass
 
 

@@ -15,7 +15,7 @@ def install_symlink(src: Path, dst: Path ):
         # Make backup
 
         if dst.is_symlink():
-            print(f"Will existing symlink at: {dst}")
+            print(f"Will remove existing symlink at: {dst}")
             os.remove(dst)
         else:
             print(f"Conflicting path detected at: {dst}! Backing up to {dst}.install-bak")
@@ -24,7 +24,16 @@ def install_symlink(src: Path, dst: Path ):
     print(f"Created symlink at {src} -> {dst}")
 
 
-def install_target(target: str, dst_dir: str = DOTS_CONFIG):
+def install_target(target: str, src_dir: str = KOFEA_DOTS, dst_dir: str = DOTS_CONFIG):
     src = Path(KOFEA_DOTS) / Path(target)
     dst = Path(dst_dir) / target
     install_symlink(src, dst)
+
+
+class TargetInstaller:
+    def __init__(self, src_dir: str, dst_dir: str = DOTS_CONFIG):
+        self.src_dir = src_dir
+        self.dst_dir = dst_dir
+
+    def install(self, target: str):
+        install_target(target, self.src_dir, self.dst_dir)
