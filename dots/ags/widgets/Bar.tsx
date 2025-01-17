@@ -1,7 +1,7 @@
 import { App, Astal, Gtk, Gdk } from "astal/gtk3";
 import Taskbar from "./Taskbar";
 import { GLib, Variable } from "astal";
-import { LAYER_NAMESPACE } from "../globals";
+import { launchStartMenu, LAYER_NAMESPACE } from "../api";
 import SysTray from "./SysTray";
 import Clock from "./Clock";
 import Workspaces from "./Workspaces";
@@ -23,7 +23,7 @@ export default function Bar(gdkmonitor: Gdk.Monitor) {
       <centerbox>
         <box vexpand halign={Gtk.Align.START}>
           <box className="container">
-            <button className={"start-logo"}>
+            <button className={"start-logo"} onClick={() => launchStartMenu()}>
               <icon icon={"start-menu-icon"} />
             </button>
           </box>
