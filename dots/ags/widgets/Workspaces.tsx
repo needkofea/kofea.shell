@@ -22,6 +22,9 @@ export default function Workspaces({ monitor }: WorkspaceProps) {
       {workspaces.as((wss) =>
         wss.map((ws) => (
           <button
+            tooltipText={bind(ws, "clients").as((x) =>
+              x.map((c, index) => `${c.title}`).join("\n"),
+            )}
             className={bind(hypr, "focusedWorkspace").as((fw) =>
               ws === fw ? "focused" : "",
             )}

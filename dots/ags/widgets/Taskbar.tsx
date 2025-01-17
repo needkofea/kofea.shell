@@ -70,6 +70,7 @@ export default function Taskbar({ gdkmonitor }: TaskbarProps) {
             .sort((a, b) => a.client.workspace.id - b.client.workspace.id)
             .map(({ client, desktop }) => (
               <button
+                tooltipText={client.title}
                 className={bind(hypr, "focusedClient").as((a) =>
                   ["dock-item", a?.pid == client?.pid ? "focused" : ""].join(
                     " ",
