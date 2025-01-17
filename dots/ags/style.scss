@@ -18,9 +18,13 @@ window.Bar {
     }
 
     button {
-        border-radius: 8px;
+        border-radius: 6px;
         margin: 0px;
     }
+}
+
+.gap {
+    min-width: 8px;
 }
 
 button {
@@ -83,5 +87,19 @@ button:hover {
     background: #626880;
     &:hover {
         background: $accent;
+    }
+}
+
+.Workspaces {
+    button {
+        min-width: 20px;
+        font-weight: 500;
+        font-family: $font;
+    }
+
+    > .focused {
+        font-weight: 900;
+        background: $accent;
+        color: $bg-color;
     }
 }

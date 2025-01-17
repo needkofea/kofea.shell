@@ -4,6 +4,7 @@ import { GLib, Variable } from "astal";
 import { LAYER_NAMESPACE } from "../globals";
 import SysTray from "./SysTray";
 import Clock from "./Clock";
+import Workspaces from "./Workspaces";
 
 const theme = Gtk.IconTheme.get_default();
 
@@ -25,6 +26,9 @@ export default function Bar(gdkmonitor: Gdk.Monitor) {
             <button className={"start-logo"}>
               <icon icon={GLib.get_os_info("LOGO") || "missing-symbolic"} />
             </button>
+          </box>
+          <box className={"container"}>
+            <Workspaces monitor={gdkmonitor} />
           </box>
         </box>
         <box className="container">

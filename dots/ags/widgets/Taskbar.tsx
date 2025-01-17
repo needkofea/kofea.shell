@@ -1,10 +1,7 @@
 import { App, Astal, Gtk, Gdk } from "astal/gtk3";
 import Apps from "gi://AstalApps";
-
 import { bind, Variable } from "astal";
 import Hyprland from "gi://AstalHyprland";
-import app from "astal/gtk3/app";
-import Console from "console";
 
 const apps = new Apps.Apps({
   nameMultiplier: 2,
@@ -39,10 +36,6 @@ workspaces.subscribe((workspaces_) => {
   }
 });
 
-export type TaskbarProps = {
-  gdkmonitor: Gdk.Monitor;
-};
-
 function find_app_by_wmclass(wmclass: string): Apps.Application | null {
   const match = apps
     .get_list()
@@ -52,6 +45,9 @@ function find_app_by_wmclass(wmclass: string): Apps.Application | null {
 
   return match ?? apps.fuzzy_query(wmclass)[0];
 }
+export type TaskbarProps = {
+  gdkmonitor: Gdk.Monitor;
+};
 
 export default function Taskbar({ gdkmonitor }: TaskbarProps) {
   const clients = bind(hyprclients).as((clients: Hyprland.Client[]) =>

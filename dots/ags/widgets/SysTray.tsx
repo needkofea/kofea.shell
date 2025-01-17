@@ -1,5 +1,4 @@
 import { bind, Variable } from "astal";
-import { Gtk } from "astal/gtk4";
 
 import Tray from "gi://AstalTray";
 
