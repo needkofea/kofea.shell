@@ -24,7 +24,7 @@ export default function Bar(gdkmonitor: Gdk.Monitor) {
         <box vexpand halign={Gtk.Align.START}>
           <box className="container">
             <button className={"start-logo"}>
-              <icon icon={GLib.get_os_info("LOGO") || "missing-symbolic"} />
+              <icon icon={"start-menu-icon"} />
             </button>
           </box>
           <box className={"container"}>
