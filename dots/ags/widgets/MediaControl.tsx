@@ -78,9 +78,8 @@ export default function MediaControl() {
                   />
                 </button>
 
-                <label
-                  label={player ? `${player.title} -  ${player?.artist}` : ""}
-                />
+                <label label={bind(player, "title")} />
+                <label label={bind(player, "artist").as((x) => `- ${x}`)} />
               </box>
             ) : (
               ""
