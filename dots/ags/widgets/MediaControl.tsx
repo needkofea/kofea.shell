@@ -5,7 +5,7 @@ import Gio from "gi://Gio?version=2.0";
 import GLib from "gi://GLib?version=2.0";
 import GObject from "gi://GObject?version=2.0";
 
-const allplayers = Mpris.Mpris.new();
+const mpris = Mpris.Mpris.new();
 
 const current_player = Variable<null | Mpris.Player>(null);
 
@@ -21,14 +21,37 @@ selectPlayerAction.connect("activate", (action, param) => {
     current_player.set(null);
     return;
   }
-  current_player.set(allplayers.players[playerIndex]);
+  current_player.set(mpris.players[playerIndex]);
 });
 
+/**
+ * Automatically selects the next player if current_player is yeeted.
+ */
+function autoselect_next_player() {
+  if (current_player.get() == null && mpris.players.length > 0) {
+    current_player.set(mpris.players[mpris.players.length - 1]);
+  }
+}
+
+mpris.connect("player-added", (x) => {
+  autoselect_next_player();
+});
+
+mpris.connect("player-closed", (x) => {
+  setTimeout(() => {
+    if (!current_player.get()?.available) {
+      current_player.set(null);
+      autoselect_next_player();
+    }
+  });
+});
+
+autoselect_next_player();
+
 App.add_action(selectPlayerAction);
-console.log(App.action_group);
 
 export default function MediaControl() {
-  const avail_players = bind(allplayers, "players").as((players) => {
+  const avail_players = bind(mpris, "players").as((players) => {
     let section = new Gio.Menu();
     players.forEach((p, index) => {
       let mItem = new Gio.MenuItem();
@@ -68,6 +91,12 @@ export default function MediaControl() {
 
             {player ? (
               <box className={"controls"}>
+                <button
+                  onClickRelease={() => player.previous()}
+                  sensitive={bind(player, "can_go_previous")}
+                >
+                  <icon icon={"media-skip-backward"} />
+                </button>
                 <button onClickRelease={() => player.play_pause()}>
                   <icon
                     icon={bind(player, "playback_status").as((x) =>
@@ -77,7 +106,12 @@ export default function MediaControl() {
                     )}
                   />
                 </button>
-
+                <button
+                  onClickRelease={() => player.next()}
+                  sensitive={bind(player, "can_go_next")}
+                >
+                  <icon icon={"media-skip-forward"} />
+                </button>
                 <label label={bind(player, "title")} />
                 <label label={bind(player, "artist").as((x) => `- ${x}`)} />
               </box>
