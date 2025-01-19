@@ -5,6 +5,7 @@ import { launchStartMenu, LAYER_NAMESPACE } from "../api";
 import SysTray from "./SysTray";
 import Clock from "./Clock";
 import Workspaces from "./Workspaces";
+import MediaControl from "./MediaControl";
 
 const theme = Gtk.IconTheme.get_default();
 
@@ -29,6 +30,9 @@ export default function Bar(gdkmonitor: Gdk.Monitor) {
           </box>
           <box className={"container"}>
             <Workspaces monitor={gdkmonitor} />
+          </box>
+          <box className={"container"}>
+            <MediaControl />
           </box>
         </box>
         <box className="container">
