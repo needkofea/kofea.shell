@@ -32,7 +32,11 @@ export default function MediaControl() {
     let section = new Gio.Menu();
     players.forEach((p, index) => {
       let mItem = new Gio.MenuItem();
-      mItem.set_label(p.entry);
+      const label = `[${p.entry}] ${p.title} - ${p.artist}`;
+      const max_len = 48;
+      mItem.set_label(
+        label.length > max_len ? label.slice(0, max_len - 3) + "..." : label,
+      );
       mItem.set_action_and_target_value(
         "app.media-control-select-player",
         GLib.Variant.new_int32(index),
