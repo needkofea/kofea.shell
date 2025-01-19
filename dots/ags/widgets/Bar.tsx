@@ -6,6 +6,7 @@ import SysTray from "./SysTray";
 import Clock from "./Clock";
 import Workspaces from "./Workspaces";
 import MediaControl from "./MediaControl";
+import { AudioOutput } from "./AudioOutput";
 
 const theme = Gtk.IconTheme.get_default();
 
@@ -41,7 +42,10 @@ export default function Bar(gdkmonitor: Gdk.Monitor) {
         <box vexpand halign={Gtk.Align.END}>
           <box className="container">
             <SysTray> </SysTray>
-          </box>{" "}
+          </box>
+          <box className="container">
+            <AudioOutput />
+          </box>
           <box className="container">
             <Clock> </Clock>
           </box>

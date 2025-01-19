@@ -27,6 +27,11 @@ window.Bar {
     min-width: 8px;
 }
 
+.small {
+    font-weight: 600;
+    font-size: 10px;
+}
+
 button {
     padding: 0;
     background: transparent;
@@ -121,4 +126,19 @@ button:hover {
     padding: 0 4px;
     font-size: 11px;
     font-weight: 800;
+}
+
+.audio-out {
+    .audio-out-label,
+    .volume {
+        padding: 0 4px;
+    }
+
+    icon {
+        font-size: 1.2em;
+    }
+    .mute-btn {
+        margin: 0 2px;
+        padding: 0 2px;
+    }
 }
