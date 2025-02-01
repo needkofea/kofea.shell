@@ -1,8 +1,13 @@
 {
   "shell": {
-    "pacman": ["zsh", "eza"],
+    "pacman": ["zsh", "eza", "yay", "networkmanager", "ttf-noto-nerd"],
+    "cargo": ["zoxide", "starship", "neovim"],
+  },
+  "drivers": {
+    "pacman": ["nvidia-dkms", "nvidia-utils"],
   },
   "desktop": {
+    "yay": ["libastal-meta"],
     "pacman": [
       // --------- Audio ---------
       "pipewire",
@@ -40,9 +45,12 @@
       "swappy",
       "cliphist",
       "mpvpaper",
+      "wtype",
       // --------- Other dependencies ---------
       "polkit-gnome", // authentication agent
-      "xdg-desktop-portal-hyprland", // xdg desktop portal for hyprland
+      "xdg-desktop-portal-hyprland", // xdg desktop portal s
+      "xdg-desktop-portal-gtk",
+      "xdg-desktop-portal-hyprland",
       "pacman-contrib", // for system update check
       "python-pyamdgpuinfo", // for amd gpu info
       "parallel", // for parallel processing
@@ -54,6 +62,15 @@
       "libnotify", // for notifications
       "qt5-wayland", // wayland support in qt5
       "qt6-wayland", // wayland support in qt6
+
+      // --------- Essential Apps ---------
+      "seahorse",
+      "solaar",
+      "zed",
+      "htop",
+      // --------- App stores ---------
+      "flatpak",
+      "snapd",
     ],
   },
 }
