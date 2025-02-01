@@ -1,0 +1,59 @@
+{
+  "shell": {
+    "pacman": ["zsh", "eza"],
+  },
+  "desktop": {
+    "pacman": [
+      // --------- Audio ---------
+      "pipewire",
+      "pipewire-alsa",
+      "pipewire-audio",
+      "pipewire-jack",
+      "pipewire-pulse",
+      "gst-plugin-pipewire",
+      "wireplumber",
+      "pavucontrol", // Audio control
+      "pamixer",
+      "networkmanager",
+      "network-manager-applet",
+      "bluez",
+      "bluez-utils",
+      "blueman",
+      "brightnessctl",
+      "udiskie", // Manage removable media (Auto mounts drives)
+      // --------- Display Manager ---------
+      "sddm", // display manager for KDE plasma
+      "qt5-quickcontrols",
+      "qt5-quickcontrols2",
+      "qt5-graphicaleffects",
+      // --------- Desktop Environment ---------
+      "hyprland",
+      "dunst",
+      "rofi-wayland",
+      "waybar",
+      "swww",
+      "swaylock-effects-git",
+      "wlogout",
+      "grimblast-git",
+      "hyprpicker",
+      "slurp",
+      "swappy",
+      "cliphist",
+      "mpvpaper",
+      // --------- Other dependencies ---------
+      "polkit-gnome", // authentication agent
+      "xdg-desktop-portal-hyprland", // xdg desktop portal for hyprland
+      "pacman-contrib", // for system update check
+      "python-pyamdgpuinfo", // for amd gpu info
+      "parallel", // for parallel processing
+      "jq", // for json processing
+      "imagemagick", // for image processing
+      "qt5-imageformats", // for dolphin image thumbnails
+      "ffmpegthumbs", // for dolphin video thumbnails
+      "kde-cli-tools", // for dolphin file type defaults
+      "libnotify", // for notifications
+      "qt5-wayland", // wayland support in qt5
+      "qt6-wayland", // wayland support in qt6
+    ],
+  },
+}
