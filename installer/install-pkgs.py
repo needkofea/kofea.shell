@@ -1,6 +1,10 @@
 #! /usr/bin/env python3
 import pyjson5
+
 from pathlib import Path
+import subprocess
+from subprocess import PIPE
+
 
 # Expected Package List Json structure
 # {
@@ -23,12 +27,14 @@ class CargoPkgManager(PackageManager):
 
 class PacmanPkgManager(PackageManager):
     def install(self, names: list[str], update=False):
-        print("[Pacman] - Installing packages:\n", "\n".join(names))
+        print("[Pacman] - Installing packages: \n", " ".join(names))
+        subprocess.run(["pacman", "-Sy", "--needed", "--noconfirm"] + names, stdout=PIPE)
         pass
 
 class YayPkgManager(PackageManager):
     def install(self, names: list[str], update=False):
         print("[Yay] - Installing packages:\n", "\n".join(names))
+        subprocess.run(["yay", "-Sy", "--needed", "--noconfirm"] + names, stdout=PIPE)
         pass
 
 pkgManagers = {
@@ -38,6 +44,7 @@ pkgManagers = {
 }
 
 def install_pkg_group(group_name: str, pkglist: dict):
+    print(f"[Kofea Install Pkg Group] - [{group_name}] ({len(pkglist)} packages)")
     try:
         group: dict = pkglist[group_name]
         for key, value in group.items():

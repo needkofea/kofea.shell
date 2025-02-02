@@ -7,7 +7,10 @@
     "pacman": ["nvidia-dkms", "nvidia-utils"],
   },
   "desktop": {
-    "yay": ["libastal-meta"],
+    "yay": [
+      "libastal-meta", // Astal (Desktop Shell) libraries
+      "snapd", // App store
+    ],
     "pacman": [
       // --------- Audio ---------
       "pipewire",
@@ -52,7 +55,6 @@
       "xdg-desktop-portal-gtk",
       "xdg-desktop-portal-hyprland",
       "pacman-contrib", // for system update check
-      "python-pyamdgpuinfo", // for amd gpu info
       "parallel", // for parallel processing
       "jq", // for json processing
       "imagemagick", // for image processing
@@ -70,7 +72,6 @@
       "htop",
       // --------- App stores ---------
       "flatpak",
-      "snapd",
     ],
   },
 }
