@@ -6,9 +6,15 @@ from utils import  KOFEA_DOTS_DESKTOP, KOFEA_DOTS_SYSTEM, TargetInstaller, USER_
 home = TargetInstaller(KOFEA_DOTS_SYSTEM, USER_HOME)
 dots = TargetInstaller(KOFEA_DOTS_DESKTOP, TARGET_DOTS_CONFIG)
 
+
 def install_self():
     home.install(".zshrc")
     dots.install("starship")
+    dots.install("ags")
+    dots.install("hypr")
+    dots.install("dunst")
+    dots.install("rofi")
+    dots.install("waybar")
     pass
 
 
