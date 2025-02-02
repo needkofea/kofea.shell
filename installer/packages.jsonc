@@ -1,7 +1,14 @@
 {
   "shell": {
-    "pacman": ["zsh", "eza", "yay", "networkmanager", "ttf-noto-nerd"],
-    "cargo": ["zoxide", "starship", "neovim"],
+    "pacman": [
+      "zsh",
+      "eza",
+      "yay",
+      "networkmanager",
+      "ttf-noto-nerd",
+      "neovim",
+    ],
+    "cargo": ["zoxide", "starship"],
   },
   "drivers": {
     "pacman": ["nvidia-dkms", "nvidia-utils"],

@@ -23,6 +23,7 @@ class PackageManager:
 class CargoPkgManager(PackageManager):
     def install(self, names: list[str], update=False):
         print("[Cargo] - Installing packages:\n", "\n".join(names))
+        subprocess.run(["cargo", "install" ] + names, stdout=PIPE)
         pass
 
 class PacmanPkgManager(PackageManager):
