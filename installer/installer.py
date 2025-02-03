@@ -1,5 +1,7 @@
 #! /usr/bin/env python3
 
+
+
 ascii_art=r"""
 ╔─────────────────────────────────────────────────────────────────────────────────────────────────╗
 │    __    __            ______                            ______   __                  __  __    │
@@ -16,8 +18,6 @@ ascii_art=r"""
 ╚─────────────────────────────────────────────────────────────────────────────────────────────────╝
 """
 
-
-
 if __name__ == "__main__":
     print(ascii_art)
     print("Beginning full installation of kofea.shell! This is may break your system! Please ensure it is backed up!")
@@ -25,3 +25,5 @@ if __name__ == "__main__":
     if ans != "yes":
         print("Cancelled!")
         exit(-1)
+
+    __import__("setup-chaoticaur").install_self()
