@@ -23,19 +23,27 @@ class PackageManager:
 class CargoPkgManager(PackageManager):
     def install(self, names: list[str], update=False):
         print("[Cargo] - Installing packages:\n", "\n".join(names))
-        subprocess.run(["cargo", "install" ] + names, stdout=PIPE)
+        subprocess.run(["cargo", "install" ] + names, stderr=subprocess.STDOUT)
         pass
 
 class PacmanPkgManager(PackageManager):
     def install(self, names: list[str], update=False):
         print("[Pacman] - Installing packages: \n", " ".join(names))
-        subprocess.run(["pacman", "-Sy", "--needed", "--noconfirm"] + names, stdout=PIPE)
+        # Note that some packages are silently skipped for wtv reasons
+        args = ["pacman", "-Sy", "--needed", "--noconfirm", "--"] + names
+        subprocess.run(args , stderr=subprocess.STDOUT)
+        # Need to install one by one to ensure ALL the packages are installed
+        # for name in names:
+        #     print(f"[Pacman] - Installing {name}...")
+        #     subprocess.run(args + [name], stderr=subprocess.STDOUT)
         pass
 
 class YayPkgManager(PackageManager):
     def install(self, names: list[str], update=False):
         print("[Yay] - Installing packages:\n", "\n".join(names))
-        subprocess.run(["yay", "-Sy", "--needed", "--noconfirm"] + names, stdout=PIPE)
+
+
+        subprocess.run(["yay", "-Sy", "--needed", "--noconfirm"] + names, stderr=subprocess.STDOUT)
         pass
 
 pkgManagers = {

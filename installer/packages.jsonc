@@ -77,6 +77,8 @@
       "solaar",
       "zed",
       "htop",
+      "kitty",
+      // "tabby-bin",
       // --------- App stores ---------
       "flatpak",
     ],
