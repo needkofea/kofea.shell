@@ -73,10 +73,17 @@ alias .5='cd ../../../../..'
 # Always mkdir a path (this doesn't inhibit functionality to make a single dir)
 alias mkdir='mkdir -p'
 
-export PATH="$HOME/.local/bin:$PATH"
+alias zed='zeditor'
+
+export PATH="$PATH:$HOME/.local/bin"
 export PATH="$PATH:/home/powew/.dotnet/tools"
 export PATH="$PATH:/var/lib/snapd/snap/bin"
 export PATH="$PATH:/home/powew/.cargo/bin"
+
+bindkey  "^[[H"   beginning-of-line
+bindkey  "^[[F"   end-of-line
+bindkey "^[[1;5C" forward-word
+bindkey "^[[1;5D" backward-word
 
 eval "$(zoxide init zsh)"
 
