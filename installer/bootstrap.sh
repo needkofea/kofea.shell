@@ -3,13 +3,14 @@
 _DIR=$( dirname -- "$0" )
 
 ORIGINAL_USER=$SUDO_USER
+
 set -e
 
 echo -e "--- [ Kofea.Shell \033[35mbootstrap.sh\033[0m ] --- "
 
 
 if [[ $(/usr/bin/id -u) -ne 0 ]]; then
-    echo -e "\033[0;31m[Fatal Error]\033[0m This script requires \033[1;31mroot\033[0m privileges! Please run with sudo."
+    echo -e "\033[0;31m[Fatal Error]\033[0m This script requires \033[1;31mroot\033[0m privileges! Please run with sudo. (sudo ~/kofea.shell/installer/bootstrap.sh)"
     exit
 fi
 
@@ -49,11 +50,13 @@ install_yay(){
 
 
     pacman -S --needed git base-devel
-    rm -f -r yay-bin
+    # Install yay without root privelages
+    sudo -u $ORIGINAL_USER rm -f -r yay-bin
     sudo -u $ORIGINAL_USER git clone https://aur.archlinux.org/yay-bin.git
-    cd yay-bin
+    sudo -u $ORIGINAL_USER cd yay-bin
     sudo -u $ORIGINAL_USER makepkg -si
-    cd ..
+    sudo -u $ORIGINAL_USER cd ..
+    #
 }
 
 

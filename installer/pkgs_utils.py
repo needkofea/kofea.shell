@@ -64,14 +64,14 @@ def install_pkg_group(group_name: str, pkglist: dict):
 
 
 
-def install_self():
-    with open(f"{Path(__file__).parent}/packages.jsonc", "r") as f:
-        pkgList = pyjson5.load(f)
-    install_pkg_group("shell", pkgList)
-    install_pkg_group("desktop", pkgList)
-    install_pkg_group("apps", pkgList)
-    pass
+# def install_self():
+#     with open(f"{Path(__file__).parent}/packages.jsonc", "r") as f:
+#         pkgList = pyjson5.load(f)
+#     install_pkg_group("shell", pkgList)
+#     install_pkg_group("desktop", pkgList)
+#     install_pkg_group("apps", pkgList)
+#     pass
 
 
-if __name__ == "__main__":
-    install_self()
+# if __name__ == "__main__":
+#     install_self()

@@ -1,25 +1,38 @@
 {
-  "shell": {
-    "pacman": [
-      "zsh",
-      "eza",
-      "yay",
-      "networkmanager",
-      "ttf-noto-nerd",
-      "neovim",
-    ],
+  "zsh": {
+    "pacman": ["zsh", "eza", "yay", "ttf-noto-nerd", "neovim"],
     "cargo": ["zoxide", "starship"],
   },
   "drivers": {
     "pacman": ["nvidia-dkms", "nvidia-utils"],
   },
-  "desktop": {
-    "yay": [
-      "libastal-meta", // Astal (Desktop Shell) libraries
-      "snapd", // App store
-    ],
+
+  // Bare bones desktop enviroment + some common dependencies etc.
+  "desktop.base": {
     "pacman": [
-      // --------- Audio ---------
+      "hyprland",
+      "bluez",
+      "bluez-utils",
+      "blueman",
+      "brightnessctl",
+      "udiskie", // Manage removable media (Auto mounts drives)],
+      "kitty", // Terminal
+      "firefox", // Minimal browser
+      "xdg-desktop-portal-hyprland",
+      "xdg-desktop-portal-gtk",
+      "xdg-desktop-portal-hyprland",
+      "libnotify", // for notifications
+      "qt5-wayland", // wayland support in qt5
+      "qt6-wayland", // wayland support in qt6
+      "libsecret",
+      "polkit-gnome",
+      // --------- App stores ---------
+      "flatpak",
+    ],
+  },
+  // Packages required for a desktop audio to work
+  "desktop.audio": {
+    "pacman": [
       "pipewire",
       "pipewire-alsa",
       "pipewire-audio",
@@ -29,6 +42,43 @@
       "wireplumber",
       "pavucontrol", // Audio control
       "pamixer",
+    ],
+  },
+
+  "desktop.shell": {
+    // How the desktop environment looks + features
+    "yay": [
+      "libastal-meta", // Astal (Desktop Shell) libraries
+    ],
+    "pacman": [
+      "aylurs-gtk-shell",
+      "dunst", // Notifications
+      "rofi-wayland", // Start menu
+      "mpvpaper", // Wallpaper
+      "wlogout",
+      "grimblast-git",
+      "slurp",
+      "swappy",
+      "cliphist",
+      "wtype",
+    ],
+  },
+
+  // Recommended essential apps
+  "desktop.apps": {
+    "pacman": ["seahorse", "solaar", "zed"],
+    "flatpak": ["app.zen_browser.zen"],
+  },
+
+  // ----------- DEPRECATED! KEPT AS REFERENCE! -----------
+  "desktop": {
+    "yay": [
+      "libastal-meta", // Astal (Desktop Shell) libraries
+      "snapd", // App store
+    ],
+    "pacman": [
+      // --------- Audio ---------
+
       "networkmanager",
       "network-manager-applet",
       "bluez",
