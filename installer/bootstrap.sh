@@ -49,10 +49,11 @@ install_yay(){
 
 
     pacman -S --needed git base-devel
-    rm -r yay-bin
+    rm -f -r yay-bin
     sudo -u $ORIGINAL_USER git clone https://aur.archlinux.org/yay-bin.git
     cd yay-bin
     sudo -u $ORIGINAL_USER makepkg -si
+    cd ..
 }
 
 
