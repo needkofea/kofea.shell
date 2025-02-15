@@ -50,6 +50,14 @@ autoselect_next_player();
 
 App.add_action(selectPlayerAction);
 
+function trim_name(s: string, max_len: number = 32) {
+  if (!s) return "";
+  if (s.length > max_len) {
+    return s.slice(0, max_len - 3) + "...";
+  }
+  return s;
+}
+
 export default function MediaControl() {
   const avail_players = bind(mpris, "players").as((players) => {
     let section = new Gio.Menu();
@@ -112,7 +120,7 @@ export default function MediaControl() {
                 >
                   <icon icon={"media-skip-forward"} />
                 </button>
-                <label label={bind(player, "title")} />
+                <label label={bind(player, "title").as((x) => trim_name(x))} />
                 <label label={bind(player, "artist").as((x) => `- ${x}`)} />
               </box>
             ) : (
