@@ -28,6 +28,7 @@
       "polkit-gnome",
       "gnome-keyring",
       "xdg-user-dirs",
+      "nwg-look",
       // --------- App stores ---------
       "flatpak",
     ],
