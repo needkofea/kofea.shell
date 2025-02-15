@@ -76,9 +76,9 @@ alias mkdir='mkdir -p'
 alias zed='zeditor'
 
 export PATH="$PATH:$HOME/.local/bin"
-export PATH="$PATH:/home/powew/.dotnet/tools"
+export PATH="$PATH:$HOME/.dotnet/tools"
 export PATH="$PATH:/var/lib/snapd/snap/bin"
-export PATH="$PATH:/home/powew/.cargo/bin"
+export PATH="$PATH:$HOME/.cargo/bin"
 
 bindkey  "^[[H"   beginning-of-line
 bindkey  "^[[F"   end-of-line
