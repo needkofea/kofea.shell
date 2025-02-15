@@ -9,6 +9,8 @@ dots = TargetInstaller(KOFEA_DOTS_DESKTOP, TARGET_DOTS_CONFIG)
 
 def install_self():
     home.install(".zshrc")
+
+    dots.install("wal")
     dots.install("kitty")
     dots.install("sddm")
     dots.install("swaylock")

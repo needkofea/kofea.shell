@@ -1,7 +1,7 @@
 import { App, Astal, Gtk, Gdk } from "astal/gtk3";
 import Taskbar from "./Taskbar";
 import { GLib, Variable } from "astal";
-import { launchStartMenu, LAYER_NAMESPACE } from "../api";
+import { launchStartMenu, BAR_LAYER_NAMESPACE } from "../api";
 import SysTray from "./SysTray";
 import Clock from "./Clock";
 import Workspaces from "./Workspaces";
@@ -15,7 +15,7 @@ export default function Bar(gdkmonitor: Gdk.Monitor) {
 
   return (
     <window
-      namespace={LAYER_NAMESPACE}
+      namespace={BAR_LAYER_NAMESPACE}
       className="Bar"
       gdkmonitor={gdkmonitor}
       exclusivity={Astal.Exclusivity.EXCLUSIVE}

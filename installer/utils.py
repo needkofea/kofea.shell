@@ -20,11 +20,13 @@ def install_symlink(src: Path, dst: Path ):
     dst = dst.absolute()
 
     has_conflict = dst.exists() or dst.is_symlink() or dst.is_file() or dst.is_dir();
+
+    desc = f"Created symlink at {src} -> {dst}"
     if has_conflict:
         endpoint = dst.resolve()
 
         if dst.is_symlink() and KOFEA_HOME_PATH in endpoint.parents:
-            print(f"Will update existing symlink at: {dst}")
+            desc = f"Updated existing symlink at: {dst}"
             os.remove(dst)
         else:
             # Make backup
@@ -34,7 +36,7 @@ def install_symlink(src: Path, dst: Path ):
             os.renames(dst, backup)
 
     os.symlink(src, dst )
-    print(f"Created symlink at {src} -> {dst}")
+    print(desc)
 
 
 def install_target(target: str, src_dir: str = KOFEA_DOTS, dst_dir: str = TARGET_DOTS_CONFIG):
