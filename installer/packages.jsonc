@@ -26,6 +26,8 @@
       "qt6-wayland", // wayland support in qt6
       "libsecret",
       "polkit-gnome",
+      "gnome-keyring",
+      "xdg-user-dirs",
       // --------- App stores ---------
       "flatpak",
     ],
