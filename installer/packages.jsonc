@@ -31,6 +31,7 @@
       "nwg-look",
       // --------- App stores ---------
       "flatpak",
+      "gnome-software", // GUI for flatpak
     ],
   },
   // Packages required for a desktop audio to work
