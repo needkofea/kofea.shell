@@ -62,11 +62,11 @@ button:hover {
     }
 
     icon {
-        font-size: 2em;
+        font-size: 1.8em;
     }
 
     label {
-        margin-left: 3px;
+        margin-left: 4px;
         font-family: $font;
         font-weight: 800;
     }
@@ -91,7 +91,7 @@ button:hover {
 
 .start-logo {
     min-width: 24px;
-    background: #626880;
+    /* background: #626880; */
     &:hover {
         background: $accent;
     }
@@ -119,6 +119,11 @@ button:hover {
     & .controls {
         font-weight: 400;
 
+        > button {
+            min-width: 0;
+            padding: 0 3px;
+        }
+
         > label {
             font-size: 0.8em;
             font-weight: 500;
@@ -130,12 +135,16 @@ button:hover {
     padding: 0 4px;
     font-size: 11px;
     font-weight: 800;
+
+    > .logo {
+        padding-right: 2px;
+    }
 }
 
 .audio-out {
+    padding: 0 4px;
     .audio-out-label,
     .volume {
-        padding: 0 4px;
     }
 
     icon {

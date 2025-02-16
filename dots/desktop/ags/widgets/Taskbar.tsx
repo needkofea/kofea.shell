@@ -12,6 +12,23 @@ const apps = new Apps.Apps({
 
 const hypr = Hyprland.get_default();
 
+function trim_name(s: string, max_len: number = 32) {
+  if (!s) return "";
+
+  // If the string is shorter than or equal to max_len, return it as is
+  if (s.length <= max_len) return s;
+
+  // Find the last space within the allowed max_len
+  const truncIndex = s.lastIndexOf(" ", max_len - 3);
+
+  // If a space is found, truncate the string at that point and add "..."
+  if (truncIndex !== -1) {
+    return s.slice(0, truncIndex) + "..";
+  }
+
+  return s.slice(0, max_len - 3) + "..";
+}
+
 const workspaces = Variable<Hyprland.Workspace[]>([]).poll(
   200,
   () => hypr.workspaces,
@@ -70,7 +87,7 @@ export default function Taskbar({ gdkmonitor }: TaskbarProps) {
             .sort((a, b) => a.client.workspace.id - b.client.workspace.id)
             .map(({ client, desktop }) => (
               <button
-                tooltipText={client.title}
+                tooltipText={bind(client, "title")}
                 className={bind(hypr, "focusedClient").as((a) =>
                   ["dock-item", a?.pid == client?.pid ? "focused" : ""].join(
                     " ",
@@ -81,7 +98,9 @@ export default function Taskbar({ gdkmonitor }: TaskbarProps) {
                 <box>
                   <icon icon={desktop?.iconName}></icon>
                   <label
-                    label={desktop?.name}
+                    label={bind(client, "title").as(
+                      (title) => `${trim_name(title, 16)}`,
+                    )}
                     valign={Gtk.Align.CENTER}
                   ></label>
                 </box>

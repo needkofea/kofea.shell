@@ -91,8 +91,9 @@ export default function MediaControl() {
               menuModel={avail_players}
             >
               <box className={"media-control-player"}>
+                <label className={"logo"} label={" "} />
                 <label
-                  label={player ? `   ${player?.entry}` : "No player selected"}
+                  label={player ? `${player?.entry}` : "No player selected"}
                 />
               </box>
             </menubutton>
@@ -120,7 +121,9 @@ export default function MediaControl() {
                 >
                   <icon icon={"media-skip-forward"} />
                 </button>
-                <label label={bind(player, "title").as((x) => trim_name(x))} />
+                <label
+                  label={bind(player, "title").as((x) => trim_name(x, 24))}
+                />
                 <label label={bind(player, "artist").as((x) => `- ${x}`)} />
               </box>
             ) : (
