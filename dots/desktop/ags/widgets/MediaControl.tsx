@@ -124,7 +124,10 @@ export default function MediaControl() {
                 <label
                   label={bind(player, "title").as((x) => trim_name(x, 24))}
                 />
-                <label label={bind(player, "artist").as((x) => `- ${x}`)} />
+                <label
+                  label={bind(player, "artist").as((x) => `- ${x}`)}
+                  className={"artist-label"}
+                />
               </box>
             ) : (
               ""

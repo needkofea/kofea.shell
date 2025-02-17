@@ -10,7 +10,7 @@ dotsConfig = home.target(".config")
 
 
 def install_gtkTheme():
-    home.copy(".themes/kofea-gtk-dark") # Main gtk theme
+    home.copy(".themes/catppucin-mocha-rosewater") # Main gtk theme
     home.install(".icons/Bibata-Modern-Ice") # Cursor theme
 
 def install_terminal():

@@ -46,6 +46,7 @@ button:hover {
 
 .container {
     background: $bg-color;
+    border: 1px solid rgba(white, 0.1);
     margin: 2px;
     min-height: 20px;
     border-radius: 8px;
@@ -58,7 +59,7 @@ button:hover {
         min-width: 24px;
     }
     button:hover {
-        background: initial;
+        background: #ffffff11;
     }
 
     icon {
@@ -112,6 +113,7 @@ button:hover {
 }
 
 .media-control {
+    padding: 0 2px;
     & > .player-select-btn {
         padding: 0;
     }
@@ -128,6 +130,10 @@ button:hover {
             font-size: 0.8em;
             font-weight: 500;
             padding: 0 4px;
+        }
+
+        > .artist-label {
+            padding-left: 0px;
         }
     }
 }
