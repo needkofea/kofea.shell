@@ -94,4 +94,4 @@ class KofeaDotsInstaller:
         """
         Installs by copying files. Short for GenericInstaller::install(..., copy=True)
         """
-        install_symlink(self.src_dir / Path(target), self.dst_dir / Path(rel_dir), True)
+        self.install(target, rel_dir, True)
