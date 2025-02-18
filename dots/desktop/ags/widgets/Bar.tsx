@@ -1,13 +1,14 @@
 import { App, Astal, Gtk, Gdk } from "astal/gtk3";
-import Taskbar from "./Taskbar";
+import Taskbar from "./BarWidgets/Taskbar";
 import { GLib, Variable } from "astal";
 import { launchStartMenu, BAR_LAYER_NAMESPACE } from "../api";
-import SysTray from "./SysTray";
-import Clock from "./Clock";
-import Workspaces from "./Workspaces";
-import MediaControl from "./MediaControl";
-import { AudioOutput } from "./AudioOutput";
-import PinnedApps from "./PinnedApps";
+import SysTray from "./BarWidgets/SysTray";
+import Clock from "./BarWidgets/Clock";
+import Workspaces from "./BarWidgets/Workspaces";
+import MediaControl from "./BarWidgets/MediaControl";
+import { AudioOutput } from "./BarWidgets/AudioOutput";
+import PinnedApps from "./BarWidgets/PinnedApps";
+import NetworkStatus from "./BarWidgets/NetworkStatus";
 
 const theme = Gtk.IconTheme.get_default();
 
@@ -31,10 +32,7 @@ export function TopBar(gdkmonitor: Gdk.Monitor) {
             </button>
           </box>
           <box className={"container"}>
-            <label label={"wifi / cpu stats"} />
-          </box>
-          <box className={"container"}>
-            <AudioOutput />
+            <NetworkStatus />
           </box>
         </box>
         <box className="container">
@@ -43,6 +41,9 @@ export function TopBar(gdkmonitor: Gdk.Monitor) {
         <box vexpand halign={Gtk.Align.END}>
           <box className="container">
             <MediaControl />
+          </box>
+          <box className={"container"}>
+            <AudioOutput />
           </box>
         </box>
       </centerbox>

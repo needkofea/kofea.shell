@@ -1,7 +1,7 @@
 // https://gitlab.gnome.org/GNOME/gtk/-/blob/gtk-3-24/gtk/theme/Adwaita/_colors-public.scss
 $fg-color: #{"@theme_fg_color"};
 $bg-color: #{"@theme_bg_color"};
-
+$border-color: rgba(white, 0.1);
 $accent: #f5e0dc;
 
 $font: "JetbrainsMonoNerdFont";
@@ -23,141 +23,154 @@ window.Bar {
         border: none;
         box-shadow: none;
     }
-}
 
-.gap {
-    min-width: 8px;
-}
-
-.small {
-    font-weight: 600;
-    font-size: 10px;
-}
-
-button {
-    padding: 0;
-    background: transparent;
-    font-size: 10px;
-}
-
-button:hover {
-    background: initial;
-}
-
-.container {
-    background: $bg-color;
-    border: 1px solid rgba(white, 0.1);
-    margin: 2px;
-    min-height: 20px;
-    border-radius: 8px;
-    padding: 2px;
-}
-
-.taskbar {
-    button {
-        padding: 0 4px;
-        min-width: 24px;
-    }
-    button:hover {
-        background: #ffffff11;
-    }
-
-    icon {
-        font-size: 1.8em;
-    }
-
-    label {
-        margin-left: 4px;
-        font-family: $font;
-        font-weight: 800;
-    }
-}
-
-.systray {
-    icon {
-        font-size: 1.4em;
-    }
-    button {
-        padding: 0 4px;
+    .gap {
         min-width: 8px;
     }
-}
 
-.time {
-    font-size: 11px;
-    font-weight: 800;
-    font-family: $font;
-    padding: 0 8px;
-}
-
-.start-logo {
-    min-width: 24px;
-    /* background: #626880; */
-    &:hover {
-        background: $accent;
+    .small {
+        font-weight: 600;
+        font-size: 10px;
     }
-}
 
-.Workspaces {
     button {
-        min-width: 20px;
-        font-weight: 500;
-        font-family: $font;
-    }
-
-    > .focused {
-        font-weight: 900;
-        background: $accent;
-        color: $bg-color;
-    }
-}
-
-.media-control {
-    padding: 0 2px;
-    & > .player-select-btn {
         padding: 0;
+        background: transparent;
+        font-size: 10px;
     }
 
-    & .controls {
-        font-weight: 400;
+    button:hover {
+        background: initial;
+    }
 
-        > button {
-            min-width: 0;
-            padding: 0 3px;
-        }
+    .container {
+        background: $bg-color;
+        border: 1px solid $border-color;
+        margin: 2px;
+        min-height: 20px;
+        border-radius: 8px;
+        padding: 2px;
+    }
 
-        > label {
-            font-size: 0.8em;
-            font-weight: 500;
+    .taskbar {
+        button {
             padding: 0 4px;
+            min-width: 24px;
+        }
+        button:hover {
+            background: #ffffff11;
         }
 
-        > .artist-label {
-            padding-left: 0px;
+        icon {
+            font-size: 1.8em;
+        }
+
+        label {
+            margin-left: 4px;
+            font-family: $font;
+            font-weight: 800;
         }
     }
-}
-.media-control-player {
-    padding: 0 4px;
-    font-size: 11px;
-    font-weight: 800;
 
-    > .logo {
-        padding-right: 2px;
-    }
-}
-
-.audio-out {
-    padding: 0 4px;
-    .audio-out-label,
-    .volume {
+    .systray {
+        icon {
+            font-size: 1.4em;
+        }
+        button {
+            padding: 0 4px;
+            min-width: 8px;
+        }
     }
 
-    icon {
-        font-size: 1.2em;
+    .time {
+        font-size: 11px;
+        font-weight: 800;
+        font-family: $font;
+        padding: 0 8px;
     }
-    .mute-btn {
-        margin: 0 2px;
+
+    .start-logo {
+        min-width: 24px;
+        /* background: #626880; */
+        &:hover {
+            background: $accent;
+        }
+    }
+
+    .Workspaces {
+        button {
+            min-width: 20px;
+            font-weight: 500;
+            font-family: $font;
+        }
+
+        > .focused {
+            font-weight: 900;
+            background: $accent;
+            color: $bg-color;
+        }
+    }
+
+    .media-control {
         padding: 0 2px;
+        & > .player-select-btn {
+            padding: 0;
+        }
+
+        & .controls {
+            font-weight: 400;
+
+            > button {
+                min-width: 0;
+                padding: 0 3px;
+            }
+
+            > label {
+                font-size: 0.8em;
+                font-weight: 500;
+                padding: 0 4px;
+            }
+
+            > .artist-label {
+                padding-left: 0px;
+            }
+        }
+    }
+    .media-control-player {
+        padding: 0 4px;
+        font-size: 11px;
+        font-weight: 800;
+
+        > .logo {
+            padding-right: 2px;
+        }
+    }
+
+    .audio-out {
+        padding: 0 4px;
+        .audio-out-label,
+        .volume {
+        }
+
+        icon {
+            font-size: 1.2em;
+        }
+        .mute-btn {
+            margin: 0 2px;
+            padding: 0 2px;
+        }
+    }
+
+    .network-status {
+        padding: 0 4px;
+        > .wifi {
+            & > box > * {
+                margin-right: 4px;
+
+                &:last-child {
+                    margin-right: 0;
+                }
+            }
+        }
     }
 }
