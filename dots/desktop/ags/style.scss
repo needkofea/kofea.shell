@@ -23,7 +23,9 @@ window.Bar {
         border: none;
         box-shadow: none;
     }
-
+    icon {
+        font-size: 0.9rem;
+    }
     .gap {
         min-width: 8px;
     }
@@ -152,9 +154,6 @@ window.Bar {
         .volume {
         }
 
-        icon {
-            font-size: 1.2em;
-        }
         .mute-btn {
             margin: 0 2px;
             padding: 0 2px;
