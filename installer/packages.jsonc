@@ -21,6 +21,7 @@
       "xdg-desktop-portal-hyprland",
       "xdg-desktop-portal-gtk",
       "xdg-desktop-portal-hyprland",
+      "archlinux-xdg-menu",
       "libnotify", // for notifications
       "qt5-wayland", // wayland support in qt5
       "qt6-wayland", // wayland support in qt6
