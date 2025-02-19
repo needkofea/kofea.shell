@@ -53,7 +53,6 @@ export function TopBar(gdkmonitor: Gdk.Monitor) {
 
 export default function Bar(gdkmonitor: Gdk.Monitor) {
   const { BOTTOM, LEFT, RIGHT } = Astal.WindowAnchor;
-  // console.log("The ttheme is", App.gtkTheme);
 
   return (
     <window
@@ -77,7 +76,9 @@ export default function Bar(gdkmonitor: Gdk.Monitor) {
           <Taskbar gdkmonitor={gdkmonitor}></Taskbar>
         </box>
         <box vexpand halign={Gtk.Align.END}>
-          <box cssClasses={["container"]}>{/* <SysTray> </SysTray> */}</box>
+          <box cssClasses={["container"]}>
+            <SysTray> </SysTray>
+          </box>
         </box>
       </centerbox>
     </window>
