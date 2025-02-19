@@ -1,4 +1,4 @@
 #! /usr/bin/env bash
 
 ags quit
-hyprctl dispatch exec ags run &
+hyprctl dispatch exec "ags run --gtk4" &
