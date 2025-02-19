@@ -59,15 +59,15 @@ export function AudioOutput() {
   });
 
   return (
-    <box className={"audio-out"}>
+    <box cssClasses={["audio-out"]}>
       {bind(current_speaker).as((speaker) => {
         if (!speaker) {
           return "";
         }
         return (
           <>
-            <menubutton menuModel={avail_speakers} usePopover={false}>
-              <box className={"audio-out-label"}>
+            <menubutton menuModel={avail_speakers}>
+              <box cssClasses={["audio-out-label"]}>
                 <label
                   label={bind(speaker, "description").as((x) =>
                     trim_name("    " + x, 24),
@@ -75,20 +75,20 @@ export function AudioOutput() {
                 />
               </box>
             </menubutton>
-            <box className={"volume"}>
+            <box cssClasses={["volume"]}>
               <button
-                onClick={() => speaker.set_mute(!speaker.mute)}
-                className={"mute-btn"}
+                onClicked={() => speaker.set_mute(!speaker.mute)}
+                cssClasses={["mute-btn"]}
               >
-                <icon
-                  icon={bind(speaker, "mute").as((x) =>
+                <image
+                  iconName={bind(speaker, "mute").as((x) =>
                     x ? "audio-volume-muted" : "audio-volume-high",
                   )}
                 />
               </button>
 
               <label
-                className={"small"}
+                cssClasses={["small"]}
                 label={bind(speaker, "volume").as(
                   (x) => Math.round(x * 100) + "%",
                 )}

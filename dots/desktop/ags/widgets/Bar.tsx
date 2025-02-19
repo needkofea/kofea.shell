@@ -47,7 +47,9 @@ export function TopBar(gdkmonitor: Gdk.Monitor) {
           <box cssClasses={["container"]}>
             <MediaControl />
           </box>
-          <box cssClasses={["container"]}>{/* <AudioOutput /> */}</box>
+          <box cssClasses={["container"]}>
+            <AudioOutput />
+          </box>
         </box>
       </centerbox>
     </window>
