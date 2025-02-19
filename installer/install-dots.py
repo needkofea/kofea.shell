@@ -17,6 +17,12 @@ def install_terminal():
     terminalConf = home.child("terminal")
     terminalConf.install(".zshrc")
 
+
+def install_apps_config():
+    appsConf = dotsConfig.child("apps")
+    appsConf.install("zed")
+
+
 def install_desktop():
     desktop_dots = dotsConfig.child("desktop")
     desktop_dots.install("wal")
@@ -34,7 +40,7 @@ def install_self():
     install_terminal()
     install_desktop()
     install_gtkTheme();
-
+    install_apps_config();
 
 if __name__ == "__main__":
     install_self()
