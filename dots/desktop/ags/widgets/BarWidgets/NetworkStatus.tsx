@@ -5,19 +5,19 @@ const network = Network.get_default();
 
 export default function NetworkStatus() {
   return (
-    <box className={"network-status"}>
+    <box cssClasses={["network-status"]}>
       {bind(network, "wifi").as((wifi) => {
         return (
-          <button className={"wifi"}>
+          <button cssClasses={["wifi"]}>
             <box>
               {wifi == null ? (
                 <>
-                  <icon icon={"network-wireless-disabled"} />
+                  <image iconName={"network-wireless-disabled"} />
                   <label label={"Wifi Disabled"} />
                 </>
               ) : (
                 <>
-                  <icon icon={bind(wifi, "icon_name")} />
+                  <image iconName={bind(wifi, "icon_name")} />
 
                   <label label={bind(wifi, "ssid")} />
                 </>

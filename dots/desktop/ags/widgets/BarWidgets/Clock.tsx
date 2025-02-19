@@ -7,7 +7,7 @@ export default function Clock({ format = "%I:%M %p" }) {
   );
 
   return (
-    <box className="time">
+    <box cssClasses={["time"]}>
       <label onDestroy={() => time.drop()} label={time()} />
     </box>
   );

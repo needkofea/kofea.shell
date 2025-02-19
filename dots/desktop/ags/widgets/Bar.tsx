@@ -15,40 +15,43 @@ export function TopBar(gdkmonitor: Gdk.Monitor) {
   const { TOP, LEFT, RIGHT } = Astal.WindowAnchor;
   const theme = Gtk.IconTheme.get_for_display(gdkmonitor.display);
 
-  // return (
-  // <window
-  //   namespace={BAR_LAYER_NAMESPACE}
-  //   className="Bar"
-  //   gdkmonitor={gdkmonitor}
-  //   exclusivity={Astal.Exclusivity.EXCLUSIVE}
-  //   anchor={TOP | LEFT | RIGHT}
-  //   application={App}
-  // >
-  //   <centerbox>
-  //     <box vexpand halign={Gtk.Align.START}>
-  //       <box className="container">
-  //         <button className={"start-logo"} onClick={() => launchStartMenu()}>
-  //           <icon icon={"start-menu-icon"} />
-  //         </button>
-  //       </box>
-  //       <box className={"container"}>
-  //         <NetworkStatus />
-  //       </box>
-  //     </box>
-  //     <box className="container">
-  //       <Clock> </Clock>
-  //     </box>
-  //     <box vexpand halign={Gtk.Align.END}>
-  //       <box className="container">
-  //         <MediaControl />
-  //       </box>
-  //       <box className={"container"}>
-  //         <AudioOutput />
-  //       </box>
-  //     </box>
-  //   </centerbox>
-  // </window>
-  // );
+  return (
+    <window
+      visible
+      canFocus={false}
+      namespace={BAR_LAYER_NAMESPACE}
+      cssClasses={["Bar"]}
+      gdkmonitor={gdkmonitor}
+      exclusivity={Astal.Exclusivity.EXCLUSIVE}
+      anchor={TOP | LEFT | RIGHT}
+      application={App}
+    >
+      <centerbox>
+        <box vexpand halign={Gtk.Align.START}>
+          <box cssClasses={["container"]}>
+            <button
+              cssClasses={["start-logo"]}
+              onClicked={() => launchStartMenu()}
+            >
+              <image iconName={"start-menu-icon"} />
+            </button>
+          </box>
+          <box cssClasses={["container"]}>
+            <NetworkStatus />
+          </box>
+        </box>
+        <box cssClasses={["container"]}>
+          <Clock> </Clock>
+        </box>
+        <box vexpand halign={Gtk.Align.END}>
+          <box cssClasses={["container"]}>
+            <MediaControl />
+          </box>
+          <box cssClasses={["container"]}>{/* <AudioOutput /> */}</box>
+        </box>
+      </centerbox>
+    </window>
+  );
 }
 
 export default function Bar(gdkmonitor: Gdk.Monitor) {
@@ -57,6 +60,7 @@ export default function Bar(gdkmonitor: Gdk.Monitor) {
   return (
     <window
       visible
+      canFocus={false}
       namespace={BAR_LAYER_NAMESPACE}
       cssClasses={["Bar"]}
       gdkmonitor={gdkmonitor}

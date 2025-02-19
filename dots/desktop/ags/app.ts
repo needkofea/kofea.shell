@@ -10,6 +10,6 @@ App.start({
   gtkTheme: readGtkTheme() ?? undefined,
   main() {
     App.get_monitors().map(Bar);
-    // App.get_monitors().map(TopBar);
+    App.get_monitors().map(TopBar);
   },
 });

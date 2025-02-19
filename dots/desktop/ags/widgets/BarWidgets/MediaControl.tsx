@@ -79,19 +79,18 @@ export default function MediaControl() {
   });
 
   return (
-    <box className={"media-control"}>
+    <box cssClasses={["media-control"]}>
       {bind(current_player).as((player) => {
         return (
           <box>
             <menubutton
-              className={"player-select-btn"}
+              cssClasses={["player-select-btn"]}
               halign={Gtk.Align.START}
               direction={Gtk.ArrowType.UP}
-              usePopover={false}
               menuModel={avail_players}
             >
-              <box className={"media-control-player"}>
-                <label className={"logo"} label={" "} />
+              <box cssClasses={["media-control-player"]}>
+                <label cssClasses={["logo"]} label={" "} />
                 <label
                   label={player ? `${player?.entry}` : "No player selected"}
                 />
@@ -99,16 +98,16 @@ export default function MediaControl() {
             </menubutton>
 
             {player ? (
-              <box className={"controls"}>
+              <box cssClasses={["controls"]}>
                 <button
-                  onClickRelease={() => player.previous()}
+                  onClicked={() => player.previous()}
                   sensitive={bind(player, "can_go_previous")}
                 >
-                  <icon icon={"media-skip-backward"} />
+                  <image iconName={"media-skip-backward"} />
                 </button>
-                <button onClickRelease={() => player.play_pause()}>
-                  <icon
-                    icon={bind(player, "playback_status").as((x) =>
+                <button onClicked={() => player.play_pause()}>
+                  <image
+                    iconName={bind(player, "playback_status").as((x) =>
                       x == Mpris.PlaybackStatus.PLAYING
                         ? "media-playback-pause"
                         : "media-playback-start",
@@ -116,17 +115,17 @@ export default function MediaControl() {
                   />
                 </button>
                 <button
-                  onClickRelease={() => player.next()}
+                  onClicked={() => player.next()}
                   sensitive={bind(player, "can_go_next")}
                 >
-                  <icon icon={"media-skip-forward"} />
+                  <image iconName={"media-skip-forward"} />
                 </button>
                 <label
                   label={bind(player, "title").as((x) => trim_name(x, 24))}
                 />
                 <label
                   label={bind(player, "artist").as((x) => `- ${x}`)}
-                  className={"artist-label"}
+                  cssClasses={["artist-label"]}
                 />
               </box>
             ) : (
