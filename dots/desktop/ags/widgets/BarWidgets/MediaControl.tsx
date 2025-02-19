@@ -24,12 +24,28 @@ selectPlayerAction.connect("activate", (action, param) => {
   current_player.set(mpris.players[playerIndex]);
 });
 
+function players_ordered_by_preference(): Mpris.Player[] {
+  const default_weight = 100;
+  // The bigger the weight, the more preferred the player is.
+  const preference_weights: Record<string, number> = {
+    spotify: 200,
+  };
+
+  function get_weight(player: Mpris.Player): number {
+    return preference_weights[player.get_entry()] ?? default_weight;
+  }
+
+  return [...mpris.players].sort((a, b) => get_weight(a) - get_weight(b));
+}
+
 /**
  * Automatically selects the next player if current_player is yeeted.
  */
 function autoselect_next_player() {
-  if (current_player.get() == null && mpris.players.length > 0) {
-    current_player.set(mpris.players[mpris.players.length - 1]);
+  if (mpris.players.length > 0) {
+    current_player.set(
+      players_ordered_by_preference()[mpris.players.length - 1],
+    );
   }
 }
 
