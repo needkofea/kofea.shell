@@ -53,3 +53,39 @@ export function trim_name(s: string, max_len: number = 32) {
 
   return s.slice(0, originalCutIndex) + "..";
 }
+
+export function readGtkTheme(): string | null {
+  let theme = GLib.getenv("GTK_THEME");
+  if (theme !== null) return theme;
+
+  let config_contents: Uint8Array = new Uint8Array();
+  let _;
+  // Attempt to read config files
+  try {
+    [_, config_contents] = GLib.file_get_contents(
+      GLib.getenv("HOME")! + "/.config/gtk-4.0/settings.ini",
+    );
+  } catch {
+    // Fallback to gtk3 config
+    try {
+      [_, config_contents] = GLib.file_get_contents(
+        GLib.getenv("HOME")! + "/.config/gtk-3.0/settings.ini",
+      );
+    } catch {
+      return null;
+    }
+  }
+
+  function extractThemeName(fileContent: string) {
+    const themeNameRegex = /gtk-theme-name=([^\s]+)/;
+    const match = fileContent.match(themeNameRegex);
+
+    if (match && match[1]) {
+      return match[1];
+    } else {
+      return null; // If no theme name is found
+    }
+  }
+
+  return extractThemeName(new TextDecoder("utf-8").decode(config_contents));
+}

@@ -2,7 +2,7 @@ import { App, Gtk, Widget } from "astal/gtk4";
 import style from "./style.scss";
 import Bar, { TopBar } from "./widgets/Bar";
 
-import { readGtkTheme } from "./api";
+import { readGtkTheme } from "./utils";
 
 App.start({
   css: style,

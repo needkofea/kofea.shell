@@ -4,6 +4,7 @@ import Apps from "gi://AstalApps";
 import Hyprland from "gi://AstalHyprland";
 import Gtk40 from "gi://Gtk";
 import { find_app_by_wmclass, gio_menu_additem, trim_name } from "../../utils";
+import { KofeaApi } from "../../api";
 
 App.add_action_entries([
   {
@@ -37,9 +38,7 @@ App.add_action_entries([
         );
         return;
       }
-      console.log(
-        `[TODO] Adding ${param_desktop_entry} == ${desktop_entry.entry} to pinned apps`,
-      );
+      KofeaApi.PinnedApps.add(desktop_entry);
     },
   },
 ]);
