@@ -22,6 +22,7 @@ export default function Workspaces({ monitor }: WorkspaceProps) {
       {workspaces.as((wss) =>
         wss.map((ws) => (
           <button
+            canFocus={false}
             tooltipText={bind(ws, "clients").as((x) =>
               x.map((c, index) => `${c.title}`).join("\n"),
             )}

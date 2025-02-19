@@ -94,6 +94,7 @@ export default function Taskbar({ gdkmonitor }: TaskbarProps) {
             )
             .map(({ client, desktop }) => (
               <button
+                canFocus={false}
                 tooltipText={bind(client, "title")}
                 cssClasses={bind(hypr, "focusedClient").as((a) => [
                   "dock-item",

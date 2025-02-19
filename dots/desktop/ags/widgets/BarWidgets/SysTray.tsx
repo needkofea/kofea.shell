@@ -26,6 +26,7 @@ export default function SysTray() {
       {bind(tray, "items").as((items) =>
         items.map((item) => (
           <menubutton
+            canFocus={false}
             setup={(self) => {
               self.insert_action_group("dbusmenu", item.actionGroup);
             }}
