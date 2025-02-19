@@ -1,5 +1,5 @@
 import { bind, register, Variable } from "astal";
-import { App, Astal, Gdk, Gtk } from "astal/gtk3";
+import { App, Astal, Gdk, Gtk } from "astal/gtk4";
 import Mpris from "gi://AstalMpris";
 import Gio from "gi://Gio?version=2.0";
 import GLib from "gi://GLib?version=2.0";

@@ -1,5 +1,5 @@
 import { bind, Gio, GLib, Variable } from "astal";
-import { App } from "astal/gtk3";
+import { App } from "astal/gtk4";
 import Wp from "gi://AstalWp";
 
 const audio = Wp.get_default()!!.audio;

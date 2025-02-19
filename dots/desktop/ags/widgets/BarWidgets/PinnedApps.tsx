@@ -1,4 +1,4 @@
-import { App, Astal, Gdk, Gtk } from "astal/gtk3";
+import { App, Astal, Gdk, Gtk } from "astal/gtk4";
 import Apps from "gi://AstalApps";
 
 const apps = new Apps.Apps({

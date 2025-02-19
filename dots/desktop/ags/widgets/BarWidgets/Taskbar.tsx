@@ -1,4 +1,4 @@
-import { App, Astal, Gtk, Gdk } from "astal/gtk3";
+import { App, Astal, Gtk, Gdk } from "astal/gtk4";
 import Apps from "gi://AstalApps";
 import { bind, Variable } from "astal";
 import Hyprland from "gi://AstalHyprland";
@@ -76,11 +76,11 @@ export default function Taskbar({ gdkmonitor }: TaskbarProps) {
 
   return (
     <box
-      className="taskbar"
+      cssClasses={["taskbar"]}
       halign={Gtk.Align.CENTER}
       visible={clients.as((x) => x.length > 0)}
     >
-      <box className="content" halign={Gtk.Align.CENTER}>
+      <box cssClasses={["content"]} halign={Gtk.Align.CENTER}>
         {clients.as((clients: Hyprland.Client[]) =>
           clients
             .map((x) => ({
@@ -95,15 +95,14 @@ export default function Taskbar({ gdkmonitor }: TaskbarProps) {
             .map(({ client, desktop }) => (
               <button
                 tooltipText={bind(client, "title")}
-                className={bind(hypr, "focusedClient").as((a) =>
-                  ["dock-item", a?.pid == client?.pid ? "focused" : ""].join(
-                    " ",
-                  ),
-                )}
-                onButtonPressEvent={() => client.focus()}
+                cssClasses={bind(hypr, "focusedClient").as((a) => [
+                  "dock-item",
+                  a?.pid == client?.pid ? "focused" : "",
+                ])}
+                onClicked={() => client.focus()}
               >
                 <box>
-                  <icon icon={desktop?.iconName}></icon>
+                  <image iconName={desktop?.iconName}></image>
                   <label
                     label={bind(client, "title").as(
                       (title) => `${trim_name(title, 16)}`,

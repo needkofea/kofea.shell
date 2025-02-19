@@ -10,11 +10,18 @@ export default function NetworkStatus() {
         return (
           <button className={"wifi"}>
             <box>
-              <icon icon={bind(wifi, "icon_name")} />
+              {wifi == null ? (
+                <>
+                  <icon icon={"network-wireless-disabled"} />
+                  <label label={"Wifi Disabled"} />
+                </>
+              ) : (
+                <>
+                  <icon icon={bind(wifi, "icon_name")} />
 
-              <label label={bind(wifi, "ssid")} />
-              <label label={bind(wifi, "strength").as((x) => x + "%")} />
-              {/* {wifi} */}
+                  <label label={bind(wifi, "ssid")} />
+                </>
+              )}
             </box>
           </button>
         );
