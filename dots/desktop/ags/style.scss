@@ -73,7 +73,7 @@ window.Bar {
             -gtk-icon-size: 1.8em;
         }
 
-        label {
+        .item > label {
             margin-left: 4px;
             font-family: $font;
             font-weight: 800;

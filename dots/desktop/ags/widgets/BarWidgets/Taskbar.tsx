@@ -1,7 +1,48 @@
+import { bind, Gio, GLib, Variable } from "astal";
 import { App, Astal, Gtk, Gdk } from "astal/gtk4";
 import Apps from "gi://AstalApps";
-import { bind, Variable } from "astal";
 import Hyprland from "gi://AstalHyprland";
+import Gtk40 from "gi://Gtk";
+import { find_app_by_wmclass, gio_menu_additem, trim_name } from "../../utils";
+
+App.add_action_entries([
+  {
+    name: "taskbar-close-app",
+    parameter_type: "s",
+    activate: (action, param) => {
+      const param_app_addr: string | undefined = param?.deep_unpack();
+      if (!param_app_addr) return;
+      const client = Hyprland.get_default().get_client(param_app_addr);
+      if (!client) return;
+      console.log(
+        `Killing app title:[${client.title}] class:[${client.class}] pid:[${client.pid}]`,
+      );
+      client.kill();
+    },
+  },
+  {
+    name: "taskbar-pin-app",
+    parameter_type: "s",
+    activate: (action, param) => {
+      const param_desktop_entry: string | undefined = param?.deep_unpack();
+      if (!param_desktop_entry) return;
+
+      const desktop_entry = apps
+        .get_list()
+        .find((x) => x.entry == param_desktop_entry);
+
+      if (desktop_entry === undefined) {
+        console.log(
+          `Could not find desktop entry for app: ${param_desktop_entry}`,
+        );
+        return;
+      }
+      console.log(
+        `[TODO] Adding ${param_desktop_entry} == ${desktop_entry.entry} to pinned apps`,
+      );
+    },
+  },
+]);
 
 const apps = new Apps.Apps({
   nameMultiplier: 2,
@@ -11,26 +52,6 @@ const apps = new Apps.Apps({
 });
 
 const hypr = Hyprland.get_default();
-
-function trim_name(s: string, max_len: number = 32) {
-  if (!s) return "";
-
-  // If the string is shorter than or equal to max_len, return it as is
-  if (s.length <= max_len) return s;
-
-  const originalCutIndex = max_len - 3;
-  // Find the last space within the allowed max_len
-  const truncIndex = s.lastIndexOf(" ", originalCutIndex);
-
-  // If a space is found, and position isn't too far of, truncate the string at that point and add "..."
-  if (Math.abs(truncIndex - originalCutIndex) < 4) {
-    if (truncIndex !== -1) {
-      return s.slice(0, truncIndex) + "..";
-    }
-  }
-
-  return s.slice(0, originalCutIndex) + "..";
-}
 
 const workspaces = Variable<Hyprland.Workspace[]>([]).poll(
   200,
@@ -56,15 +77,45 @@ workspaces.subscribe((workspaces_) => {
   }
 });
 
-function find_app_by_wmclass(wmclass: string): Apps.Application | null {
-  const match = apps
-    .get_list()
-    .find(
-      (x) => x.wm_class == wmclass || x.name == wmclass || x.entry == wmclass,
+function openAppContextMenu(
+  widget: Gtk.Widget,
+  event: Gdk.ButtonEvent,
+  client: Hyprland.Client,
+  desktop_entry?: Apps.Application,
+) {
+  // Check if the right mouse button (button 3) was clicked
+  if (event.get_button() === 3) {
+    // Create a menu
+    let menu = new Gio.Menu();
+
+    // Create menu items
+    if (desktop_entry) {
+      gio_menu_additem(
+        menu,
+        "Add to pinned",
+        "app.taskbar-pin-app",
+        GLib.Variant.new_string(desktop_entry.entry),
+      );
+    }
+
+    gio_menu_additem(
+      menu,
+      "Kill",
+      "app.taskbar-close-app",
+      GLib.Variant.new_string(client.address),
     );
 
-  return match ?? apps.fuzzy_query(wmclass)[0];
+    // Show the items in the menu
+    const popoverMenu = Gtk.PopoverMenu.new_from_model(menu);
+
+    // Pop up the menu at the cursor position
+    let [_, x, y] = event.get_position();
+    popoverMenu.set_parent(widget);
+    // popoverMenu.set_pointing_to(new Gdk.Rectangle({ x: x, y: y }));
+    popoverMenu.popup();
+  }
 }
+
 export type TaskbarProps = {
   gdkmonitor: Gdk.Monitor;
 };
@@ -85,7 +136,7 @@ export default function Taskbar({ gdkmonitor }: TaskbarProps) {
           clients
             .map((x) => ({
               client: x,
-              desktop: find_app_by_wmclass(x.class),
+              desktop: find_app_by_wmclass(x.class, apps),
             }))
             .sort(
               (a, b) =>
@@ -100,9 +151,14 @@ export default function Taskbar({ gdkmonitor }: TaskbarProps) {
                   "dock-item",
                   a?.pid == client?.pid ? "focused" : "",
                 ])}
-                onClicked={() => client.focus()}
+                onButtonPressed={(w, ev) => {
+                  if (ev.get_button() == 1) {
+                    client.focus();
+                  }
+                  openAppContextMenu(w, ev, client, desktop);
+                }}
               >
-                <box>
+                <box cssClasses={["item"]}>
                   <image iconName={desktop?.iconName}></image>
                   <label
                     label={bind(client, "title").as(

@@ -4,6 +4,7 @@ import Mpris from "gi://AstalMpris";
 import Gio from "gi://Gio?version=2.0";
 import GLib from "gi://GLib?version=2.0";
 import GObject from "gi://GObject?version=2.0";
+import { trim_name } from "../../utils";
 
 const mpris = Mpris.Mpris.new();
 
@@ -65,14 +66,6 @@ mpris.connect("player-closed", (x) => {
 autoselect_next_player();
 
 App.add_action(selectPlayerAction);
-
-function trim_name(s: string, max_len: number = 32) {
-  if (!s) return "";
-  if (s.length > max_len) {
-    return s.slice(0, max_len - 3) + "...";
-  }
-  return s;
-}
 
 export default function MediaControl() {
   const avail_players = bind(mpris, "players").as((players) => {
