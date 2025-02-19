@@ -1,7 +1,7 @@
-import { App, Astal, Gtk, Gdk } from "astal/gtk3";
+import { App, Astal, Gtk, Gdk } from "astal/gtk4";
 import Taskbar from "./BarWidgets/Taskbar";
 import { GLib, Variable } from "astal";
-import { launchStartMenu, BAR_LAYER_NAMESPACE } from "../api";
+import { launchStartMenu, BAR_LAYER_NAMESPACE, readGtkTheme } from "../api";
 import SysTray from "./BarWidgets/SysTray";
 import Clock from "./BarWidgets/Clock";
 import Workspaces from "./BarWidgets/Workspaces";
@@ -9,16 +9,18 @@ import MediaControl from "./BarWidgets/MediaControl";
 import { AudioOutput } from "./BarWidgets/AudioOutput";
 import PinnedApps from "./BarWidgets/PinnedApps";
 import NetworkStatus from "./BarWidgets/NetworkStatus";
-
-const theme = Gtk.IconTheme.get_default();
+import Gtk40 from "gi://Gtk";
 
 export function TopBar(gdkmonitor: Gdk.Monitor) {
   const { TOP, LEFT, RIGHT } = Astal.WindowAnchor;
+  const theme = Gtk.IconTheme.get_for_display(gdkmonitor.display);
 
   return (
     <window
+      visible
+      canFocus={false}
       namespace={BAR_LAYER_NAMESPACE}
-      className="Bar"
+      cssClasses={["Bar"]}
       gdkmonitor={gdkmonitor}
       exclusivity={Astal.Exclusivity.EXCLUSIVE}
       anchor={TOP | LEFT | RIGHT}
@@ -26,23 +28,26 @@ export function TopBar(gdkmonitor: Gdk.Monitor) {
     >
       <centerbox>
         <box vexpand halign={Gtk.Align.START}>
-          <box className="container">
-            <button className={"start-logo"} onClick={() => launchStartMenu()}>
-              <icon icon={"start-menu-icon"} />
+          <box cssClasses={["container"]}>
+            <button
+              cssClasses={["start-logo"]}
+              onClicked={() => launchStartMenu()}
+            >
+              <image iconName={"start-menu-icon"} />
             </button>
           </box>
-          <box className={"container"}>
+          <box cssClasses={["container"]}>
             <NetworkStatus />
           </box>
         </box>
-        <box className="container">
+        <box cssClasses={["container"]}>
           <Clock> </Clock>
         </box>
         <box vexpand halign={Gtk.Align.END}>
-          <box className="container">
+          <box cssClasses={["container"]}>
             <MediaControl />
           </box>
-          <box className={"container"}>
+          <box cssClasses={["container"]}>
             <AudioOutput />
           </box>
         </box>
@@ -56,8 +61,10 @@ export default function Bar(gdkmonitor: Gdk.Monitor) {
 
   return (
     <window
+      visible
+      canFocus={false}
       namespace={BAR_LAYER_NAMESPACE}
-      className="Bar"
+      cssClasses={["Bar"]}
       gdkmonitor={gdkmonitor}
       exclusivity={Astal.Exclusivity.EXCLUSIVE}
       anchor={BOTTOM | LEFT | RIGHT}
@@ -65,17 +72,17 @@ export default function Bar(gdkmonitor: Gdk.Monitor) {
     >
       <centerbox>
         <box vexpand halign={Gtk.Align.START}>
-          <box className={"container"}>
+          <box cssClasses={["container"]}>
             <Workspaces monitor={gdkmonitor} />
-            <box className={"gap"} />
+            <box cssClasses={["gap"]} />
             <PinnedApps />
           </box>
         </box>
-        <box className="container">
+        <box cssClasses={["container"]}>
           <Taskbar gdkmonitor={gdkmonitor}></Taskbar>
         </box>
         <box vexpand halign={Gtk.Align.END}>
-          <box className="container">
+          <box cssClasses={["container"]}>
             <SysTray> </SysTray>
           </box>
         </box>

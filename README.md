@@ -15,7 +15,7 @@ Integrate SDDM themes from https://github.com/Keyitdev/sddm-astronaut-theme
 
 1. Bar
   1. Wifi upload / download stats
-  2. Slider for volumn adjustments
+  2. Slider for volume adjustments
   3. Mute audio input
   4. Panel for Wifi
   5. Pinned apps

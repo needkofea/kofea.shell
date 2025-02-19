@@ -1,5 +1,5 @@
 import { bind } from "astal";
-import { Gdk } from "astal/gtk3";
+import { Gdk } from "astal/gtk4";
 import Hyprland from "gi://AstalHyprland";
 
 export type WorkspaceProps = {
@@ -18,16 +18,17 @@ export default function Workspaces({ monitor }: WorkspaceProps) {
   );
 
   return (
-    <box className="Workspaces">
+    <box cssClasses={["Workspaces"]}>
       {workspaces.as((wss) =>
         wss.map((ws) => (
           <button
+            canFocus={false}
             tooltipText={bind(ws, "clients").as((x) =>
               x.map((c, index) => `${c.title}`).join("\n"),
             )}
-            className={bind(hypr, "focusedWorkspace").as((fw) =>
+            cssClasses={bind(hypr, "focusedWorkspace").as((fw) => [
               ws === fw ? "focused" : "",
-            )}
+            ])}
             onClicked={() => ws.focus()}
           >
             {ws.id}

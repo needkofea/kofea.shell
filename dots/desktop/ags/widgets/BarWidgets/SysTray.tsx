@@ -1,4 +1,5 @@
 import { bind, Variable } from "astal";
+import { MenuButton } from "astal/gtk3/widget";
 
 import Tray from "gi://AstalTray";
 
@@ -18,18 +19,21 @@ trayItems_.subscribe((items) => {
     last_hash = hash;
   }
 });
+
 export default function SysTray() {
   return (
-    <box className={"systray"}>
+    <box cssClasses={["systray"]}>
       {bind(tray, "items").as((items) =>
         items.map((item) => (
           <menubutton
+            canFocus={false}
+            setup={(self) => {
+              self.insert_action_group("dbusmenu", item.actionGroup);
+            }}
             tooltipMarkup={bind(item, "tooltipMarkup")}
-            usePopover={false}
-            actionGroup={bind(item, "actionGroup").as((ag) => ["dbusmenu", ag])}
             menuModel={bind(item, "menuModel")}
           >
-            <icon gicon={bind(item, "gicon")} />
+            <image gicon={bind(item, "gicon")} />
           </menubutton>
         )),
       )}
