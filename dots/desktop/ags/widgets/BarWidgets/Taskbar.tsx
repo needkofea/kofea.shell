@@ -80,7 +80,7 @@ function openAppContextMenu(
   widget: Gtk.Widget,
   event: Gdk.ButtonEvent,
   client: Hyprland.Client,
-  desktop_entry?: Apps.Application,
+  desktop_entry?: Apps.Application | null,
 ) {
   // Check if the right mouse button (button 3) was clicked
   if (event.get_button() === 3) {
@@ -106,7 +106,6 @@ function openAppContextMenu(
 
     // Show the items in the menu
     const popoverMenu = Gtk.PopoverMenu.new_from_model(menu);
-
     // Pop up the menu at the cursor position
     let [_, x, y] = event.get_position();
     popoverMenu.set_parent(widget);
