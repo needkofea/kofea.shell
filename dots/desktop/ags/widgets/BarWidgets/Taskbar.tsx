@@ -3,7 +3,13 @@ import { App, Astal, Gtk, Gdk } from "astal/gtk4";
 import Apps from "gi://AstalApps";
 import Hyprland from "gi://AstalHyprland";
 import Gtk40 from "gi://Gtk";
-import { find_app_by_wmclass, gio_menu_additem, trim_name } from "../../utils";
+import {
+  find_app_by_wmclass,
+  gio_menu_additem,
+  iconName_asFile,
+  iconName_asIcon,
+  trim_name,
+} from "../../utils";
 import { KofeaApi } from "../../api";
 
 App.add_action_entries([
@@ -157,7 +163,10 @@ export default function Taskbar({ gdkmonitor }: TaskbarProps) {
                 }}
               >
                 <box cssClasses={["item"]}>
-                  <image iconName={desktop?.iconName}></image>
+                  <image
+                    iconName={iconName_asIcon(desktop?.iconName)}
+                    file={iconName_asFile(desktop?.iconName)}
+                  ></image>
                   <label
                     label={bind(client, "title").as(
                       (title) => `${trim_name(title, 16)}`,

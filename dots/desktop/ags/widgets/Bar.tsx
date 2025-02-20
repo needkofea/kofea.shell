@@ -74,7 +74,7 @@ export default function Bar(gdkmonitor: Gdk.Monitor) {
         <box vexpand halign={Gtk.Align.START}>
           <box cssClasses={["container"]}>
             <Workspaces monitor={gdkmonitor} />
-            <box cssClasses={["gap"]} />
+            <box cssClasses={["gap"]}></box>
             <PinnedApps />
           </box>
         </box>

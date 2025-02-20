@@ -63,6 +63,24 @@ window.Bar {
         padding: 2px;
     }
 
+    .pinned-apps {
+        .item {
+            min-width: 22px;
+            margin-right: 2px;
+            &:last-child {
+                margin-right: 0;
+            }
+
+            &:hover {
+                background: $overlay-color;
+            }
+
+            image {
+                -gtk-icon-size: 1.8em;
+            }
+        }
+    }
+
     .taskbar {
         button {
             padding: 0 4px;

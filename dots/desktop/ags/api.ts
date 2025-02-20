@@ -50,12 +50,21 @@ export namespace KofeaApi {
     export const pinnedapps_entries = new Variable<string[]>([]);
     const _apps = new AstalApps.Apps();
     export const entries = Variable.derive([pinnedapps_entries], (x) =>
-      x.map((y) => _apps.get_list().find((a) => a.entry == y)),
+      x
+        .map((y) => _apps.get_list().find((a) => a.entry == y))
+        .filter((x) => x != undefined),
     );
 
     export function add(app: AstalApps.Application) {
       console.log(`Adding ${app.entry} to pinned apps...`);
       const newArray = pinnedapps_entries.get().concat(app.entry);
+      KofeaShellConfig.writeKey("pinned-apps", newArray);
+      pinnedapps_entries.set(newArray);
+    }
+
+    export function remove_entry(entry: string) {
+      console.log(`Removing ${entry} from pinned apps...`);
+      const newArray = pinnedapps_entries.get().filter((x) => x != entry);
       KofeaShellConfig.writeKey("pinned-apps", newArray);
       pinnedapps_entries.set(newArray);
     }

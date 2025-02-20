@@ -1,6 +1,17 @@
 import { Gio, GLib } from "astal";
 import Apps from "gi://AstalApps";
 
+export function iconName_isfile(iconName?: string): boolean {
+  return iconName?.includes("/") ?? false;
+}
+
+export function iconName_asIcon(iconName?: string): string | undefined {
+  return iconName_isfile(iconName) ? undefined : iconName;
+}
+export function iconName_asFile(iconName?: string): string | undefined {
+  return iconName_isfile(iconName) ? iconName : undefined;
+}
+
 export function find_app_by_wmclass(
   wmclass: string,
   apps: Apps.Apps,
