@@ -1,4 +1,5 @@
 import { Gio, Variable } from "astal";
+import { App } from "astal/gtk4";
 import AstalApps from "gi://AstalApps?version=0.1";
 import Hyprland from "gi://AstalHyprland";
 import GLib from "gi://GLib?version=2.0";
@@ -46,14 +47,68 @@ export namespace KofeaShellConfig {
 }
 
 export namespace KofeaApi {
+  const _apps = new AstalApps.Apps();
+  export function register_global_actions() {
+    App.add_action_entries([
+      {
+        name: "taskbar-close-app",
+        parameter_type: "s",
+        activate: (action, param) => {
+          const param_app_addr: string | undefined = param?.deep_unpack();
+          if (!param_app_addr) return;
+          const client = Hyprland.get_default().get_client(param_app_addr);
+          if (!client) return;
+          console.log(
+            `Killing app title:[${client.title}] class:[${client.class}] pid:[${client.pid}]`,
+          );
+          client.kill();
+        },
+      },
+      {
+        name: "taskbar-pin-app",
+        parameter_type: "s",
+        activate: (action, param) => {
+          const param_desktop_entry: string | undefined = param?.deep_unpack();
+          if (!param_desktop_entry) return;
+
+          const desktop_entry = _apps
+            .get_list()
+            .find((x) => x.entry == param_desktop_entry);
+
+          if (desktop_entry === undefined) {
+            console.log(
+              `Could not find desktop entry for app: ${param_desktop_entry}`,
+            );
+            return;
+          }
+          KofeaApi.PinnedApps.add(desktop_entry);
+        },
+      },
+      {
+        name: "taskbar-unpin-app",
+        parameter_type: "s",
+        activate: (action, param) => {
+          const param_desktop_entry: string | undefined = param?.deep_unpack();
+          if (!param_desktop_entry) return;
+
+          KofeaApi.PinnedApps.remove_entry(param_desktop_entry);
+        },
+      },
+    ]);
+  }
+
   export namespace PinnedApps {
     export const pinnedapps_entries = new Variable<string[]>([]);
-    const _apps = new AstalApps.Apps();
+
     export const entries = Variable.derive([pinnedapps_entries], (x) =>
       x
         .map((y) => _apps.get_list().find((a) => a.entry == y))
         .filter((x) => x != undefined),
     );
+
+    export function contains(app: AstalApps.Application): boolean {
+      return entries.get().find((x) => x.entry == app.entry) != undefined;
+    }
 
     export function add(app: AstalApps.Application) {
       console.log(`Adding ${app.entry} to pinned apps...`);

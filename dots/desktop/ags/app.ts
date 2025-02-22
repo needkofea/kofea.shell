@@ -10,6 +10,7 @@ App.start({
   icons: "./assets/icons",
   gtkTheme: readGtkTheme() ?? undefined,
   main() {
+    KofeaApi.register_global_actions();
     KofeaApi.PinnedApps.refresh();
     App.get_monitors().map(Bar);
     App.get_monitors().map(TopBar);

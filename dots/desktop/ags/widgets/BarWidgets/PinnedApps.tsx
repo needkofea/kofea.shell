@@ -8,26 +8,6 @@ import {
   iconName_asIcon,
 } from "../../utils";
 
-App.add_action_entries([
-  {
-    name: "taskbar-unpin-app",
-    parameter_type: "s",
-    activate: (action, param) => {
-      const param_desktop_entry: string | undefined = param?.deep_unpack();
-      if (!param_desktop_entry) return;
-
-      KofeaApi.PinnedApps.remove_entry(param_desktop_entry);
-    },
-  },
-]);
-
-const apps = new Apps.Apps({
-  nameMultiplier: 2,
-  entryMultiplier: 1,
-  executableMultiplier: 2,
-  min_score: -1,
-});
-
 function openAppContextMenu(
   widget: Gtk.Widget,
   event: Gdk.ButtonEvent,

@@ -31,6 +31,10 @@ selectSpeakerAction.connect("activate", (action, param) => {
   current_speaker.set(audio.speakers[playerIndex]);
 });
 
+current_speaker.subscribe((endpoint) => {
+  endpoint?.set_is_default(true);
+});
+
 function trim_name(s: string, max_len: number = 32) {
   if (!s) return "";
   if (s.length > max_len) {

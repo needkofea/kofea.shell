@@ -12,43 +12,6 @@ import {
 } from "../../utils";
 import { KofeaApi } from "../../api";
 
-App.add_action_entries([
-  {
-    name: "taskbar-close-app",
-    parameter_type: "s",
-    activate: (action, param) => {
-      const param_app_addr: string | undefined = param?.deep_unpack();
-      if (!param_app_addr) return;
-      const client = Hyprland.get_default().get_client(param_app_addr);
-      if (!client) return;
-      console.log(
-        `Killing app title:[${client.title}] class:[${client.class}] pid:[${client.pid}]`,
-      );
-      client.kill();
-    },
-  },
-  {
-    name: "taskbar-pin-app",
-    parameter_type: "s",
-    activate: (action, param) => {
-      const param_desktop_entry: string | undefined = param?.deep_unpack();
-      if (!param_desktop_entry) return;
-
-      const desktop_entry = apps
-        .get_list()
-        .find((x) => x.entry == param_desktop_entry);
-
-      if (desktop_entry === undefined) {
-        console.log(
-          `Could not find desktop entry for app: ${param_desktop_entry}`,
-        );
-        return;
-      }
-      KofeaApi.PinnedApps.add(desktop_entry);
-    },
-  },
-]);
-
 const apps = new Apps.Apps({
   nameMultiplier: 2,
   entryMultiplier: 1,
@@ -95,23 +58,33 @@ function openAppContextMenu(
 
     // Create menu items
     if (desktop_entry) {
-      gio_menu_additem(
-        menu,
-        "Add to pinned",
-        "app.taskbar-pin-app",
-        GLib.Variant.new_string(desktop_entry.entry),
-      );
+      if (KofeaApi.PinnedApps.contains(desktop_entry)) {
+        gio_menu_additem(
+          menu,
+          `Unpin "${desktop_entry.name}" from taskbar`,
+          "app.taskbar-unpin-app",
+          GLib.Variant.new_string(desktop_entry.entry),
+        );
+      } else {
+        gio_menu_additem(
+          menu,
+          `Pin "${desktop_entry.name}" to taskbar`,
+          "app.taskbar-pin-app",
+          GLib.Variant.new_string(desktop_entry.entry),
+        );
+      }
     }
 
     gio_menu_additem(
       menu,
-      "Kill",
+      "Quit",
       "app.taskbar-close-app",
       GLib.Variant.new_string(client.address),
     );
 
     // Show the items in the menu
     const popoverMenu = Gtk.PopoverMenu.new_from_model(menu);
+    popoverMenu.hasArrow = false;
     // Pop up the menu at the cursor position
     let [_, x, y] = event.get_position();
     popoverMenu.set_parent(widget);
