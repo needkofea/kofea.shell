@@ -15,12 +15,15 @@ window.Bar {
     background: #ffffff04;
     color: $fg-color;
     font-weight: bold;
+
     * {
-        transition: all 200ms ease;
+        transition:
+            all 200ms ease,
+            transform 100ms ease;
     }
+
     & > centerbox {
         background: transparent;
-        min-height: 24px;
         padding: 0 2px;
     }
 
@@ -49,7 +52,9 @@ window.Bar {
         background: transparent;
         font-size: 10px;
     }
-
+    button:active {
+        transform: scale(0.9);
+    }
     button:hover {
         background: initial;
     }
@@ -64,9 +69,11 @@ window.Bar {
     }
 
     .pinned-apps {
-        .item {
+        .item,
+        .more-items {
             min-width: 22px;
             margin-right: 2px;
+
             &:last-child {
                 margin-right: 0;
             }
@@ -79,6 +86,13 @@ window.Bar {
                 -gtk-icon-size: 1.8em;
             }
         }
+        .more-items {
+            margin-right: 0px;
+            border: none;
+            image {
+                -gtk-icon-size: 1.5em;
+            }
+        }
     }
 
     .taskbar {
@@ -86,6 +100,7 @@ window.Bar {
             padding: 0 4px;
             min-width: 24px;
         }
+
         button:hover {
             background: $overlay-color;
         }
@@ -202,6 +217,29 @@ window.Bar {
                     margin-right: 0;
                 }
             }
+        }
+    }
+}
+
+window.Bar.Lower {
+    min-height: 36px;
+    .container {
+        padding: 2px;
+    }
+
+    .pinned-apps {
+        .item {
+            min-width: 24px;
+
+            image {
+                -gtk-icon-size: 2em;
+            }
+        }
+    }
+
+    .taskbar {
+        image {
+            -gtk-icon-size: 2em;
         }
     }
 }

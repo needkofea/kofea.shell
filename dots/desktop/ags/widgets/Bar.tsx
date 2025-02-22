@@ -1,7 +1,7 @@
 import { App, Astal, Gtk, Gdk } from "astal/gtk4";
 import Taskbar from "./BarWidgets/Taskbar";
 import { GLib, Variable } from "astal";
-import { launchStartMenu, BAR_LAYER_NAMESPACE, readGtkTheme } from "../api";
+import { launchStartMenu, BAR_LAYER_NAMESPACE } from "../api";
 import SysTray from "./BarWidgets/SysTray";
 import Clock from "./BarWidgets/Clock";
 import Workspaces from "./BarWidgets/Workspaces";
@@ -64,7 +64,7 @@ export default function Bar(gdkmonitor: Gdk.Monitor) {
       visible
       canFocus={false}
       namespace={BAR_LAYER_NAMESPACE}
-      cssClasses={["Bar"]}
+      cssClasses={["Bar", "Lower"]}
       gdkmonitor={gdkmonitor}
       exclusivity={Astal.Exclusivity.EXCLUSIVE}
       anchor={BOTTOM | LEFT | RIGHT}
@@ -74,7 +74,9 @@ export default function Bar(gdkmonitor: Gdk.Monitor) {
         <box vexpand halign={Gtk.Align.START}>
           <box cssClasses={["container"]}>
             <Workspaces monitor={gdkmonitor} />
-            <box cssClasses={["gap"]}></box>
+          </box>
+
+          <box cssClasses={["container"]}>
             <PinnedApps />
           </box>
         </box>

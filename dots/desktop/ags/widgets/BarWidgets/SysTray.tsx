@@ -1,4 +1,4 @@
-import { bind, Variable } from "astal";
+import { bind, Gio, Variable } from "astal";
 import { MenuButton } from "astal/gtk3/widget";
 
 import Tray from "gi://AstalTray";
@@ -20,6 +20,10 @@ trayItems_.subscribe((items) => {
   }
 });
 
+function extendTrayItemMenu(model: Gio.MenuModel) {
+  return model;
+}
+
 export default function SysTray() {
   return (
     <box cssClasses={["systray"]}>
@@ -31,7 +35,7 @@ export default function SysTray() {
               self.insert_action_group("dbusmenu", item.actionGroup);
             }}
             tooltipMarkup={bind(item, "tooltipMarkup")}
-            menuModel={bind(item, "menuModel")}
+            menuModel={bind(item, "menuModel").as((x) => extendTrayItemMenu(x))}
           >
             <image gicon={bind(item, "gicon")} />
           </menubutton>

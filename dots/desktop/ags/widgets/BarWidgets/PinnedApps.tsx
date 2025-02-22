@@ -1,6 +1,6 @@
 import { App, Astal, Gdk, Gtk } from "astal/gtk4";
 import Apps from "gi://AstalApps";
-import { KofeaApi } from "../../api";
+import { KofeaApi, launchStartMenu } from "../../api";
 import { bind, Gio, GLib } from "astal";
 import {
   gio_menu_additem,
@@ -60,6 +60,14 @@ function openAppContextMenu(
 export default function PinnedApps() {
   return (
     <box cssClasses={["pinned-apps"]}>
+      <button
+        onClicked={(ev) => launchStartMenu()}
+        cssClasses={["more-items"]}
+        tooltipText={"Open app menu"}
+        canFocus={false}
+      >
+        <image iconName={"view-grid-symbolic"} />
+      </button>
       {bind(KofeaApi.PinnedApps.entries).as((apps) =>
         apps.map((app) => (
           <button
