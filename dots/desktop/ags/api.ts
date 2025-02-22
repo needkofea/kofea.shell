@@ -6,6 +6,7 @@ import GLib from "gi://GLib?version=2.0";
 
 export const LAYER_NAMESPACE = "kofea-shell";
 export const BAR_LAYER_NAMESPACE = LAYER_NAMESPACE + "-bar";
+export const POPUP_LAYER_NAMESPACE = LAYER_NAMESPACE + "-popup";
 
 export function launchStartMenu() {
   const hypr = Hyprland.get_default();

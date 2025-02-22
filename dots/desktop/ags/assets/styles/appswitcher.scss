@@ -1,0 +1,10 @@
+@import "common.scss";
+
+window.AppSwitcher {
+    border-radius: 1.5rem;
+    border: 1px solid $accent;
+    background: $bg-color;
+    pointer-events: none;
+    min-width: 256px;
+    min-height: 256px;
+}
