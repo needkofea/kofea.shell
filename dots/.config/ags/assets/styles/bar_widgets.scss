@@ -3,7 +3,7 @@
 @import "./common.scss";
 
 window.Bar {
-    background: #ffffff0f;
+    background: #ffffff00;
     color: $fg-color;
     font-weight: bold;
 
@@ -211,6 +211,7 @@ window.Bar {
 }
 
 window.Bar.Upper {
+    background: #ffffff0f;
 }
 
 window.Bar.Lower {
