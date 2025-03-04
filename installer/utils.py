@@ -1,8 +1,8 @@
+from dataclasses import dataclass
 from pathlib import Path
 import os
 import time
 import shutil
-from pylint.testutils import configuration_test
 
 USER_HOME = os.environ["HOME"];
 KOFEA_HOME = f"{USER_HOME}/kofea.shell/"
@@ -105,45 +105,40 @@ class KofeaDotsInstaller:
         self.install(target, rel_dir, True)
 
 
+
+@dataclass
+class FileInstallConfig:
+    src: str
+    dst: str
+    copy: bool = False
+
 class KofeaDotsModule:
-    """
-    A set of packages, drivers, and or dotfiles to install
-    """
     def __init__(self, name: str):
         self.name = name
+        self._installfiles: list[FileInstallConfig] = []
+        self._pacman: list[str] = []
+        self._yay: list[str] = []
+        self._cargo: list[str] = []
 
 
+    def add_otherfiles(self, files: list[str], src_dir=KOFEA_DOTS, dst_dir=USER_HOME, copy=False):
+        for file in files:
+            self._installfiles.append(FileInstallConfig(src_dir+f"/{file}", dst_dir+f"/{file}", copy))
 
-    def install_deps(self):
+        return self
+
+    def add_dotfiles(self, files: list[str], src_dir=KOFEA_DOTS+"/.config", dst_dir=TARGET_DOTS_CONFIG, copy=False):
+        self.add_otherfiles(files, src_dir, dst_dir, copy)
+        return self
+    def require_packages(self, pacman: list[str]=[], yay: list[str]=[], cargo: list[str]=[]):
         """
-        Gathers and installs the required packages required for the module
+        Set the required dependencies for this modules
         """
-        pass
+        self._pacman: list[str] = pacman
+        self._yay: list[str] = yay
+        self._cargo: list[str] = cargo
+        return self
 
-
-    def install_dotfiles(self):
-        """
-        Copies or Symlinks the dotfiles to the correct location(s).
-        dotfiles may includes:
-            1. Application configurations
-            2. Themes
-            3. Icons
-        """
-        pass
-
-    def after_install(self):
-        """
-        Executed
-        """
-        pass
-
-    def install(self):
-        self.install_dotfiles()
-
-
-class KofeaInstallationStage:
-    """
-    A stage in the installation.
-    Usually used for installing multiple modules in a specific sequence.
-    """
-    pass
+    def exec_install_dots(self):
+        for x in self._installfiles:
+            install_symlink(Path(x.src), Path(x.dst), x.copy)

@@ -16,7 +16,7 @@
   "buffer_font_size": 13,
   "theme": {
     "mode": "system",
-    "light": "Catppuccin Mocha",
+    "light": "Zedokai (Filter Spectrum)",
     "dark": "Catppuccin Mocha"
   },
   "project_panel": {
