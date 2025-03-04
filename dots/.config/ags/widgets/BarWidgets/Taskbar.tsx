@@ -74,6 +74,35 @@ function openAppContextMenu(
         );
       }
     }
+    let workspace_menu = new Gio.Menu();
+
+    const max_workspace = Math.max(...hypr.workspaces.map((x) => x.id));
+    for (let i = 0; i < max_workspace; i++) {
+      const ws_id = i + 1;
+
+      if (ws_id == client.workspace.id) continue;
+
+      const ws: Hyprland.Workspace | null = hypr.get_workspace(ws_id);
+      let workspace_name = `Workspace ${ws_id}`;
+
+      if (ws && ws?.get_name() != ws_id) {
+        workspace_name = ws.get_name();
+      }
+
+      gio_menu_additem(
+        workspace_menu,
+        `[${ws_id}] ${workspace_name}`,
+        "app.taskbar-move-client-workspace",
+        new GLib.Variant("(si)", [client.address, ws_id]),
+      );
+    }
+    gio_menu_additem(
+      workspace_menu,
+      `New workspace`,
+      "app.taskbar-move-client-new-workspace",
+      new GLib.Variant("s", client.address),
+    );
+    menu.append_submenu("Move to workspace", workspace_menu);
 
     gio_menu_additem(
       menu,

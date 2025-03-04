@@ -96,6 +96,35 @@ export namespace KofeaApi {
           KofeaApi.PinnedApps.remove_entry(param_desktop_entry);
         },
       },
+      {
+        name: "taskbar-move-client-workspace",
+        parameter_type: "(si)",
+        activate: (action, param) => {
+          const params: [string, number] | undefined = param?.deep_unpack();
+
+          if (!params) return;
+          const [param_app_addr, ws_id] = params;
+          const hypr = Hyprland.get_default();
+          hypr.dispatch(
+            "movetoworkspace",
+            `${ws_id},address:0x${param_app_addr}`,
+          );
+        },
+      },
+      {
+        name: "taskbar-move-client-new-workspace",
+        parameter_type: "s",
+        activate: (action, param) => {
+          const param_app_addr: string | undefined = param?.deep_unpack();
+          if (!param_app_addr) return;
+          const hypr = Hyprland.get_default();
+
+          hypr.dispatch(
+            "movetoworkspace",
+            `${hypr.workspaces.length + 1},address:0x${param_app_addr}`,
+          );
+        },
+      },
     ]);
   }
 
