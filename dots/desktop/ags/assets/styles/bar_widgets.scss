@@ -85,7 +85,8 @@ window.Bar {
             min-width: 24px;
         }
 
-        button:hover {
+        .dock-item:hover,
+        .dock-item.focused {
             background: $overlay-color;
         }
 

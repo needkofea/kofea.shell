@@ -126,7 +126,7 @@ export default function Taskbar({ gdkmonitor }: TaskbarProps) {
                 tooltipText={bind(client, "title")}
                 cssClasses={bind(hypr, "focusedClient").as((a) => [
                   "dock-item",
-                  a?.pid == client?.pid ? "focused" : "",
+                  a?.address == client?.address ? "focused" : "",
                 ])}
                 onButtonPressed={(w, ev) => {
                   if (ev.get_button() == 1) {
