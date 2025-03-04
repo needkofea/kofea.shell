@@ -85,6 +85,8 @@ bindkey  "^[[F"   end-of-line
 bindkey "^[[1;5C" forward-word
 bindkey "^[[1;5D" backward-word
 
+fastfetch
+
 eval "$(zoxide init zsh)"
 
 export STARSHIP_CONFIG="$HOME/.config/starship/config.toml"
