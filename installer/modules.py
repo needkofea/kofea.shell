@@ -38,8 +38,13 @@ desktopModule.require_packages(
         "gnome-keyring",
         "xdg-user-dirs",
         "nwg-look",
+
+        "hyprpicker",
         # --------- App stores ---------
         "flatpak",
         "gnome-software", # GUI for flatpak
+    ],
+    yay=[
+        "hyprshot"
     ]
 )
