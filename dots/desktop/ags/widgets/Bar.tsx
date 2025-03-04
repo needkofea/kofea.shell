@@ -1,7 +1,11 @@
 import { App, Astal, Gtk, Gdk } from "astal/gtk4";
 import Taskbar from "./BarWidgets/Taskbar";
 import { GLib, Variable } from "astal";
-import { launchStartMenu, BAR_LAYER_NAMESPACE } from "../api";
+import {
+  launchStartMenu,
+  BAR_LAYER_NAMESPACE,
+  TOPBAR_LAYER_NAMESPACE,
+} from "../api";
 import SysTray from "./BarWidgets/SysTray";
 import Clock from "./BarWidgets/Clock";
 import Workspaces from "./BarWidgets/Workspaces";
@@ -19,8 +23,8 @@ export function TopBar(gdkmonitor: Gdk.Monitor) {
     <window
       visible
       canFocus={false}
-      namespace={BAR_LAYER_NAMESPACE}
-      cssClasses={["Bar"]}
+      namespace={TOPBAR_LAYER_NAMESPACE}
+      cssClasses={["Bar", "Upper"]}
       gdkmonitor={gdkmonitor}
       exclusivity={Astal.Exclusivity.EXCLUSIVE}
       anchor={TOP | LEFT | RIGHT}

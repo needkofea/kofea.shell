@@ -5,6 +5,7 @@ import Hyprland from "gi://AstalHyprland";
 import GLib from "gi://GLib?version=2.0";
 
 export const LAYER_NAMESPACE = "kofea-shell";
+export const TOPBAR_LAYER_NAMESPACE = LAYER_NAMESPACE + "-topbar";
 export const BAR_LAYER_NAMESPACE = LAYER_NAMESPACE + "-bar";
 export const POPUP_LAYER_NAMESPACE = LAYER_NAMESPACE + "-popup";
 

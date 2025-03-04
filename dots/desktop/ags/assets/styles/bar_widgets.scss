@@ -3,7 +3,7 @@
 @import "./common.scss";
 
 window.Bar {
-    background: #ffffff04;
+    background: #ffffff0f;
     color: $fg-color;
     font-weight: bold;
 
@@ -13,20 +13,17 @@ window.Bar {
             transform 100ms ease;
     }
 
+    .container {
+        padding: 0 2px;
+    }
+
     & > centerbox {
         background: transparent;
         padding: 0 2px;
     }
 
-    button {
-        border-radius: 6px;
-        margin: 0px;
-        border: none;
-        box-shadow: none;
-    }
-
     image {
-        -gtk-icon-size: 1.1em;
+        -gtk-icon-size: 12px;
     }
 
     .gap {
@@ -39,24 +36,20 @@ window.Bar {
     }
 
     button {
+        border-radius: 6px;
+        margin: 0px;
+        border: none;
+        box-shadow: none;
         padding: 0;
         background: transparent;
         font-size: 10px;
     }
+
+    button:hover {
+        background: #ffffff11;
+    }
     button:active {
         transform: scale(0.9);
-    }
-    button:hover {
-        background: initial;
-    }
-
-    .container {
-        background: $bg-color;
-        border: 1px solid $border-color;
-        margin: 2px;
-        min-height: 20px;
-        border-radius: 8px;
-        padding: 2px;
     }
 
     .pinned-apps {
@@ -74,14 +67,14 @@ window.Bar {
             }
 
             image {
-                -gtk-icon-size: 1.8em;
+                -gtk-icon-size: 14px;
             }
         }
         .more-items {
             margin-right: 0px;
             border: none;
             image {
-                -gtk-icon-size: 1.5em;
+                -gtk-icon-size: 14px;
             }
         }
     }
@@ -187,7 +180,11 @@ window.Bar {
 
     .audio-out {
         padding: 0 4px;
-        .audio-out-label,
+        image {
+        }
+        .audio-out-label {
+            padding: 0 4px;
+        }
         .volume {
         }
 
@@ -212,13 +209,25 @@ window.Bar {
     }
 }
 
+window.Bar.Upper {
+}
+
 window.Bar.Lower {
     min-height: 36px;
+
     .container {
+        background: $bg-color;
+        border: 1px solid $border-color;
+        margin: 2px;
+        min-height: 20px;
+        border-radius: 8px;
         padding: 2px;
     }
 
     .pinned-apps {
+        /* button {
+            padding: 0;
+        } */
         .item {
             min-width: 24px;
 
