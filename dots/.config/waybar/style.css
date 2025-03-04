@@ -1,0 +1,153 @@
+* {
+    border: none;
+    border-radius: 0px;
+    font-family: "JetBrainsMono Nerd Font";
+    font-weight: bold;
+    font-size: 10px;
+    min-height: 10px;
+}
+
+@import "theme.css";
+
+window#waybar {
+    background: @bar-bg;
+}
+
+tooltip {
+    background: @main-bg;
+    color: @main-fg;
+    border-radius: 7px;
+    border-width: 0px;
+}
+
+
+#workspaces button, #taskbar button{
+    box-shadow: none;
+	text-shadow: none;
+    padding: 0 4px;
+    border-radius: 3px;
+    margin: 3px 2px;
+}
+
+#workspaces button {
+    color: @main-fg;
+    transition: all 0.4s ease;   
+}
+
+#workspaces button.active {
+    background: @wb-act-bg;
+}
+
+#workspaces button:hover {
+    background: @wb-hvr-bg;
+    animation: ws_hover 20s ease-in-out 1;
+}
+
+#taskbar button {
+    color: @wb-color;
+    animation: tb_normal 20s ease-in-out 1;
+    transition: all 0.4s cubic-bezier(.55,-0.68,.48,1.682);
+    padding: 0 8px;
+}
+
+#taskbar button.active {
+    background: @wb-act-bg;
+    animation: tb_active 20s ease-in-out 1;
+}
+
+#taskbar button:hover {
+    background: @wb-hvr-bg;
+    animation: tb_hover 20s ease-in-out 1;
+    transition: all 0.3s cubic-bezier(.55,-0.68,.48,1.682);
+}
+
+#tray menu{
+    border-radius: 8px;
+    border: 1px solid;
+    border-color: @wb-hvr-color;
+    background: @main-bg;
+}
+
+#tray menu * {
+    min-height: 16px;
+    border-radius: 6px;
+}
+
+#tray menu *:hover{
+    color: #f5e0dc;
+}
+
+#tray menu separator {
+    min-height: 3px;
+    margin: 4px 8px;
+}
+
+
+#backlight,
+#battery,
+#bluetooth,
+#custom-cava,
+#custom-launcher,
+#clock,
+#custom-cpuinfo,
+#cpu,
+#custom-gpuinfo,
+#idle_inhibitor,
+#custom-keybindhint,
+#language,
+#memory,
+#mpris,
+#network,
+#custom-notifications,
+#custom-power,
+#privacy,
+#pulseaudio,
+#custom-spotify,
+#taskbar,
+#custom-theme,
+#tray,
+#custom-updates,
+#custom-wbar,
+#window,
+#workspaces {
+    color: @main-fg;
+    background: @main-bg;
+    opacity: 1;
+    margin: 3px 0px;
+    padding-left: 4px;
+    padding-right: 4px;
+}
+
+#custom-power{
+    padding-right: 6px;
+    padding-left: 1px;
+}
+
+#workspaces,
+#taskbar {
+    padding: 0px;
+}
+
+#custom-launcher{
+    font-size: 14px;
+    padding-right: 1px;
+}
+
+
+#custom-r_end, #custom-l_end{
+    margin: 3px 0px;
+    background: @main-bg;
+}
+
+#custom-r_end {
+    border-radius: 0px 21px 21px 0px;
+    margin-right: 4px;
+}
+
+#custom-l_end {
+    border-radius: 21px 0px 0px 21px;
+    margin-left: 4px;
+    
+}
+
+

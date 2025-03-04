@@ -2,6 +2,7 @@ from pathlib import Path
 import os
 import time
 import shutil
+from pylint.testutils import configuration_test
 
 USER_HOME = os.environ["HOME"];
 KOFEA_HOME = f"{USER_HOME}/kofea.shell/"
@@ -89,9 +90,60 @@ class KofeaDotsInstaller:
         """
         install_symlink(self.src_dir / Path(src), self.dst_dir / Path(rel_dir) / Path(src), copy)
 
+    def install_many(self, srcs: list[str], rel_dir: str = ".", copy: bool = False):
+        """
+        @param srcs The sources to install. Can be a file or folder
+        @param rel_dir Relative directory (to base destination) target will be installed into. Defaults to "."
+        @param copy Copies instead of symlink
+        """
+        return [self.install(x, rel_dir, copy) for x in srcs]
 
     def copy(self, target: str, rel_dir: str = "."):
         """
         Installs by copying files. Short for GenericInstaller::install(..., copy=True)
         """
         self.install(target, rel_dir, True)
+
+
+class KofeaDotsModule:
+    """
+    A set of packages, drivers, and or dotfiles to install
+    """
+    def __init__(self, name: str):
+        self.name = name
+
+
+
+    def install_deps(self):
+        """
+        Gathers and installs the required packages required for the module
+        """
+        pass
+
+
+    def install_dotfiles(self):
+        """
+        Copies or Symlinks the dotfiles to the correct location(s).
+        dotfiles may includes:
+            1. Application configurations
+            2. Themes
+            3. Icons
+        """
+        pass
+
+    def after_install(self):
+        """
+        Executed
+        """
+        pass
+
+    def install(self):
+        self.install_dotfiles()
+
+
+class KofeaInstallationStage:
+    """
+    A stage in the installation.
+    Usually used for installing multiple modules in a specific sequence.
+    """
+    pass

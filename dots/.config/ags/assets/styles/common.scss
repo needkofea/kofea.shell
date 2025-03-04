@@ -1,0 +1,11 @@
+$fg-color: #{"@theme_fg_color"};
+$bg-color: #{"@theme_bg_color"};
+$border-color: rgba(white, 0.1);
+$overlay-color: rgba(white, 0.1);
+$accent: #f5e0dc;
+
+$font: "JetbrainsMonoNerdFont";
+
+*:focus {
+    outline: none;
+}

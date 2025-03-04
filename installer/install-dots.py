@@ -19,12 +19,12 @@ def install_terminal():
 
 
 def install_apps_config():
-    appsConf = dotsConfig.child("apps")
+    appsConf = dotsConfig.child(".config")
     appsConf.install("zed")
 
 
 def install_desktop():
-    desktop_dots = dotsConfig.child("desktop")
+    desktop_dots = dotsConfig.child(".config")
     desktop_dots.install("wal")
     desktop_dots.install("kitty")
     desktop_dots.install("sddm")
