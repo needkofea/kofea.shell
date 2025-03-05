@@ -79,12 +79,20 @@ export default function Bar(gdkmonitor: Gdk.Monitor) {
           <box cssClasses={["container"]}>
             <Workspaces monitor={gdkmonitor} />
           </box>
-
-          <box cssClasses={["container"]}>
-            <PinnedApps />
-          </box>
         </box>
         <box cssClasses={["container"]}>
+          <button
+            onClicked={(ev) => launchStartMenu()}
+            cssClasses={["more-apps"]}
+            tooltipText={"Open app menu"}
+            canFocus={false}
+          >
+            <image iconName={"user-home-symbolic"} />
+          </button>
+          <PinnedApps />
+
+          <box cssClasses={["gap"]} />
+
           <Taskbar gdkmonitor={gdkmonitor}></Taskbar>
         </box>
         <box vexpand halign={Gtk.Align.END}>

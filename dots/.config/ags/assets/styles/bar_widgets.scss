@@ -4,6 +4,7 @@
 
 window.Bar {
     background: #ffffff00;
+
     color: $fg-color;
     font-weight: bold;
 
@@ -51,31 +52,27 @@ window.Bar {
     button:active {
         transform: scale(0.9);
     }
-
-    .pinned-apps {
-        .item,
-        .more-items {
-            min-width: 22px;
-            margin-right: 2px;
-
-            &:last-child {
-                margin-right: 0;
-            }
-
-            &:hover {
-                background: $overlay-color;
-            }
-
-            image {
-                -gtk-icon-size: 14px;
-            }
+    .more-apps {
+        min-width: 24px;
+        margin: 0 2px;
+        image {
+            -gtk-icon-size: 14px;
         }
-        .more-items {
-            margin-right: 0px;
+        &:hover {
+            background: $overlay-color;
+        }
+    }
+    .pinned-apps {
+        .item {
+            margin-right: 4px;
             border: none;
             image {
                 -gtk-icon-size: 14px;
             }
+        }
+
+        .item:last-child {
+            margin-right: 0;
         }
     }
 
@@ -83,6 +80,13 @@ window.Bar {
         button {
             padding: 0 4px;
             min-width: 24px;
+        }
+
+        .dock-item {
+            margin-right: 1px;
+        }
+        .dock-item:last-child {
+            margin-right: 0px;
         }
 
         .dock-item:hover,

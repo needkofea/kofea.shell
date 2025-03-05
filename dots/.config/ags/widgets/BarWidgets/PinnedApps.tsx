@@ -40,14 +40,6 @@ function openAppContextMenu(
 export default function PinnedApps() {
   return (
     <box cssClasses={["pinned-apps"]}>
-      <button
-        onClicked={(ev) => launchStartMenu()}
-        cssClasses={["more-items"]}
-        tooltipText={"Open app menu"}
-        canFocus={false}
-      >
-        <image iconName={"view-grid-symbolic"} />
-      </button>
       {bind(KofeaApi.PinnedApps.entries).as((apps) =>
         apps.map((app) => (
           <button
