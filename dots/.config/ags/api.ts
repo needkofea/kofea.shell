@@ -1,16 +1,18 @@
-import { Gio, Variable } from "astal";
-import { App } from "astal/gtk4";
+import { bind, Binding, Gio, Variable } from "astal";
+import { App, Gdk } from "astal/gtk4";
 import AstalApps from "gi://AstalApps?version=0.1";
 import Hyprland from "gi://AstalHyprland";
 import GLib from "gi://GLib?version=2.0";
+import { find_app_by_wmclass } from "./utils";
 
 export const LAYER_NAMESPACE = "kofea-shell";
 export const TOPBAR_LAYER_NAMESPACE = LAYER_NAMESPACE + "-topbar";
 export const BAR_LAYER_NAMESPACE = LAYER_NAMESPACE + "-bar";
 export const POPUP_LAYER_NAMESPACE = LAYER_NAMESPACE + "-popup";
 
+export const hypr = Hyprland.get_default();
+
 export function launchStartMenu() {
-  const hypr = Hyprland.get_default();
   console.log("Launching start menu...");
   hypr.dispatch("exec", "$kofea/rofi/launcher.sh");
 }
@@ -126,6 +128,65 @@ export namespace KofeaApi {
         },
       },
     ]);
+  }
+
+  export namespace Taskbar {
+    export interface TaskbarEntry {
+      client: Hyprland.Client;
+      app: AstalApps.Application | null;
+    }
+
+    const workspaces = Variable<Hyprland.Workspace[]>([]).poll(
+      200,
+      () => hypr.workspaces,
+    );
+
+    const hyprclients_raw = Variable<Hyprland.Client[]>([]).poll(
+      200,
+      () => hypr.clients,
+    );
+
+    const hyprclients = Variable<Hyprland.Client[]>([]);
+    let last_hash = 0;
+
+    workspaces.subscribe((workspaces_) => {
+      let clients = workspaces_.flatMap((x) => x.clients);
+      let hash = clients
+        .map((x) => x.workspace.id * x.get_x())
+        .reduce((a, b) => (a + 1) * (b + 2));
+
+      if (hash != last_hash) {
+        hyprclients.set(clients);
+        last_hash = hash;
+      }
+    });
+    const apps = new AstalApps.Apps({
+      nameMultiplier: 2,
+      entryMultiplier: 1,
+      executableMultiplier: 2,
+      min_score: -1,
+    });
+
+    export const entries: Variable<TaskbarEntry[]> = Variable.derive(
+      [hyprclients],
+      (x) =>
+        x.map((client) => ({
+          client,
+          app: find_app_by_wmclass(client.class, apps),
+        })),
+    );
+    export function get_entries(): Binding<TaskbarEntry[]> {
+      return bind(entries);
+    }
+
+    export function client_on_monitor(
+      client: Hyprland.Client,
+      monitor: Gdk.Monitor | null,
+    ): boolean {
+      if (!monitor) return true;
+
+      return client.monitor.get_x() == monitor.get_geometry().x;
+    }
   }
 
   export namespace PinnedApps {

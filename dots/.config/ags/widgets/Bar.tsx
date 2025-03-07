@@ -89,7 +89,7 @@ export default function Bar(gdkmonitor: Gdk.Monitor) {
           >
             <image iconName={"user-home-symbolic"} />
           </button>
-          <PinnedApps />
+          <PinnedApps monitor={gdkmonitor} hide_active_apps />
 
           <box cssClasses={["gap"]} />
 
