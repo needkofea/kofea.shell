@@ -12,6 +12,7 @@ import {
 } from "../../utils";
 import Wp from "gi://AstalWp";
 import { KofeaApi } from "../../api";
+import Pango from "gi://Pango?version=1.0";
 
 const mpris = Mpris.Mpris.new();
 
@@ -106,17 +107,21 @@ export function SelectMediaPopup() {
         <label label={"Select Player"} cssClasses={["section-header"]} />
         <Divider />
         {avail_players.as((x) =>
+          x.length > 0 ? <></> : <label label={"No players available."} />,
+        )}
+        {avail_players.as((x) =>
           x.map((p, index) => {
             const icon = find_app_by_wmclass(p.entry, KofeaApi._apps)?.iconName;
 
             return (
               <button
+                cssClasses={["media-player-item"]}
                 setup={(self) => {
                   self.set_action_name("app.media-control-select-player");
                   self.set_action_target_value(GLib.Variant.new_int32(index));
                 }}
               >
-                <box cssClasses={["media-player-item"]}>
+                <box>
                   <box widthRequest={86}>
                     <image
                       cssClasses={["media-player-item-icon"]}
@@ -155,7 +160,11 @@ export function SelectMediaPopup() {
                     iconName={iconName_asIcon(icon)}
                     file={iconName_asFile(icon)}
                   />
-                  <label label={bind(stream, "name")} />
+                  <label
+                    label={bind(stream, "name").as((name) =>
+                      trim_name(name, 18),
+                    )}
+                  />
                 </box>
                 <slider
                   hexpand
@@ -166,6 +175,18 @@ export function SelectMediaPopup() {
             );
           }),
         )}
+
+        {bind(current_player).as((player) => {
+          if (!player) return;
+
+          return (
+            <image
+              file={bind(player, "coverArt")}
+              widthRequest={200}
+              heightRequest={200}
+            />
+          );
+        })}
       </box>
     </popover>
   );
@@ -175,6 +196,10 @@ export default function MediaControl() {
   return (
     <box cssClasses={["media-control"]}>
       {bind(current_player).as((player) => {
+        const icon = player
+          ? find_app_by_wmclass(player.entry ?? "", KofeaApi._apps)?.iconName
+          : "content-loading-symbolic";
+
         return (
           <box>
             <menubutton
@@ -186,8 +211,13 @@ export default function MediaControl() {
               <SelectMediaPopup />
 
               <box cssClasses={["media-control-player"]}>
+                <image
+                  cssClasses={["media-control-player-icon"]}
+                  iconName={iconName_asIcon(icon)}
+                  file={iconName_asFile(icon)}
+                />
                 <label
-                  label={player ? `${player?.entry}` : "No player selected"}
+                  label={player ? `${player?.entry}` : "No players available"}
                 />
               </box>
             </menubutton>
