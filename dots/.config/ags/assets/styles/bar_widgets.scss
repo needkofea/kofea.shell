@@ -212,6 +212,40 @@ window.Bar {
             }
         }
     }
+    .select-media-popup {
+        .media-player-item {
+            padding: 4px;
+            font-size: 14px;
+        }
+        .media-player-item-icon {
+            -gtk-icon-size: 20px;
+            margin-right: 5px;
+        }
+        .media-player-item-title {
+            font-weight: bold;
+            text-transform: capitalize;
+        }
+
+        .section-header {
+            &:first-child {
+                margin-top: 0px;
+            }
+
+            margin-top: 12px;
+            font-weight: bold;
+        }
+
+        .volume-mixer-item {
+            padding: 0 4px;
+            .volume-mixer-item-icon {
+                -gtk-icon-size: 20px;
+                margin-right: 5px;
+            }
+            label {
+                /* min-width: 100px; */
+            }
+        }
+    }
 }
 
 window.Bar.Upper {

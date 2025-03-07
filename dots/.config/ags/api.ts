@@ -51,7 +51,7 @@ export namespace KofeaShellConfig {
 }
 
 export namespace KofeaApi {
-  const _apps = new AstalApps.Apps();
+  export const _apps = new AstalApps.Apps();
   export function register_global_actions() {
     App.add_action_entries([
       {

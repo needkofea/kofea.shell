@@ -1,10 +1,17 @@
-import { bind, register, Variable } from "astal";
-import { App, Astal, Gdk, Gtk } from "astal/gtk4";
+import { bind, Binding, exec, register, Variable } from "astal";
+import { App, Astal, astalify, ConstructProps, Gdk, Gtk } from "astal/gtk4";
 import Mpris from "gi://AstalMpris";
 import Gio from "gi://Gio?version=2.0";
 import GLib from "gi://GLib?version=2.0";
 import GObject from "gi://GObject?version=2.0";
-import { trim_name } from "../../utils";
+import {
+  find_app_by_wmclass,
+  iconName_asFile,
+  iconName_asIcon,
+  trim_name,
+} from "../../utils";
+import Wp from "gi://AstalWp";
+import { KofeaApi } from "../../api";
 
 const mpris = Mpris.Mpris.new();
 
@@ -67,26 +74,104 @@ autoselect_next_player();
 
 App.add_action(selectPlayerAction);
 
-export default function MediaControl() {
-  const avail_players = bind(mpris, "players").as((players) => {
-    let section = new Gio.Menu();
-    players.forEach((p, index) => {
-      let mItem = new Gio.MenuItem();
-      const label = `[${p.entry}] ${p.title} - ${p.artist}`;
-      const max_len = 48;
-      mItem.set_label(
-        label.length > max_len ? label.slice(0, max_len - 3) + "..." : label,
-      );
-      mItem.set_action_and_target_value(
-        "app.media-control-select-player",
-        GLib.Variant.new_int32(index),
-      );
-      section.append_item(mItem);
-    });
-
-    return section;
+const avail_players = bind(mpris, "players").as((players) => {
+  return players;
+  let section = new Gio.Menu();
+  players.forEach((p, index) => {
+    let mItem = new Gio.MenuItem();
+    const label = `[${p.entry}] ${p.title} - ${p.artist}`;
+    const max_len = 48;
+    mItem.set_label(
+      label.length > max_len ? label.slice(0, max_len - 3) + "..." : label,
+    );
+    mItem.set_action_and_target_value(
+      "app.media-control-select-player",
+      GLib.Variant.new_int32(index),
+    );
+    section.append_item(mItem);
   });
 
+  // return section;
+});
+
+const Divider = astalify<Gtk.Separator, Gtk.Separator.ConstructorProps>(
+  Gtk.Separator,
+);
+export function SelectMediaPopup() {
+  const audio = Wp.get_default()!.audio;
+
+  return (
+    <popover has_arrow={false} widthRequest={400}>
+      <box vertical cssClasses={["select-media-popup"]}>
+        <label label={"Select Player"} cssClasses={["section-header"]} />
+        <Divider />
+        {avail_players.as((x) =>
+          x.map((p, index) => {
+            const icon = find_app_by_wmclass(p.entry, KofeaApi._apps)?.iconName;
+
+            return (
+              <button
+                setup={(self) => {
+                  self.set_action_name("app.media-control-select-player");
+                  self.set_action_target_value(GLib.Variant.new_int32(index));
+                }}
+              >
+                <box cssClasses={["media-player-item"]}>
+                  <box widthRequest={86}>
+                    <image
+                      cssClasses={["media-player-item-icon"]}
+                      iconName={iconName_asIcon(icon)}
+                      file={iconName_asFile(icon)}
+                    />
+                    <label
+                      label={bind(p, "entry").as((s) => trim_name(s, 8))}
+                      cssClasses={["media-player-item-title"]}
+                    />
+                  </box>
+
+                  <label
+                    label={trim_name(`${p.title} - ${p.artist}`, 45)}
+                    halign={Gtk.Align.START}
+                  />
+                </box>
+              </button>
+            );
+          }),
+        )}
+        <label label={"Volume Mixer"} cssClasses={["section-header"]} />
+        <Divider />
+        {bind(audio, "streams").as((x) =>
+          x.map((stream) => {
+            const icon = find_app_by_wmclass(
+              stream.description,
+              KofeaApi._apps,
+            )?.iconName;
+
+            return (
+              <box cssClasses={["volume-mixer-item"]} hexpand>
+                <box widthRequest={140}>
+                  <image
+                    cssClasses={["volume-mixer-item-icon"]}
+                    iconName={iconName_asIcon(icon)}
+                    file={iconName_asFile(icon)}
+                  />
+                  <label label={bind(stream, "name")} />
+                </box>
+                <slider
+                  hexpand
+                  onChangeValue={(self) => stream.set_volume(self.value)}
+                  value={bind(stream, "volume")}
+                />
+              </box>
+            );
+          }),
+        )}
+      </box>
+    </popover>
+  );
+}
+
+export default function MediaControl() {
   return (
     <box cssClasses={["media-control"]}>
       {bind(current_player).as((player) => {
@@ -96,10 +181,11 @@ export default function MediaControl() {
               cssClasses={["player-select-btn"]}
               halign={Gtk.Align.START}
               direction={Gtk.ArrowType.UP}
-              menuModel={avail_players}
+              // menuModel={avail_players}
             >
+              <SelectMediaPopup />
+
               <box cssClasses={["media-control-player"]}>
-                <label cssClasses={["logo"]} label={" "} />
                 <label
                   label={player ? `${player?.entry}` : "No player selected"}
                 />

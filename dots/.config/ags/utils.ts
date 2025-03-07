@@ -12,6 +12,12 @@ export function iconName_asFile(iconName?: string): string | undefined {
   return iconName_isfile(iconName) ? iconName : undefined;
 }
 
+/**
+ *
+ * @param wmclass Attempts to lookup the .desktop entry with the best match for the wmclass.
+ * @param apps
+ * @returns
+ */
 export function find_app_by_wmclass(
   wmclass: string,
   apps: Apps.Apps,
