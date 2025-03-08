@@ -69,6 +69,26 @@ export namespace KofeaApi {
         },
       },
       {
+        name: "taskbar-launch-app",
+        parameter_type: "s",
+        activate: (action, param) => {
+          const param_desktop_entry: string | undefined = param?.deep_unpack();
+          if (!param_desktop_entry) return;
+
+          const desktop_entry = _apps
+            .get_list()
+            .find((x) => x.entry == param_desktop_entry);
+
+          if (desktop_entry === undefined) {
+            console.log(
+              `Could not find desktop entry for app: ${param_desktop_entry}`,
+            );
+            return;
+          }
+          desktop_entry.launch();
+        },
+      },
+      {
         name: "taskbar-pin-app",
         parameter_type: "s",
         activate: (action, param) => {

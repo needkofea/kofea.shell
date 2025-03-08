@@ -47,29 +47,73 @@ function openAppContextMenu(
           GLib.Variant.new_string(desktop_entry.entry),
         );
       }
+
+      gio_menu_additem(
+        menu,
+        "New Instance",
+        "app.taskbar-launch-app",
+        GLib.Variant.new_string(desktop_entry.entry),
+      );
     }
     let workspace_menu = new Gio.Menu();
 
     const max_workspace = Math.max(...hypr.workspaces.map((x) => x.id));
+
+    const grouped_ws: {
+      [monitor_id: number]: { ws_indices: number[] };
+    } = {};
+
     for (let i = 0; i < max_workspace; i++) {
       const ws_id = i + 1;
 
       if (ws_id == client.workspace.id) continue;
-
       const ws: Hyprland.Workspace | null = hypr.get_workspace(ws_id);
-      let workspace_name = `Workspace ${ws_id}`;
+      const group_id = ws?.monitor?.id ?? -1;
+      // let workspace_name = `Workspace ${ws_id}`;
 
-      if (ws && ws?.get_name() != ws_id) {
-        workspace_name = ws.get_name();
+      // if (ws && ws?.get_name() != ws_id) {
+      //   workspace_name = ws.get_name();
+      // }
+
+      if (!grouped_ws[group_id]) {
+        grouped_ws[group_id] = { ws_indices: [] };
       }
 
-      gio_menu_additem(
-        workspace_menu,
-        `[${ws_id}] ${workspace_name}`,
-        "app.taskbar-move-client-workspace",
-        new GLib.Variant("(si)", [client.address, ws_id]),
-      );
+      grouped_ws[group_id].ws_indices.push(ws_id);
     }
+
+    Object.entries(grouped_ws).forEach(([key, group], _, arr) => {
+      const use_submenu = arr.length > 1;
+      const workspace_menu_sub = use_submenu ? new Gio.Menu() : workspace_menu;
+
+      group.ws_indices.forEach((ws_index) => {
+        const ws: Hyprland.Workspace | null = hypr.get_workspace(ws_index);
+        let workspace_name = `Workspace ${ws_index}`;
+
+        if (ws && ws?.get_name() != ws_index + "") {
+          workspace_name = ws.get_name();
+        }
+        gio_menu_additem(
+          workspace_menu_sub,
+          `${ws_index}. ${workspace_name}`,
+          "app.taskbar-move-client-workspace",
+          new GLib.Variant("(si)", [client.address, ws_index]),
+        );
+      });
+
+      if (use_submenu) {
+        const workspaces_peek_text = group.ws_indices.join(", ");
+        if (key == "-1") {
+          workspace_menu.append_submenu(`Empty Workspaces`, workspace_menu_sub);
+        } else {
+          workspace_menu.append_submenu(
+            `Monitor ${key} \t[ ${trim_name(workspaces_peek_text, 6)} ]`,
+            workspace_menu_sub,
+          );
+        }
+      }
+    });
+
     gio_menu_additem(
       workspace_menu,
       `New workspace`,

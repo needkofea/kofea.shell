@@ -1,6 +1,7 @@
 import { bind, Gio, GLib, Variable } from "astal";
 import { App, Gtk } from "astal/gtk4";
 import Wp from "gi://AstalWp";
+import { trim_name } from "../../utils";
 
 const audio = Wp.get_default()!!.audio;
 
@@ -34,14 +35,6 @@ selectSpeakerAction.connect("activate", (action, param) => {
 current_speaker.subscribe((endpoint) => {
   endpoint?.set_is_default(true);
 });
-
-function trim_name(s: string, max_len: number = 32) {
-  if (!s) return "";
-  if (s.length > max_len) {
-    return s.slice(0, max_len - 3) + "...";
-  }
-  return s;
-}
 
 App.add_action(selectSpeakerAction);
 
