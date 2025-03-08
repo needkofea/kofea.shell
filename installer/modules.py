@@ -3,7 +3,7 @@ from utils import KofeaDotsModule
 desktopModule = KofeaDotsModule("desktop-base")
 desktopModule.add_dotfiles([
     "wal",
-    "kitty",
+    "kitty", # TODO REMOVE IN THE FUTURE (REPLACED BY GHOSTTY)
     "sddm",
     "swaylock",
     "starship",
@@ -11,6 +11,7 @@ desktopModule.add_dotfiles([
     "hypr",
     "dunst",
     "rofi",
+    "ghostty",
     "waybar",
 ])
 desktopModule.add_otherfiles([
@@ -24,7 +25,8 @@ desktopModule.require_packages(
         "blueman",
         "brightnessctl",
         "udiskie", # Manage removable media (Auto mounts drives)],
-        "kitty", # Terminal
+        "kitty", # (Old) Terminal  TODO REMOVE, REPLACED BY GHOSTTY
+        "ghostty",# Terminal
         "firefox", # Minimal browser
         "xdg-desktop-portal-hyprland",
         "xdg-desktop-portal-gtk",

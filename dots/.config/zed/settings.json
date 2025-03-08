@@ -17,7 +17,7 @@
   "theme": {
     "mode": "system",
     "light": "Zedokai (Filter Spectrum)",
-    "dark": "Catppuccin Mocha"
+    "dark": "Zedokai (Filter Spectrum)"
   },
   "project_panel": {
     "indent_size": 14
