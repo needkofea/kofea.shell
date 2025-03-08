@@ -172,7 +172,7 @@ export namespace KofeaApi {
     workspaces.subscribe((workspaces_) => {
       let clients = workspaces_.flatMap((x) => x.clients);
       let hash = clients
-        .map((x) => x.workspace.id * x.get_x())
+        .map((x) => x.workspace.id * x.get_x() * (x.floating ? 2 : 3))
         .reduce((a, b) => (a + 1) * (b + 2));
 
       if (hash != last_hash) {

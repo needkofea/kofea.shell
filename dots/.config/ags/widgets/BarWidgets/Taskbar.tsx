@@ -8,6 +8,7 @@ import {
   gio_menu_additem,
   iconName_asFile,
   iconName_asIcon,
+  strToNumber,
   trim_name,
 } from "../../utils";
 import { hypr, KofeaApi } from "../../api";
@@ -160,11 +161,15 @@ export default function Taskbar({ gdkmonitor }: TaskbarProps) {
       <box cssClasses={["content"]} halign={Gtk.Align.CENTER}>
         {items.as((x) =>
           x
-            .sort(
-              (a, b) =>
-                a.client.workspace.id * a.client.get_x() -
-                b.client.workspace.id * b.client.get_x(),
-            )
+            .map((y) => ({
+              sort_index:
+                y.client.workspace.id * x.length +
+                (y.client.floating
+                  ? strToNumber(y.client.class) % x.length // Use name to determine the sort. Modulus by x.length so it doesnt mess up the workspace sorting
+                  : y.client.get_x()),
+              ...y,
+            }))
+            .sort((a, b) => a.sort_index - b.sort_index)
             .map(({ client, app }) => (
               <button
                 canFocus={false}
@@ -176,6 +181,7 @@ export default function Taskbar({ gdkmonitor }: TaskbarProps) {
                 onButtonPressed={(w, ev) => {
                   if (ev.get_button() == 1) {
                     client.focus();
+                    hypr.dispatch("bringactivetotop", "");
                   }
                   openAppContextMenu(w, ev, client, app);
                 }}
