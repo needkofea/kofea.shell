@@ -13,6 +13,7 @@ import {
 import Wp from "gi://AstalWp";
 import { KofeaApi } from "../../api";
 import Pango from "gi://Pango?version=1.0";
+import { Divider } from "./Others";
 
 const mpris = Mpris.Mpris.new();
 
@@ -95,9 +96,6 @@ const avail_players = bind(mpris, "players").as((players) => {
   // return section;
 });
 
-const Divider = astalify<Gtk.Separator, Gtk.Separator.ConstructorProps>(
-  Gtk.Separator,
-);
 export function SelectMediaPopup() {
   const audio = Wp.get_default()!.audio;
 

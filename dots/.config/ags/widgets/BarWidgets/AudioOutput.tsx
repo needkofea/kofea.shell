@@ -2,6 +2,7 @@ import { bind, Gio, GLib, Variable } from "astal";
 import { App, Gtk } from "astal/gtk4";
 import Wp from "gi://AstalWp";
 import { trim_name } from "../../utils";
+import { Divider } from "./Others";
 
 const audio = Wp.get_default()!!.audio;
 
@@ -72,25 +73,66 @@ export function AudioOutput() {
                 />
               </box>
             </menubutton>
-            <box cssClasses={["volume"]}>
-              <button
-                onClicked={() => speaker.set_mute(!speaker.mute)}
-                cssClasses={["mute-btn"]}
-              >
-                <image
-                  iconName={bind(speaker, "mute").as((x) =>
-                    x ? "audio-volume-muted" : "audio-volume-high",
+            <menubutton
+              cssClasses={["volume"]}
+              onButtonReleased={(_, ev) => {
+                console.log(ev.get_button());
+                if (ev.get_button() == 3) {
+                  speaker.set_mute(!speaker.mute);
+                }
+              }}
+              onScroll={(self, x, y) => {
+                speaker.volume -= Math.min(1, Math.max(y, -1)) / 100;
+              }}
+            >
+              <popover hasArrow={false}>
+                <box vertical>
+                  <label
+                    label={"Volume Outputs"}
+                    cssClasses={["section-header"]}
+                  />
+                  <Divider />
+
+                  {bind(audio, "speakers").as((x) =>
+                    x.map((speaker) => {
+                      return (
+                        <box hexpand widthRequest={450}>
+                          <box widthRequest={200} halign={Gtk.Align.START}>
+                            <label label={trim_name(speaker.description, 28)} />
+                          </box>
+                          <button
+                            onClicked={(x) => speaker.set_mute(!speaker.mute)}
+                          >
+                            <image iconName={bind(speaker, "volumeIcon")} />
+                          </button>
+                          <slider
+                            hexpand
+                            value={bind(speaker, "volume")}
+                            onChangeValue={(self) =>
+                              speaker.set_volume(self.value)
+                            }
+                          />
+                          <label
+                            label={bind(speaker, "volume").as(
+                              (x) => Math.round(x * 100) + "%",
+                            )}
+                          />
+                        </box>
+                      );
+                    }),
+                  )}
+                </box>
+              </popover>
+              <box>
+                <image iconName={bind(speaker, "volumeIcon")} />
+                <label
+                  cssClasses={["small"]}
+                  label={bind(speaker, "volume").as(
+                    (x) => Math.round(x * 100) + "%",
                   )}
                 />
-              </button>
-
-              <label
-                cssClasses={["small"]}
-                label={bind(speaker, "volume").as(
-                  (x) => Math.round(x * 100) + "%",
-                )}
-              />
-            </box>
+              </box>
+            </menubutton>
           </>
         );
       })}

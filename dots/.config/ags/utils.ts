@@ -55,13 +55,18 @@ export function gio_menu_additem(
  * @param max_len Maximum length of the string
  * @returns
  */
-export function trim_name(s: string, max_len: number = 32) {
+export function trim_name(s: string, max_len: number = 32, hard = false) {
   if (!s) return "";
 
   // If the string is shorter than or equal to max_len, return it as is
   if (s.length <= max_len) return s;
 
   const originalCutIndex = max_len - 3;
+
+  if (hard) {
+    return s.slice(0, originalCutIndex) + "..";
+  }
+
   // Find the last space within the allowed max_len
   const truncIndex = s.lastIndexOf(" ", originalCutIndex);
 

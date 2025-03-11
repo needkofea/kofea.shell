@@ -204,11 +204,22 @@ window.Bar {
             padding: 0 4px;
         }
         .volume {
+            margin: 0 2px;
+
+            box {
+                padding: 0 2px;
+            }
+
+            box > * {
+                margin-right: 4px;
+
+                &:last-child {
+                    margin-right: 0;
+                }
+            }
         }
 
         .mute-btn {
-            margin: 0 2px;
-            padding: 0 2px;
         }
     }
 
@@ -225,6 +236,17 @@ window.Bar {
             }
         }
     }
+
+    .section-header {
+        &:first-child {
+            margin-top: 0px;
+        }
+
+        margin-top: 12px;
+
+        font-weight: bold;
+    }
+
     .select-media-popup {
         .media-player-item {
             &:first-child {
@@ -242,16 +264,6 @@ window.Bar {
         .media-player-item-title {
             font-weight: bold;
             text-transform: capitalize;
-        }
-
-        .section-header {
-            &:first-child {
-                margin-top: 0px;
-            }
-
-            margin-top: 12px;
-
-            font-weight: bold;
         }
 
         .volume-mixer-item {
