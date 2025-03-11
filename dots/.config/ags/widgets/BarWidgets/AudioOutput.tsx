@@ -1,8 +1,9 @@
-import { bind, Gio, GLib, Variable } from "astal";
+import { bind, Binding, Gio, GLib, Variable } from "astal";
 import { App, Gtk } from "astal/gtk4";
 import Wp from "gi://AstalWp";
 import { trim_name } from "../../utils";
-import { Divider } from "./Others";
+import { Checkbox, Divider, SpinButton } from "./Others";
+import { Switch } from "astal/gtk4/widget";
 
 const audio = Wp.get_default()!!.audio;
 
@@ -23,14 +24,19 @@ const selectSpeakerAction = new Gio.SimpleAction({
   parameter_type: GLib.VariantType.new("i"),
 });
 
+function selectSpeaker(endpoint: Wp.Endpoint | null) {
+  current_speaker.set(endpoint);
+}
+
 selectSpeakerAction.connect("activate", (action, param) => {
   const playerIndex: number = param?.deep_unpack() ?? -1;
   print(`AudioControl: Selected speaker: ${playerIndex}!`);
   if (playerIndex < 0) {
+    selectSpeaker(null);
     current_speaker.set(null);
     return;
   }
-  current_speaker.set(audio.speakers[playerIndex]);
+  selectSpeaker(audio.speakers[playerIndex]);
 });
 
 current_speaker.subscribe((endpoint) => {
@@ -97,6 +103,16 @@ export function AudioOutput() {
                     x.map((speaker) => {
                       return (
                         <box hexpand widthRequest={450}>
+                          {/* By right should do active=bind(speaker, "isDefault") but its not really working, button keeps turning off.. anyways the the solution below works */}
+                          {bind(speaker, "isDefault").as((isdefault) => (
+                            <Checkbox
+                              active={isdefault}
+                              onButtonPressed={() =>
+                                speaker.set_is_default(true)
+                              }
+                            />
+                          ))}
+
                           <box widthRequest={200} halign={Gtk.Align.START}>
                             <label label={trim_name(speaker.description, 28)} />
                           </box>
