@@ -161,8 +161,8 @@ export function SelectMediaPopup() {
                     file={iconName_asFile(icon)}
                   />
                   <label
-                    label={bind(stream, "name").as((name) =>
-                      trim_name(name, 18),
+                    label={bind(stream, "description").as((name) =>
+                      trim_name(name + "", 18),
                     )}
                   />
                 </box>
@@ -178,7 +178,6 @@ export function SelectMediaPopup() {
 
         {bind(current_player).as((player) => {
           if (!player) return;
-
           return (
             <image
               file={bind(player, "coverArt")}
