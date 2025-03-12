@@ -27,6 +27,7 @@ desktopModule.require_packages(
         "udiskie", # Manage removable media (Auto mounts drives)],
         "kitty", # (Old) Terminal  TODO REMOVE, REPLACED BY GHOSTTY
         "ghostty",# Terminal
+        "feh", # Minimal image viewer
         "firefox", # Minimal browser
         "xdg-desktop-portal-hyprland",
         "xdg-desktop-portal-gtk",
