@@ -2,7 +2,7 @@ import { bind, Binding, Gio, GLib, Variable } from "astal";
 import { App, Gtk } from "astal/gtk4";
 import Wp from "gi://AstalWp";
 import { trim_name } from "../../utils";
-import { Checkbox, Divider, SpinButton } from "./Others";
+import { Checkbox, Divider } from "./Others";
 import { Switch } from "astal/gtk4/widget";
 
 const audio = Wp.get_default()!!.audio;

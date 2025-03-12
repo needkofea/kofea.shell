@@ -2,6 +2,7 @@ import { bind, Gio, Variable } from "astal";
 import { MenuButton } from "astal/gtk3/widget";
 
 import Tray from "gi://AstalTray";
+import { iconName_asFile, iconName_asIcon } from "../../utils";
 
 const tray = Tray.get_default();
 
@@ -37,7 +38,23 @@ export default function SysTray() {
             tooltipMarkup={bind(item, "tooltipMarkup")}
             menuModel={bind(item, "menuModel").as((x) => extendTrayItemMenu(x))}
           >
-            <image gicon={bind(item, "gicon")} />
+            {/* <label label={bind(item, "gicon").as((x) => (x != null) + "")} /> */}
+            {bind(
+              Variable.derive(
+                [bind(item, "gicon"), bind(item, "iconName")],
+                (gicon, iconName) => {
+                  if (gicon == null) {
+                    return (
+                      <image
+                        iconName={iconName_asIcon(item.iconName)}
+                        file={iconName_asFile(item.iconName)}
+                      />
+                    );
+                  }
+                  return <image gicon={gicon} />;
+                },
+              ),
+            )}
           </menubutton>
         )),
       )}
