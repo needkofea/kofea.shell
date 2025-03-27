@@ -147,6 +147,41 @@ export namespace KofeaApi {
           );
         },
       },
+      {
+        name: "workspace-new",
+        activate: () => {
+          const hypr = Hyprland.get_default();
+          hypr.dispatch("workspace", "emptym");
+        },
+      },
+      {
+        name: "workspace-contents-move",
+        parameter_type: "(ii)",
+        activate: (action, param) => {
+          const params: [number, number] | undefined = param?.deep_unpack();
+          if (!params) return;
+          const [from_ws_id, to_ws_id] = params;
+          const from_ws = hypr.get_workspace(from_ws_id);
+          from_ws.clients.forEach((x) =>
+            hypr.dispatch(
+              "movetoworkspace",
+              `${to_ws_id},address:0x${x.address}`,
+            ),
+          );
+        },
+      },
+      {
+        name: "workspace-moveto-monitor",
+        parameter_type: "(ii)",
+        activate: (_, param) => {
+          const params: [number, number] | undefined = param?.deep_unpack();
+          if (!params) return;
+          const [ws_id, m_id] = params;
+          const ws = hypr.get_workspace(ws_id);
+          const m = hypr.get_monitor(m_id);
+          ws.move_to(m);
+        },
+      },
     ]);
   }
 

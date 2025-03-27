@@ -4,6 +4,7 @@ import Apps from "gi://AstalApps";
 import Hyprland from "gi://AstalHyprland";
 import Gtk40 from "gi://Gtk";
 import {
+  calc_avail_workspaces,
   find_app_by_wmclass,
   gio_menu_additem,
   iconName_asFile,
@@ -60,28 +61,7 @@ function openAppContextMenu(
 
     const max_workspace = Math.max(...hypr.workspaces.map((x) => x.id));
 
-    const grouped_ws: {
-      [monitor_id: number]: { ws_indices: number[] };
-    } = {};
-
-    for (let i = 0; i < max_workspace; i++) {
-      const ws_id = i + 1;
-
-      if (ws_id == client.workspace.id) continue;
-      const ws: Hyprland.Workspace | null = hypr.get_workspace(ws_id);
-      const group_id = ws?.monitor?.id ?? -1;
-      // let workspace_name = `Workspace ${ws_id}`;
-
-      // if (ws && ws?.get_name() != ws_id) {
-      //   workspace_name = ws.get_name();
-      // }
-
-      if (!grouped_ws[group_id]) {
-        grouped_ws[group_id] = { ws_indices: [] };
-      }
-
-      grouped_ws[group_id].ws_indices.push(ws_id);
-    }
+    const grouped_ws = calc_avail_workspaces(hypr, client.workspace.id);
 
     Object.entries(grouped_ws).forEach(([key, group], _, arr) => {
       const use_submenu = arr.length > 1;

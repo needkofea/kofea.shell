@@ -1,5 +1,6 @@
 import { Gio, GLib } from "astal";
 import Apps from "gi://AstalApps";
+import Hyprland from "gi://AstalHyprland";
 
 export function iconName_isfile(iconName?: string): boolean {
   return iconName?.includes("/") ?? false;
@@ -114,4 +115,37 @@ export function readGtkTheme(): string | null {
   }
 
   return extractThemeName(new TextDecoder("utf-8").decode(config_contents));
+}
+
+type GroupedWorkspace = {
+  [monitor_id: number]: { ws_indices: number[] };
+};
+export function calc_avail_workspaces(
+  hypr: Hyprland.Hyprland,
+  ignore_ws_id?: number,
+): GroupedWorkspace {
+  const max_workspace = Math.max(...hypr.workspaces.map((x) => x.id));
+
+  const grouped_ws: GroupedWorkspace = {};
+
+  for (let i = 0; i < max_workspace; i++) {
+    const ws_id = i + 1;
+
+    if (ws_id == ignore_ws_id) continue;
+    const ws: Hyprland.Workspace | null = hypr.get_workspace(ws_id);
+    const group_id = ws?.monitor?.id ?? -1;
+    // let workspace_name = `Workspace ${ws_id}`;
+
+    // if (ws && ws?.get_name() != ws_id) {
+    //   workspace_name = ws.get_name();
+    // }
+
+    if (!grouped_ws[group_id]) {
+      grouped_ws[group_id] = { ws_indices: [] };
+    }
+
+    grouped_ws[group_id].ws_indices.push(ws_id);
+  }
+
+  return grouped_ws;
 }
