@@ -14,7 +14,6 @@ import { AudioOutput } from "./BarWidgets/AudioOutput";
 import PinnedApps from "./BarWidgets/PinnedApps";
 import NetworkStatus from "./BarWidgets/NetworkStatus";
 import Gtk40 from "gi://Gtk";
-import { AudioControl } from "./BarWidgets/AudioControl";
 
 export function TopBar(gdkmonitor: Gdk.Monitor) {
   const { TOP, LEFT, RIGHT } = Astal.WindowAnchor;

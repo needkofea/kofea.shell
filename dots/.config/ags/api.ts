@@ -3,6 +3,7 @@ import { App, Gdk } from "astal/gtk4";
 import AstalApps from "gi://AstalApps?version=0.1";
 import Hyprland from "gi://AstalHyprland";
 import GLib from "gi://GLib?version=2.0";
+
 import { find_app_by_wmclass } from "./utils";
 
 export const LAYER_NAMESPACE = "kofea-shell";
@@ -193,12 +194,7 @@ export namespace KofeaApi {
 
     const workspaces = Variable<Hyprland.Workspace[]>([]).poll(
       200,
-      () => hypr.workspaces,
-    );
-
-    const hyprclients_raw = Variable<Hyprland.Client[]>([]).poll(
-      200,
-      () => hypr.clients,
+      () => hypr?.workspaces ?? [],
     );
 
     const hyprclients = Variable<Hyprland.Client[]>([]);
@@ -206,6 +202,14 @@ export namespace KofeaApi {
 
     workspaces.subscribe((workspaces_) => {
       let clients = workspaces_.flatMap((x) => x.clients);
+      // If no clients active, set taskbar entries to empty
+      // Need to do this before reduce func as it will crash if there are zero clients. Causing bugs
+      if (clients.length == 0) {
+        last_hash = 0;
+        hyprclients.set([]);
+        return;
+      }
+
       let hash = clients
         .map((x) => x.workspace.id * x.get_x() * (x.floating ? 2 : 3))
         .reduce((a, b) => (a + 1) * (b + 2));
