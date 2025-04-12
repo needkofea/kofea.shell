@@ -64,7 +64,7 @@ window.Bar {
     }
     .pinned-apps {
         .item {
-            margin-right: 4px;
+            margin-right: 1px;
             border: none;
             image {
                 -gtk-icon-size: 14px;
@@ -80,16 +80,21 @@ window.Bar {
         button {
             padding: 0 4px;
             min-width: 24px;
+            background: rgba(white, 0.03);
+            border: 1px solid $overlay-color;
         }
 
         .dock-item {
-            margin-right: 1px;
+            margin-right: 2px;
         }
         .dock-item:last-child {
             margin-right: 0px;
         }
 
-        .dock-item:hover,
+        .dock-item:hover {
+            border: 1px solid $accent;
+        }
+
         .dock-item.focused {
             background: $overlay-color;
         }
@@ -301,16 +306,18 @@ window.Bar.Lower {
         } */
         .item {
             min-width: 24px;
-
+            padding: 2px;
+            border: 1px solid transparent;
             image {
-                -gtk-icon-size: 2em;
+                -gtk-icon-shadow: 2px 2px 3px 30px white;
+                -gtk-icon-size: 1.5rem;
             }
         }
     }
 
     .taskbar {
         image {
-            -gtk-icon-size: 2em;
+            -gtk-icon-size: 1.5rem;
         }
     }
 }
