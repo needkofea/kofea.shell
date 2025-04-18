@@ -166,7 +166,7 @@ export default function Taskbar({ gdkmonitor }: TaskbarProps) {
                   openAppContextMenu(w, ev, client, app);
                 }}
               >
-                <box cssClasses={["item"]}>
+                <box cssClasses={["item"]} valign={Gtk.Align.CENTER}>
                   <image
                     iconName={iconName_asIcon(app?.iconName)}
                     file={iconName_asFile(app?.iconName)}
