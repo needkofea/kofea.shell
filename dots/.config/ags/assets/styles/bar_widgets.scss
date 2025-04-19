@@ -54,7 +54,8 @@ window.Bar {
     }
     .more-apps {
         min-width: 24px;
-        margin: 0 2px;
+        padding: 0 2px;
+        margin-right: 1px;
         image {
             -gtk-icon-size: 14px;
         }
@@ -317,6 +318,7 @@ window.Bar.Lower {
     }
 
     .taskbar {
+        margin-left: 4px;
         image {
             -gtk-icon-size: 1.5rem;
         }

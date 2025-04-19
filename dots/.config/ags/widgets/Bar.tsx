@@ -1,10 +1,11 @@
 import { App, Astal, Gtk, Gdk } from "astal/gtk4";
 import Taskbar from "./BarWidgets/Taskbar";
-import { GLib, Variable } from "astal";
+import { bind, GLib, Variable } from "astal";
 import {
   launchStartMenu,
   BAR_LAYER_NAMESPACE,
   TOPBAR_LAYER_NAMESPACE,
+  KofeaApi,
 } from "../api";
 import SysTray from "./BarWidgets/SysTray";
 import Clock from "./BarWidgets/Clock";
@@ -90,9 +91,6 @@ export default function Bar(gdkmonitor: Gdk.Monitor) {
             <image iconName={"user-home-symbolic"} />
           </button>
           <PinnedApps monitor={gdkmonitor} hide_active_apps />
-
-          <box cssClasses={["gap"]} />
-
           <Taskbar gdkmonitor={gdkmonitor}></Taskbar>
         </box>
         <box vexpand halign={Gtk.Align.END}>

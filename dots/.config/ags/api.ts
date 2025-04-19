@@ -202,17 +202,16 @@ export namespace KofeaApi {
 
     workspaces.subscribe((workspaces_) => {
       let clients = workspaces_.flatMap((x) => x.clients);
-      // If no clients active, set taskbar entries to empty
-      // Need to do this before reduce func as it will crash if there are zero clients. Causing bugs
-      if (clients.length == 0) {
-        last_hash = 0;
-        hyprclients.set([]);
-        return;
-      }
 
-      let hash = clients
-        .map((x) => x.workspace.id * x.get_x() * (x.floating ? 2 : 3))
-        .reduce((a, b) => (a + 1) * (b + 2));
+      let hash = 0;
+
+      // If no clients active, let hash be 0
+      // Need to do this before reduce func as it will crash if there are zero clients. Causing bugs
+      if (clients.length != 0) {
+        hash = clients
+          .map((x) => x.workspace.id * x.get_x() * (x.floating ? 2 : 3))
+          .reduce((a, b) => (a + 1) * (b + 2));
+      }
 
       if (hash != last_hash) {
         hyprclients.set(clients);
