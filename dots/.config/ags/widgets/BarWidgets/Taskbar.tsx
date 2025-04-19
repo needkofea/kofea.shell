@@ -132,6 +132,8 @@ export default function Taskbar({ gdkmonitor }: TaskbarProps) {
     ),
   );
 
+  let monitor_w = gdkmonitor.get_geometry().width;
+
   return (
     <box
       cssClasses={["taskbar"]}
@@ -143,10 +145,10 @@ export default function Taskbar({ gdkmonitor }: TaskbarProps) {
           x
             .map((y) => ({
               sort_index:
-                y.client.workspace.id * x.length +
+                y.client.workspace.id * monitor_w +
                 (y.client.floating
                   ? strToNumber(y.client.class) % x.length // Use name to determine the sort. Modulus by x.length so it doesnt mess up the workspace sorting
-                  : y.client.get_x()),
+                  : y.client.get_x() / monitor_w),
               ...y,
             }))
             .sort((a, b) => a.sort_index - b.sort_index)
