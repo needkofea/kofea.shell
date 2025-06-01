@@ -1,0 +1,9 @@
+id = "kofea.shell.ghostty"
+name = "Ghostty Configuration"
+desc = ""
+excludes = [".git/*"]
+
+[install]
+to = "$CONFIG_LOCAL" # May change later
+type = "copy"
+as = "ghostty"
