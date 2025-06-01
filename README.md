@@ -6,6 +6,8 @@
 
 This branch serves as the ki repo for the dot files.
 
+ki version - Use the latest available version on the `main` branch.
+
 ## TODO
 1. Each individual script under desktop should be its own module.
 2. Fully migrate old dotfile configuration into modules.
