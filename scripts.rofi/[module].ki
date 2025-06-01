@@ -4,6 +4,6 @@ desc = "Scripts for launching rofi"
 excludes = [".git/*"]
 
 [install]
-to = "$HOME/.local/bin" # May change later
+to = "$HOME/.local" # May change later
+as = "bin"
 type = "copy"
-as = "rofi"
