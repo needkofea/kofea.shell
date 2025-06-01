@@ -4,6 +4,10 @@
 > These dots file are designed for use in arch environment.
 > There is also no guarantee that they will not break your system.
 
+This branch serves as the ki repo for the dot files
+
+
+<strike>
 # Dependences
 1. Astal / AGS
 
@@ -19,3 +23,5 @@ Integrate SDDM themes from https://github.com/Keyitdev/sddm-astronaut-theme
   3. Mute audio input
   4. Panel for Wifi
   5. Pinned apps
+
+</strike>
