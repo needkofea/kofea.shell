@@ -1,0 +1,9 @@
+id = "kofea.shell.hypr.core"
+name = "Kofea's Hyprland Configuration"
+desc = ""
+excludes = [".git/*", "README.md"]
+
+[install]
+to = "$CONFIG_LOCAL" # May change later
+as = "hypr"
+type = "copy"

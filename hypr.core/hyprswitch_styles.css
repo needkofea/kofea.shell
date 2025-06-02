@@ -1,0 +1,34 @@
+.client-image {
+    margin: 16px;
+}
+
+.client {
+    border: 2px solid var(--border-color);
+    
+    border-radius: 12px;
+    margin: 4px;
+}
+
+.client_active, .client:hover {
+    border-color: 2px solid var(--border-color-active);
+}
+
+.index {
+    margin: 3px;
+    padding: 2px 4px;
+    font-size: 18px;
+    font-family: monospace;
+    background: transparent;
+    border: none;
+}
+
+.workspace{
+    padding: 16px 16px;
+}
+
+
+
+.monitor {
+    background-color: transparent;
+    border: unset;
+}
