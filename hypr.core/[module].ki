@@ -7,3 +7,4 @@ excludes = [".git/*", "README.md"]
 to = "$CONFIG_LOCAL" # May change later
 as = "hypr"
 type = "copy"
+
