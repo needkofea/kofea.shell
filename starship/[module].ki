@@ -1,0 +1,8 @@
+id = "kofea.shell.starship"
+name = "Kofea's Starship Configuration"
+excludes = [".git/*"]
+
+[install]
+to = "$CONFIG_LOCAL" # May change later
+as = "starship"
+type = "copy"
