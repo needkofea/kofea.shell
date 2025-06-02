@@ -4,9 +4,9 @@
 > These dots file are designed for use in arch environment.
 > There is also no guarantee that they will not break your system.
 
-This branch serves as the ki repo for the dot files.
+This branch serves as the ki repo for the dot files. If you are look for the old dotfiles, switch to `main` branch.
 
-ki version - Use the latest available version on the `main` branch.
+ki version - Use the latest available version on the `main` branch from the ki repository.
 
 ## TODO
 1. Each individual script under desktop should be its own module.
