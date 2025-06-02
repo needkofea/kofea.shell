@@ -1,0 +1,8 @@
+id = "kofea.shell.terminal.zsh"
+name = "Kofea's ZSH Configuration"
+excludes = [".git/*"]
+
+[install]
+to = "$HOME" # May change later
+as = "."
+type = "copy"
