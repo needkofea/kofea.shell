@@ -1,0 +1,8 @@
+id = "kofea.shell.rofi"
+name = "Kofea's Rofi Configuration"
+excludes = [".git/*"]
+
+[install]
+to = "$CONFIG_LOCAL" # May change later
+as = "rofi"
+type = "copy"
