@@ -1,0 +1,8 @@
+id = "kofea.shell.waybar"
+name = "Kofea's Waybar Config"
+excludes = [".git/*"]
+
+[install]
+to = "$CONFIG_LOCAL" # May change later
+as = "waybar"
+type = "copy"
