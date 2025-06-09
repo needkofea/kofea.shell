@@ -53,7 +53,6 @@
     "network",
     "pulseaudio",
     "pulseaudio#microphone",
-    "custom/keybindhint",
     "custom/r_end",
     "custom/l_end",
     "privacy",
@@ -193,8 +192,9 @@
   },
   "pulseaudio": {
     "format": "{icon} {volume}",
+    "format-bluetooth": "{volume}% {icon}",
     "rotate": 0,
-    "format-muted": "婢",
+    "format-muted": "",
     "on-click-right": "pavucontrol -t 3",
     "on-click": "pamixer -t",
     "tooltip-format": "{icon} {desc} // {volume}%",
@@ -212,17 +212,12 @@
   "pulseaudio#microphone": {
     "format": "{format_source} ",
     "rotate": 0,
-    "format-source": "",
+    "format-source": "",
     "format-source-muted": "",
     "on-click": "pamixer --default-source -t",
     "on-click-right": "pavucontrol -t 4",
     "tooltip-format": "{format_source} {source_desc} // {source_volume}%",
     "scroll-step": 5,
-  },
-  "custom/keybindhint": {
-    "format": " ",
-    "rotate": 0,
-    "on-click": "keybinds_hint.sh",
   },
   // modules for padding //
   "custom/l_end": {
