@@ -3,7 +3,7 @@
   "output": ["*"],
   "position": "bottom",
   "mod": "dock",
-  "height": 42,
+  "height": 32,
   "exclusive": true,
   "passthrough": false,
   "gtk-layer-shell": true,
