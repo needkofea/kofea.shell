@@ -194,7 +194,7 @@
     "format": "{icon} {volume}",
     "format-bluetooth": "{volume}% {icon}",
     "rotate": 0,
-    "format-muted": "  ",
+    "format-muted": " ",
     "on-click-right": "pavucontrol -t 3",
     "on-click": "pamixer -t",
     "tooltip-format": "{icon} {desc} // {volume}%",
