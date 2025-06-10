@@ -7,3 +7,6 @@ excludes = [".git/*"]
 to = "$HOME/.local/" # May change later
 as = "bin"
 type = "copy"
+
+[install.permissions]
+allow_execute = ["*.sh"]
