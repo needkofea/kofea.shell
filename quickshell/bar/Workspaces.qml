@@ -15,9 +15,9 @@ Item {
             model: Hyprland.workspaces
             delegate: Item {
                 id: rect
-                property int size: 10
-                property int activeSize: 20
-                implicitWidth: modelData.active ? Math.max(activeSize, label.width + 18) : size
+                property int size: 8
+                property int activeSize: 18
+                implicitWidth: modelData.active ? Math.max(32, label.width + 18) : size
                 implicitHeight: activeSize + 4
 
                 property color neutralColor: mouseArea.containsMouse ? Theme.controls.hover.bg : Theme.panel
@@ -37,6 +37,8 @@ Item {
                 Text {
                     id: label
                     anchors.centerIn: parent
+                    verticalAlignment: Text.AlignVCenter
+                    horizontalAlignment: Text.AlignHCenter
                     font.weight: 450
                     font.pixelSize: 12
                     text: modelData.active ? modelData.name : ''
