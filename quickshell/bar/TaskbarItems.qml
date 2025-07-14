@@ -44,7 +44,8 @@ Item {
                     height: parent.height
                     spacing: 4
 
-                    property DesktopEntry entry: DesktopEntries.byId(taskbarItem.topLevel.wayland?.appId)
+                    property string appId: taskbarItem.topLevel.wayland?.appId ?? ''
+                    property DesktopEntry entry: DesktopEntries.byId(appId)
                     Rectangle {
                         color: "transparent"
                         property int iconSize: parent.height - 4
@@ -61,7 +62,8 @@ Item {
                         rightMargin: 4
                         Text {
                             property int max_len: 24
-                            property string label: taskbarItem.topLevel.title
+                            property bool loaded: taskbarItem.topLevel.title !== wsClients.appId
+                            property string label: loaded ? taskbarItem.topLevel.title : ''
                             property string trimmedText: label.length > max_len ? label.slice(0, max_len - 3) + "..." : label
                             text: trimmedText
                             font.weight: 500
@@ -82,6 +84,4 @@ Item {
             }
         }
     }
-
-
 }
