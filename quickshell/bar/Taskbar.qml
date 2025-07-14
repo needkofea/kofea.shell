@@ -26,7 +26,9 @@ Item {
 
                 property HyprlandWorkspace wsData: modelData
 
-                implicitWidth: wsItem.wsData.active ? activeWidth : dotSize
+                property int active: wsItem.wsData.active
+
+                implicitWidth: active ? activeWidth : dotSize
                 implicitHeight: parent.height
 
                 property color neutralColor: mouseArea.containsMouse ? Theme.workspace.hover.bg : Theme.workspace.inactive.bg
@@ -41,14 +43,14 @@ Item {
                 Rectangle {
                     anchors.centerIn: parent
 
-                    property int enlargedDot: mouseArea.containsMouse && !wsItem.wsData.active
+                    property int enlargedDot: mouseArea.containsMouse && !wsItem.active
                     property int dotSize: enlargedDot ? wsItem.dotSizeHover : wsItem.dotSize
-                    property int active: wsItem.wsData.active
+                    
 
-                    implicitHeight: active ? activeHeight : dotSize
+                    implicitHeight: wsItem.active ? activeHeight : dotSize
                     implicitWidth: enlargedDot ? wsItem.dotSizeHover : parent.width
 
-                    color: active ? Theme.workspace.active.bg : wsItem.neutralColor
+                    color: wsItem.active ? Theme.workspace.active.bg : wsItem.neutralColor
                     radius: parent.height
 
                     Behavior on color {
@@ -66,8 +68,8 @@ Item {
                         ws: wsItem.wsData
                         anchors.centerIn: parent
                         implicitHeight: wsItem.activeHeight - wsItem.padding
-                        visible: wsItem.wsData.active
-                        opacity: parent.active ? 1 : 0
+                        visible: wsItem.active
+                        opacity: wsItem.active ? 1 : 0
 
                         Behavior on opacity {
                             NumberAnimation {
