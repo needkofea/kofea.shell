@@ -16,9 +16,9 @@ Item {
             delegate: Item {
                 id: wsItem
                 property int size: 10
-                property int activeSize: 18
+                property int activeSize: 24
 
-                property int padding: 4
+                property int padding: 2
 
                 property int activeHeight: activeSize + padding
                 property int activeWidth: Math.max(32, activeContents.width) + padding
@@ -28,15 +28,15 @@ Item {
                 implicitWidth: wsItem.wsData.active ? activeWidth : size
                 implicitHeight: activeHeight
 
-                property color neutralColor: mouseArea.containsMouse ? Theme.workspace.hover.bg : Theme.panel
+                property color neutralColor: mouseArea.containsMouse ? Theme.workspace.hover.bg : Theme.workspace.inactive.bg
 
                 Rectangle {
                     anchors.verticalCenter: parent.verticalCenter
                     implicitHeight: wsItem.wsData.active ? activeHeight : size
                     implicitWidth: parent.width
 
-                    color: wsItem.wsData.active ? Theme.taskbar.item.active.bg : neutralColor
-                    radius: parent.height
+                    color: wsItem.wsData.active ? Theme.workspace.active.bg : neutralColor
+                    radius: parent.height / 4
 
                     Behavior on color {
                         ColorAnimation {}
@@ -61,10 +61,17 @@ Item {
                 RowLayout {
                     id: activeContents
                     anchors.centerIn: parent
-                    implicitHeight: parent.height - 4
-                    visible: wsItem.wsData.active
+                    implicitHeight: parent.height - padding
+                    opacity: wsItem.wsData.active ? 1 : 0
                     TaskbarWsClients {
                         ws: wsItem.wsData
+                    }
+
+                    Behavior on opacity {
+                        NumberAnimation {
+                            duration: 300
+                            easing.type: Easing.OutCubic
+                        }
                     }
                 }
 

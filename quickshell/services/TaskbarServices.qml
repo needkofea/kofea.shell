@@ -7,6 +7,5 @@ import QtQuick
 Singleton {
     id: root
 
-    property var clients: groupBy(Hyprland.toplevels.values, x => x.workspace.id)
-
+    readonly property list<DesktopEntry> list: DesktopEntries.applications.values.filter(a => !a.noDisplay).sort((a, b) => a.name.localeCompare(b.name))
 }

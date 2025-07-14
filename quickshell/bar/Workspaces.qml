@@ -20,7 +20,7 @@ Item {
                 implicitWidth: modelData.active ? Math.max(32, label.width + 18) : size
                 implicitHeight: activeSize + 4
 
-                property color neutralColor: mouseArea.containsMouse ? Theme.workspace.hover.bg : Theme.panel
+                property color neutralColor: mouseArea.containsMouse ? Theme.workspace.hover.bg : Theme.workspace.inactive.bg
 
                 Rectangle {
                     anchors.verticalCenter: parent.verticalCenter
@@ -41,8 +41,8 @@ Item {
                     horizontalAlignment: Text.AlignHCenter
                     font.weight: 450
                     font.pixelSize: 12
-                    text: modelData.active ? modelData.name : ''
-                    color: modelData.active ? Theme.workspace.active.fg : Theme.text
+                    text: modelData.name
+                    visible: modelData.active
                 }
 
                 MouseArea {
