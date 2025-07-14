@@ -30,17 +30,27 @@ Item {
 
                 property HyprlandToplevel topLevel: modelData
                 height: parent.height
-                implicitWidth: Math.max(wsClients.width, taskbarItem.height) + 10
+                implicitWidth: Math.max(wsClient.width, taskbarItem.height) + 10
 
                 Rectangle {
                     anchors.fill: parent
-                    color: mouseArea.containsMouse ? Theme.taskbar.item.hover.bg : Theme.taskbar.item.normal.bg
+                    color: {
+                        if (mouseArea.containsMouse)
+                            return Theme.taskbar.item.hover.bg;
+                        if (topLevel.activated)
+                            return Theme.taskbar.item.active.bg;
+                        return Theme.taskbar.item.normal.bg;
+                    }
                     radius: parent.height
                     border.color: mouseArea.containsMouse ? Theme.border : "transparent"
+
+                    Behavior on color {
+                        ColorAnimation {}
+                    }
                 }
 
                 RowLayout {
-                    id: wsClients
+                    id: wsClient
                     anchors.centerIn: parent
                     height: parent.height
                     spacing: 4
@@ -55,7 +65,7 @@ Item {
                         IconImage {
                             anchors.centerIn: parent
                             implicitSize: parent.iconSize
-                            source: Quickshell.iconPath(wsClients.entry.icon)
+                            source: Quickshell.iconPath(wsClient.entry.icon)
                         }
                     }
 
@@ -65,12 +75,23 @@ Item {
                         visible: !taskbar.minimised
                         Text {
                             property int max_len: 24
-                            property bool loaded: taskbarItem.topLevel.title !== wsClients.appId
+                            property bool loaded: taskbarItem.topLevel.title !== wsClient.appId
                             property string label: loaded ? taskbarItem.topLevel.title : ''
                             property string trimmedText: label.length > max_len ? label.slice(0, max_len - 3) + "..." : label
                             text: trimmedText
                             font.weight: 500
-                            color: mouseArea.containsMouse ? Theme.taskbar.item.hover.fg : Theme.taskbar.item.normal.fg
+                            color: {
+                                if (mouseArea.containsMouse) {
+                                    return Theme.taskbar.item.hover.fg;
+                                }
+                                if (topLevel.activated) {
+                                    return Theme.taskbar.item.active.fg;
+                                }
+                                return Theme.taskbar.item.normal.fg;
+                            }
+                            Behavior on color {
+                                ColorAnimation {}
+                            }
                         }
 
                         Behavior on opacity {

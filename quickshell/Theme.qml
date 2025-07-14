@@ -24,7 +24,7 @@ Singleton {
         }
 
         property var active: QtObject {
-            property color bg: root.bright
+            property color bg: Qt.hsla(root.black.hslHue, root.black.hslSaturation, 0.15, 1)
         }
 
         property var hover: QtObject {
@@ -35,10 +35,11 @@ Singleton {
     property var taskbar: QtObject {
         property var item: QtObject {
             property var active: QtObject {
-                property color bg: root.black
+                property color fg: root.black
+                property color bg: root.bright
             }
             property var normal: QtObject {
-                property color fg: root.black
+                property color fg: root.bright
                 property color bg: "transparent"
             }
             property var hover: QtObject {
