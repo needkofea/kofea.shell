@@ -27,7 +27,7 @@ Singleton {
         }
 
         property var hover: QtObject {
-            property color bg: Qt.hsla(root.black.hslHue, root.black.hslSaturation, 0.25, 1)
+            property color bg: Qt.hsla(root.bright.hslHue, root.bright.hslSaturation, root.bright.hslLightness, 0.5)
         }
     }
 

@@ -10,13 +10,14 @@ Item {
     RowLayout {
         height: parent.height
         spacing: 8
+
         Repeater {
             id: list
             model: Hyprland.workspaces
             delegate: Item {
                 id: wsItem
                 property int dotSize: 8
-                property int dotSizeHover: 16
+                property int dotSizeHover: 10
 
                 property int padding: 2
 
@@ -30,26 +31,49 @@ Item {
 
                 property color neutralColor: mouseArea.containsMouse ? Theme.workspace.hover.bg : Theme.workspace.inactive.bg
 
+                Behavior on implicitWidth {
+                    NumberAnimation {
+                        duration: 200
+                        easing.type: Easing.InOutQuad
+                    }
+                }
+
                 Rectangle {
                     anchors.centerIn: parent
 
                     property int enlargedDot: mouseArea.containsMouse && !wsItem.wsData.active
                     property int dotSize: enlargedDot ? wsItem.dotSizeHover : wsItem.dotSize
+                    property int active: wsItem.wsData.active
 
-                    implicitHeight: wsItem.wsData.active ? activeHeight : dotSize
+                    implicitHeight: active ? activeHeight : dotSize
                     implicitWidth: enlargedDot ? wsItem.dotSizeHover : parent.width
 
-                    color: wsItem.wsData.active ? Theme.workspace.active.bg : wsItem.neutralColor
+                    color: active ? Theme.workspace.active.bg : wsItem.neutralColor
                     radius: parent.height
 
                     Behavior on color {
                         ColorAnimation {}
                     }
-
                     Behavior on implicitHeight {
                         NumberAnimation {
-                            duration: 300
-                            easing.type: Easing.Linear
+                            duration: 200
+                            easing.type: Easing.InOutSine
+                        }
+                    }
+
+                    TaskbarItems {
+                        id: activeContents
+                        ws: wsItem.wsData
+                        anchors.centerIn: parent
+                        implicitHeight: wsItem.activeHeight - wsItem.padding
+                        visible: wsItem.wsData.active
+                        opacity: parent.active ? 1 : 0
+
+                        Behavior on opacity {
+                            NumberAnimation {
+                                duration: 200
+                                easing.type: Easing.InOutQuad
+                            }
                         }
                     }
                 }
@@ -60,23 +84,7 @@ Item {
                     hoverEnabled: true
                     onClicked: wsItem.wsData.activate()
                     propagateComposedEvents: true
-                }
-
-                RowLayout {
-                    id: activeContents
-                    anchors.centerIn: parent
-                    implicitHeight: wsItem.activeHeight - wsItem.padding
-                    visible: wsItem.wsData.active
-                    TaskbarWsClients {
-                        ws: wsItem.wsData
-                    }
-                }
-
-                Behavior on implicitWidth {
-                    NumberAnimation {
-                        duration: 300
-                        easing.type: Easing.InOutCubic
-                    }
+                    cursorShape: Qt.PointingHandCursor
                 }
             }
         }

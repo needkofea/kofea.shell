@@ -9,7 +9,6 @@ import "../services"
 Item {
     id: taskbar
     required property HyprlandWorkspace ws
-    height: parent.height
 
     implicitWidth: childrenRect.width
 
