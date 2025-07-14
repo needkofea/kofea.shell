@@ -3,6 +3,6 @@ import Quickshell.Io
 import QtQuick
 import "bar"
 
-Scope{
-    Bar{}
+Scope {
+    Bar {}
 }

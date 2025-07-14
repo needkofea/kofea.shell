@@ -1,6 +1,7 @@
-import Quickshell
 import Quickshell.Widgets
+import Quickshell.Hyprland
 import Quickshell.Io
+import Quickshell
 import QtQuick
 import "root:"
 
@@ -25,10 +26,10 @@ PanelWindow {
                 implicitHeight: parent.height
                 // Layout.alignment: Qt.AlignLeft
             }
-            Workspaces {
-                anchors.right: parent.right
+            Taskbar {
+                anchors.centerIn: parent
                 implicitHeight: parent.height
-                
+                // ws: Hyprland.focusedWorkspace
             }
         }
     }

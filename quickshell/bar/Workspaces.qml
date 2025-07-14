@@ -20,13 +20,13 @@ Item {
                 implicitWidth: modelData.active ? Math.max(32, label.width + 18) : size
                 implicitHeight: activeSize + 4
 
-                property color neutralColor: mouseArea.containsMouse ? Theme.controls.hover.bg : Theme.panel
+                property color neutralColor: mouseArea.containsMouse ? Theme.workspace.hover.bg : Theme.panel
 
                 Rectangle {
                     anchors.verticalCenter: parent.verticalCenter
                     width: parent.width
                     implicitHeight: modelData.active ? activeSize : size
-                    color: modelData.active ? Theme.controls.active.bg : neutralColor
+                    color: modelData.active ? Theme.workspace.active.bg : neutralColor
                     radius: parent.height
 
                     Behavior on color {
@@ -42,7 +42,7 @@ Item {
                     font.weight: 450
                     font.pixelSize: 12
                     text: modelData.active ? modelData.name : ''
-                    color: modelData.active ? Theme.controls.active.fg : Theme.text
+                    color: modelData.active ? Theme.workspace.active.fg : Theme.text
                 }
 
                 MouseArea {
