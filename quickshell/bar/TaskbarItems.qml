@@ -27,7 +27,7 @@ Item {
 
         x: taskbar.highlightTarget?.x ?? 0
         width: taskbar.highlightTarget?.width ?? 0
-        height: parent.height 
+        height: parent.height
 
         color: {
             if (taskbar.highlightTarget != undefined)
@@ -41,12 +41,14 @@ Item {
             ColorAnimation {}
         }
         Behavior on x {
+            enabled: taskbar.expanded
             NumberAnimation {
                 duration: 200
                 easing.type: Easing.InOutQuad
             }
         }
         Behavior on width {
+            enabled: taskbar.expanded
             NumberAnimation {
                 duration: 200
                 easing.type: Easing.InOutQuad
@@ -83,9 +85,6 @@ Item {
                     if (topLevel.activated) {
                         taskbar.highlightTarget = taskbarItem;
                         return;
-                    }
-                    if (taskbar.highlightTarget == taskbarItem) {
-                        taskbar.highlightTarget = null;
                     }
                 }
 
