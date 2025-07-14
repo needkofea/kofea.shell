@@ -20,6 +20,7 @@ Singleton {
     property var workspace: QtObject {
         property var inactive: QtObject {
             property color bg: Qt.hsla(root.black.hslHue, root.black.hslSaturation, 0.15, 1)
+            property color noitems_bg: "transparent"
         }
 
         property var active: QtObject {

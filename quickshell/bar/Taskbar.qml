@@ -9,7 +9,7 @@ Item {
     width: childrenRect.width
     RowLayout {
         height: parent.height
-        spacing: 8
+        spacing: 4
 
         Repeater {
             id: list
@@ -22,16 +22,25 @@ Item {
                 property int padding: 2
 
                 property int activeHeight: 24 + padding
-                property int activeWidth: Math.max(32, activeContents.width) + padding
+                property int activeWidth: Math.max(24, activeContents.width) + padding
 
                 property HyprlandWorkspace wsData: modelData
 
+                property int haveClients: wsData.toplevels.values.length > 0
                 property int active: wsItem.wsData.active
 
-                implicitWidth: active ? activeWidth : dotSize
+                implicitWidth: haveClients ? activeWidth : dotSize
                 implicitHeight: parent.height
 
-                property color neutralColor: mouseArea.containsMouse ? Theme.workspace.hover.bg : Theme.workspace.inactive.bg
+                property color neutralColor: {
+                    if (mouseArea.containsMouse) {
+                        return Theme.workspace.hover.bg;
+                    }
+                    if (haveClients) {
+                        return Theme.workspace.inactive.noitems_bg;
+                    }
+                    return Theme.workspace.inactive.bg;
+                }
 
                 Behavior on implicitWidth {
                     NumberAnimation {
@@ -43,11 +52,10 @@ Item {
                 Rectangle {
                     anchors.centerIn: parent
 
-                    property int enlargedDot: mouseArea.containsMouse && !wsItem.active
+                    property int enlargedDot: mouseArea.containsMouse && !haveClients
                     property int dotSize: enlargedDot ? wsItem.dotSizeHover : wsItem.dotSize
-                    
 
-                    implicitHeight: wsItem.active ? activeHeight : dotSize
+                    implicitHeight: wsItem.haveClients ? activeHeight : dotSize
                     implicitWidth: enlargedDot ? wsItem.dotSizeHover : parent.width
 
                     color: wsItem.active ? Theme.workspace.active.bg : wsItem.neutralColor
@@ -68,8 +76,9 @@ Item {
                         ws: wsItem.wsData
                         anchors.centerIn: parent
                         implicitHeight: wsItem.activeHeight - wsItem.padding
-                        visible: wsItem.active
-                        opacity: wsItem.active ? 1 : 0
+                        opacity: wsItem.haveClients ? 1 : 0
+                        visible: wsItem.haveClients
+                        minimised: !wsItem.active && wsItem.haveClients
 
                         Behavior on opacity {
                             NumberAnimation {

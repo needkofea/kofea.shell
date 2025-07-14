@@ -9,6 +9,7 @@ import "../services"
 Item {
     id: taskbar
     required property HyprlandWorkspace ws
+    required property bool minimised
 
     implicitWidth: childrenRect.width
 
@@ -60,6 +61,8 @@ Item {
 
                     WrapperItem {
                         rightMargin: 4
+
+                        visible: !taskbar.minimised
                         Text {
                             property int max_len: 24
                             property bool loaded: taskbarItem.topLevel.title !== wsClients.appId
@@ -68,6 +71,13 @@ Item {
                             text: trimmedText
                             font.weight: 500
                             color: mouseArea.containsMouse ? Theme.taskbar.item.hover.fg : Theme.taskbar.item.normal.fg
+                        }
+
+                        Behavior on opacity {
+                            NumberAnimation {
+                                duration: 300
+                                easing.type: Easing.Linear
+                            }
                         }
                     }
                 }
