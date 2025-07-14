@@ -9,7 +9,6 @@ Item {
     width: childrenRect.width
     RowLayout {
         height: parent.height
-        spacing: 8
 
         Repeater {
             id: list
@@ -26,14 +25,14 @@ Item {
                 property int padding: 2
 
                 property int activeHeight: 24 + padding
-                property int activeWidth: Math.max(24, activeContents.width) + padding
+                property int activeWidth: activeContents.width + padding
 
                 property HyprlandWorkspace wsData: Hyprland.workspaces.values.find(x => x.id == wsId)
 
                 property int haveClients: wsData?.toplevels?.values?.length ?? 0 > 0
                 property int active: Hyprland.focusedWorkspace.id == wsId
 
-                implicitWidth: haveClients ? activeWidth : dotSize
+                implicitWidth: Math.max(activeWidth, 24)
                 implicitHeight: parent.height
 
                 // Text {
@@ -66,7 +65,15 @@ Item {
                     property int dotSize: enlargedDot ? wsItem.dotSizeHover : wsItem.dotSize
 
                     implicitHeight: wsItem.haveClients ? wsItem.activeHeight : dotSize
-                    implicitWidth: enlargedDot ? wsItem.dotSizeHover : parent.width
+                    implicitWidth: {
+                        if (wsItem.active) {
+                            return wsItem.activeWidth;
+                        }
+                        if (enlargedDot) {
+                            return wsItem.dotSizeHover;
+                        }
+                        return dotSize;
+                    }
 
                     color: {
                         if (wsItem.haveClients) {
