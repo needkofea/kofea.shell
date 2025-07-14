@@ -32,16 +32,6 @@ Item {
                 implicitWidth: haveClients ? activeWidth : dotSize
                 implicitHeight: parent.height
 
-                property color neutralColor: {
-                    if (mouseArea.containsMouse) {
-                        return Theme.workspace.hover.bg;
-                    }
-                    if (haveClients) {
-                        return Theme.workspace.inactive.noitems_bg;
-                    }
-                    return Theme.workspace.inactive.bg;
-                }
-
                 Behavior on implicitWidth {
                     NumberAnimation {
                         duration: 200
@@ -64,10 +54,22 @@ Item {
                     property int enlargedDot: mouseArea.containsMouse && !haveClients
                     property int dotSize: enlargedDot ? wsItem.dotSizeHover : wsItem.dotSize
 
-                    implicitHeight: wsItem.haveClients ? activeHeight : dotSize
+                    implicitHeight: wsItem.haveClients ? wsItem.activeHeight : dotSize
                     implicitWidth: enlargedDot ? wsItem.dotSizeHover : parent.width
 
-                    color: wsItem.active ? Theme.workspace.active.bg : wsItem.neutralColor
+                    color: {
+                        if (wsItem.haveClients) {
+                            if (wsItem.active) {
+                                return Theme.taskbar.ws_group.active.bg;
+                            }
+
+                            return Theme.taskbar.ws_group.inactive.bg;
+                        }
+                        if (wsItem.active) {
+                            return Theme.taskbar.ws_group.active.no_items;
+                        }
+                        return Theme.taskbar.ws_group.inactive.no_items;
+                    }
                     radius: parent.height
 
                     Behavior on color {
@@ -97,8 +99,6 @@ Item {
                         }
                     }
                 }
-
-                
             }
         }
     }
