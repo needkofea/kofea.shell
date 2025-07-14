@@ -9,13 +9,17 @@ Item {
     width: childrenRect.width
     RowLayout {
         height: parent.height
-        spacing: 4
+        spacing: 8
 
         Repeater {
             id: list
-            model: Hyprland.workspaces
+            property int max_ws_index: Hyprland.workspaces.values[Hyprland.workspaces.values.length - 1].id
+            model: max_ws_index
             delegate: Item {
                 id: wsItem
+                required property int index
+                property int wsId: index + 1
+
                 property int dotSize: 8
                 property int dotSizeHover: 10
 
@@ -24,13 +28,18 @@ Item {
                 property int activeHeight: 24 + padding
                 property int activeWidth: Math.max(24, activeContents.width) + padding
 
-                property HyprlandWorkspace wsData: modelData
+                property HyprlandWorkspace wsData: Hyprland.workspaces.values.find(x => x.id == wsId)
 
-                property int haveClients: wsData.toplevels.values.length > 0
-                property int active: wsItem.wsData.active
+                property int haveClients: wsData?.toplevels?.values?.length ?? 0 > 0
+                property int active: Hyprland.focusedWorkspace.id == wsId
 
                 implicitWidth: haveClients ? activeWidth : dotSize
                 implicitHeight: parent.height
+
+                // Text {
+                //     color: "yellow"
+                //     text: "Index" + parent.index
+                // }
 
                 Behavior on implicitWidth {
                     NumberAnimation {
@@ -43,7 +52,9 @@ Item {
                     id: mouseArea
                     anchors.fill: parent
                     hoverEnabled: true
-                    onClicked: wsItem.wsData.activate()
+                    onClicked: {
+                        Hyprland.dispatch("workspace " + wsItem.wsId);
+                    }
                     propagateComposedEvents: true
                     cursorShape: Qt.PointingHandCursor
                 }
@@ -68,6 +79,9 @@ Item {
                         if (wsItem.active) {
                             return Theme.taskbar.ws_group.active.no_items;
                         }
+                        if (mouseArea.containsMouse) {
+                            return Theme.taskbar.ws_group.hover.bg;
+                        }
                         return Theme.taskbar.ws_group.inactive.no_items;
                     }
                     radius: parent.height
@@ -88,7 +102,7 @@ Item {
                         anchors.centerIn: parent
                         implicitHeight: wsItem.activeHeight - wsItem.padding
                         opacity: wsItem.haveClients ? 1 : 0
-                        visible: wsItem.haveClients
+                        visible: wsItem.wsData && wsItem.haveClients
                         expanded: !wsItem.active && wsItem.haveClients
 
                         Behavior on opacity {

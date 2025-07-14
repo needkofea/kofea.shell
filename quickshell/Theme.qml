@@ -50,7 +50,7 @@ Singleton {
         property var ws_group: QtObject {
             property var inactive: QtObject {
                 property color bg: "transparent"
-                property color noitems: Qt.hsla(root.black.hslHue, root.black.hslSaturation, 0.15, 1)
+                property color no_items: Qt.hsla(root.black.hslHue, root.black.hslSaturation, 0.15, 1)
             }
 
             property var active: QtObject {
