@@ -8,8 +8,9 @@ import "../services"
 
 Item {
     id: taskbar
+
     required property HyprlandWorkspace ws
-    required property bool minimised
+    required property bool expanded
 
     implicitWidth: childrenRect.width
 
@@ -17,6 +18,44 @@ Item {
     //     color: "white"
     //     text: taskbar.ws.id
     // }
+
+    property Item highlightTarget
+
+    Rectangle {
+        visible: taskbar.highlightTarget != undefined && !taskbar.expanded
+
+        x: taskbar.highlightTarget?.x ?? 0
+        width: taskbar.highlightTarget?.width ?? 0
+        height: parent.height
+
+        color: {
+            if (mouseArea.containsMouse)
+                return Theme.taskbar.item.hover.bg;
+
+            if (taskbar.highlightTarget != undefined)
+                return Theme.taskbar.item.active.bg;
+
+            return Theme.taskbar.item.normal.bg;
+        }
+        radius: parent.height
+        border.color: mouseArea.containsMouse ? Theme.border : "transparent"
+
+        Behavior on color {
+            ColorAnimation {}
+        }
+        Behavior on x {
+            NumberAnimation {
+                duration: 200
+                easing.type: Easing.InOutQuad
+            }
+        }
+        Behavior on width {
+            NumberAnimation {
+                duration: 200
+                easing.type: Easing.InOutQuad
+            }
+        }
+    }
 
     RowLayout {
         height: parent.height
@@ -32,20 +71,23 @@ Item {
                 height: parent.height
                 implicitWidth: Math.max(wsClient.width, taskbarItem.height) + 10
 
-                Rectangle {
-                    anchors.fill: parent
-                    color: {
-                        if (mouseArea.containsMouse)
-                            return Theme.taskbar.item.hover.bg;
-                        if (topLevel.activated)
-                            return Theme.taskbar.item.active.bg;
-                        return Theme.taskbar.item.normal.bg;
+                Component.onCompleted: {
+                    setHighlightTarget();
+                }
+                Connections {
+                    target: taskbarItem.topLevel
+                    function onActivatedChanged(e) {
+                        taskbarItem.setHighlightTarget();
                     }
-                    radius: parent.height
-                    border.color: mouseArea.containsMouse ? Theme.border : "transparent"
+                }
 
-                    Behavior on color {
-                        ColorAnimation {}
+                function setHighlightTarget() {
+                    if (topLevel.activated) {
+                        taskbar.highlightTarget = taskbarItem;
+                        return;
+                    }
+                    if (taskbar.highlightTarget == taskbarItem) {
+                        taskbar.highlightTarget = false;
                     }
                 }
 
@@ -72,7 +114,7 @@ Item {
                     WrapperItem {
                         rightMargin: 4
 
-                        visible: !taskbar.minimised
+                        visible: !taskbar.expanded
                         Text {
                             property int max_len: 24
                             property bool loaded: taskbarItem.topLevel.title !== wsClient.appId

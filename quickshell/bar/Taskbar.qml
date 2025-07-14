@@ -49,6 +49,15 @@ Item {
                     }
                 }
 
+                MouseArea {
+                    id: mouseArea
+                    anchors.fill: parent
+                    hoverEnabled: true
+                    onClicked: wsItem.wsData.activate()
+                    propagateComposedEvents: true
+                    cursorShape: Qt.PointingHandCursor
+                }
+
                 Rectangle {
                     anchors.centerIn: parent
 
@@ -78,7 +87,7 @@ Item {
                         implicitHeight: wsItem.activeHeight - wsItem.padding
                         opacity: wsItem.haveClients ? 1 : 0
                         visible: wsItem.haveClients
-                        minimised: !wsItem.active && wsItem.haveClients
+                        expanded: !wsItem.active && wsItem.haveClients
 
                         Behavior on opacity {
                             NumberAnimation {
@@ -89,14 +98,7 @@ Item {
                     }
                 }
 
-                MouseArea {
-                    id: mouseArea
-                    anchors.fill: parent
-                    hoverEnabled: true
-                    onClicked: wsItem.wsData.activate()
-                    propagateComposedEvents: true
-                    cursorShape: Qt.PointingHandCursor
-                }
+                
             }
         }
     }
