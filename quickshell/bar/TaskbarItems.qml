@@ -85,7 +85,7 @@ Item {
                         return;
                     }
                     if (taskbar.highlightTarget == taskbarItem) {
-                        taskbar.highlightTarget = false;
+                        taskbar.highlightTarget = null;
                     }
                 }
 
