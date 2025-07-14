@@ -22,10 +22,8 @@ Item {
                 property int dotSize: 8
                 property int dotSizeHover: 10
 
-                property int padding: 2
-
-                property int activeHeight: 24 + padding
-                property int activeWidth: activeContents.width + padding
+                property int activeHeight: 24
+                property int activeWidth: activeContents.width
 
                 property HyprlandWorkspace wsData: Hyprland.workspaces.values.find(x => x.id == wsId)
 
@@ -107,10 +105,11 @@ Item {
                         id: activeContents
                         ws: wsItem.wsData
                         anchors.centerIn: parent
-                        implicitHeight: wsItem.activeHeight - wsItem.padding
+                        implicitHeight: wsItem.activeHeight
                         opacity: wsItem.haveClients ? 1 : 0
                         visible: wsItem.wsData && wsItem.haveClients
-                        expanded: !wsItem.active && wsItem.haveClients
+                        expanded: wsItem.active && wsItem.haveClients
+                        padding: 4
 
                         Behavior on opacity {
                             NumberAnimation {

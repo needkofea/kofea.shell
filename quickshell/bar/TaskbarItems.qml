@@ -11,6 +11,7 @@ Item {
 
     required property HyprlandWorkspace ws
     required property bool expanded
+    required property int padding
 
     implicitWidth: childrenRect.width
 
@@ -22,11 +23,11 @@ Item {
     property Item highlightTarget
 
     Rectangle {
-        visible: taskbar.highlightTarget != undefined && !taskbar.expanded
+        visible: taskbar.highlightTarget != undefined && taskbar.expanded
 
         x: taskbar.highlightTarget?.x ?? 0
         width: taskbar.highlightTarget?.width ?? 0
-        height: parent.height
+        height: parent.height 
 
         color: {
             if (taskbar.highlightTarget != undefined)
@@ -55,7 +56,7 @@ Item {
 
     RowLayout {
         height: parent.height
-        spacing: 0
+        spacing: 4
 
         Repeater {
             model: taskbar.ws.toplevels
@@ -65,7 +66,8 @@ Item {
 
                 property HyprlandToplevel topLevel: modelData
                 height: parent.height
-                implicitWidth: Math.max(wsClient.width, taskbarItem.height) + 10
+                property int padding: taskbar.expanded ? 12 : 0
+                implicitWidth: Math.max(wsClient.width, taskbarItem.height) + padding
 
                 Component.onCompleted: {
                     setHighlightTarget();
@@ -88,11 +90,14 @@ Item {
                 }
 
                 Rectangle {
-                    anchors.fill: parent
+                    anchors.centerIn: parent
 
                     opacity: mouseArea.containsMouse ? 1 : 0
                     color: Theme.taskbar.item.hover.bg
                     border.color: Theme.border
+                    property int padding: 4
+                    height: parent.height + padding
+                    width: Math.max(parent.height, parent.width) + padding
                     radius: parent.height
 
                     Behavior on opacity {
@@ -123,7 +128,7 @@ Item {
                     WrapperItem {
                         rightMargin: 4
 
-                        visible: !taskbar.expanded
+                        visible: taskbar.expanded
                         Text {
                             property int max_len: 24
                             property bool loaded: taskbarItem.topLevel.title !== wsClient.appId
