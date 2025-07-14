@@ -64,12 +64,8 @@ Item {
 
                     implicitHeight: wsItem.haveClients ? wsItem.activeHeight : dotSize
                     implicitWidth: {
-                        if (wsItem.active) {
+                        if (wsItem.active && wsItem.haveClients)
                             return wsItem.activeWidth;
-                        }
-                        if (enlargedDot) {
-                            return wsItem.dotSizeHover;
-                        }
                         return dotSize;
                     }
 
