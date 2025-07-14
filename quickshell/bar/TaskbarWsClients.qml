@@ -30,7 +30,7 @@ Item {
 
                 property HyprlandToplevel topLevel: modelData
                 height: parent.height
-                implicitWidth: Math.max(wsClients.width, taskbarItem.height) + 8
+                implicitWidth: Math.max(wsClients.width, taskbarItem.height) + 10
 
                 Rectangle {
                     anchors.fill: parent
@@ -41,28 +41,33 @@ Item {
 
                 RowLayout {
                     id: wsClients
-                    anchors.top: parent.top
-                    anchors.left: parent.left
+                    anchors.centerIn: parent
                     height: parent.height
                     spacing: 4
+
+                    property DesktopEntry entry: DesktopEntries.byId(taskbarItem.topLevel.wayland?.appId)
                     Rectangle {
                         color: "transparent"
-                        property int size: parent.height - 4
-                        implicitHeight: size
-                        implicitWidth: size
+                        property int iconSize: parent.height - 4
+                        implicitHeight: iconSize
+                        implicitWidth: iconSize
                         IconImage {
                             anchors.centerIn: parent
-                            implicitSize: parent.size
-                            source: "reallyBigImage.svg"
+                            implicitSize: parent.iconSize
+                            source: Quickshell.iconPath(wsClients.entry.icon)
                         }
                     }
 
-                    Text {
-                        property int max_len: 24
-                        property string trimmedText: taskbarItem.topLevel.title.length > max_len ? taskbarItem.topLevel.title.slice(0, max_len - 3) + "..." : taskbarItem.topLevel.title
-                        text: trimmedText
-                        font.weight: 500
-                        color: mouseArea.containsMouse ? Theme.taskbar.item.hover.fg : Theme.taskbar.item.normal.fg
+                    WrapperItem {
+                        rightMargin: 4
+                        Text {
+                            property int max_len: 24
+                            property string label: taskbarItem.topLevel.title
+                            property string trimmedText: label.length > max_len ? label.slice(0, max_len - 3) + "..." : label
+                            text: trimmedText
+                            font.weight: 500
+                            color: mouseArea.containsMouse ? Theme.taskbar.item.hover.fg : Theme.taskbar.item.normal.fg
+                        }
                     }
                 }
 
@@ -79,10 +84,5 @@ Item {
         }
     }
 
-    Behavior on implicitWidth {
-        NumberAnimation {
-            duration: 100
-            easing.type: Easing.Bezier
-        }
-    }
+
 }

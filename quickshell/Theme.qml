@@ -13,7 +13,7 @@ Singleton {
     property color black: Qt.hsla(accent.hslHue - 0.25, 0.02, 0.05, 1)
 
 
-    property color border: Qt.hsla(0, 0, 0, 0.2)
+    property color border: Qt.hsla(0, 0, 1, 0.5)
 
     property color background: root.black
 
@@ -42,7 +42,7 @@ Singleton {
             }
             property var hover: QtObject {
                 property color fg: root.black
-                property color bg: Qt.hsla(root.black.hslHue, 0, 1, 0.2)
+                property color bg: Qt.hsla(root.black.hslHue, 0, 1, 0.3)
             }
         }
     }
