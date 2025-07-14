@@ -35,7 +35,7 @@ Item {
                 Rectangle {
                     anchors.fill: parent
                     color: mouseArea.containsMouse ? Theme.taskbar.item.hover.bg : Theme.taskbar.item.normal.bg
-                    radius: parent.height / 4
+                    radius: parent.height
                     border.color: mouseArea.containsMouse ? Theme.border : "transparent"
                 }
 

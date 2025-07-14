@@ -13,7 +13,7 @@ Singleton {
     property color black: Qt.hsla(accent.hslHue - 0.25, 0.02, 0.05, 1)
 
 
-    property color border: Qt.hsla(0, 0, 0, 0.4)
+    property color border: Qt.hsla(0, 0, 0, 0.2)
 
     property color background: root.black
 

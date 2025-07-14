@@ -9,34 +9,38 @@ Item {
     width: childrenRect.width
     RowLayout {
         height: parent.height
-
+        spacing: 8
         Repeater {
             id: list
             model: Hyprland.workspaces
             delegate: Item {
                 id: wsItem
-                property int size: 10
-                property int activeSize: 24
+                property int dotSize: 8
+                property int dotSizeHover: 16
 
                 property int padding: 2
 
-                property int activeHeight: activeSize + padding
+                property int activeHeight: 24 + padding
                 property int activeWidth: Math.max(32, activeContents.width) + padding
 
                 property HyprlandWorkspace wsData: modelData
 
-                implicitWidth: wsItem.wsData.active ? activeWidth : size
-                implicitHeight: activeHeight
+                implicitWidth: wsItem.wsData.active ? activeWidth : dotSize
+                implicitHeight: parent.height
 
                 property color neutralColor: mouseArea.containsMouse ? Theme.workspace.hover.bg : Theme.workspace.inactive.bg
 
                 Rectangle {
-                    anchors.verticalCenter: parent.verticalCenter
-                    implicitHeight: wsItem.wsData.active ? activeHeight : size
-                    implicitWidth: parent.width
+                    anchors.centerIn: parent
 
-                    color: wsItem.wsData.active ? Theme.workspace.active.bg : neutralColor
-                    radius: parent.height / 4
+                    property int enlargedDot: mouseArea.containsMouse && !wsItem.wsData.active
+                    property int dotSize: enlargedDot ? wsItem.dotSizeHover : wsItem.dotSize
+
+                    implicitHeight: wsItem.wsData.active ? activeHeight : dotSize
+                    implicitWidth: enlargedDot ? wsItem.dotSizeHover : parent.width
+
+                    color: wsItem.wsData.active ? Theme.workspace.active.bg : wsItem.neutralColor
+                    radius: parent.height
 
                     Behavior on color {
                         ColorAnimation {}
@@ -44,8 +48,8 @@ Item {
 
                     Behavior on implicitHeight {
                         NumberAnimation {
-                            duration: 200
-                            easing.type: Easing.InOutExpo
+                            duration: 300
+                            easing.type: Easing.Linear
                         }
                     }
                 }
@@ -61,24 +65,17 @@ Item {
                 RowLayout {
                     id: activeContents
                     anchors.centerIn: parent
-                    implicitHeight: parent.height - padding
-                    opacity: wsItem.wsData.active ? 1 : 0
+                    implicitHeight: wsItem.activeHeight - wsItem.padding
+                    visible: wsItem.wsData.active
                     TaskbarWsClients {
                         ws: wsItem.wsData
-                    }
-
-                    Behavior on opacity {
-                        NumberAnimation {
-                            duration: 300
-                            easing.type: Easing.OutCubic
-                        }
                     }
                 }
 
                 Behavior on implicitWidth {
                     NumberAnimation {
-                        duration: 200
-                        easing.type: Easing.InOutExpo
+                        duration: 300
+                        easing.type: Easing.InOutCubic
                     }
                 }
             }
