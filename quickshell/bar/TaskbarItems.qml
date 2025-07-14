@@ -29,16 +29,12 @@ Item {
         height: parent.height
 
         color: {
-            if (mouseArea.containsMouse)
-                return Theme.taskbar.item.hover.bg;
-
             if (taskbar.highlightTarget != undefined)
                 return Theme.taskbar.item.active.bg;
 
             return Theme.taskbar.item.normal.bg;
         }
         radius: parent.height
-        border.color: mouseArea.containsMouse ? Theme.border : "transparent"
 
         Behavior on color {
             ColorAnimation {}
@@ -88,6 +84,19 @@ Item {
                     }
                     if (taskbar.highlightTarget == taskbarItem) {
                         taskbar.highlightTarget = false;
+                    }
+                }
+
+                Rectangle {
+                    anchors.fill: parent
+
+                    opacity: mouseArea.containsMouse ? 1 : 0
+                    color: Theme.taskbar.item.hover.bg
+                    border.color: Theme.border
+                    radius: parent.height
+
+                    Behavior on opacity {
+                        NumberAnimation {}
                     }
                 }
 
