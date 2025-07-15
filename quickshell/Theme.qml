@@ -42,7 +42,7 @@ Singleton {
                 property color bg: "transparent"
             }
             property var hover: QtObject {
-                property color fg: root.black
+                property color fg: root.bright
                 property color bg: Qt.hsla(root.black.hslHue, 0, 1, 0.3)
             }
         }
@@ -59,7 +59,7 @@ Singleton {
             }
 
             property var hover: QtObject {
-                property color bg: Qt.hsla(root.bright.hslHue, root.bright.hslSaturation, root.bright.hslLightness, 0.5)
+                property color bg: Qt.hsla(root.bright.hslHue, root.bright.hslSaturation, root.bright.hslLightness, 0.2)
             }
         }
     }

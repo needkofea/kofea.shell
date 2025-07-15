@@ -19,7 +19,7 @@ Item {
                 required property int index
                 property int wsId: index + 1
 
-                property int dotSize: 8
+                property int dotSize: 6
                 property int dotSizeHover: 10
 
                 property int activeHeight: 24
@@ -64,28 +64,36 @@ Item {
 
                     implicitHeight: wsItem.haveClients ? wsItem.activeHeight : dotSize
                     implicitWidth: {
-                        if (wsItem.active && wsItem.haveClients)
-                            return wsItem.activeWidth;
+                        if (wsItem.haveClients) {
+                            return wsItem.activeWidth + 4;
+                        }
+
                         return dotSize;
                     }
-
+                    border.color: {
+                        if (wsItem.haveClients && mouseArea.containsMouse) {
+                            return Theme.taskbar.ws_group.hover.bg;
+                        }
+                        if (wsItem.haveClients && wsItem.active) {
+                            return Theme.taskbar.ws_group.active.bg;
+                        }
+                        return Theme.taskbar.ws_group.inactive.bg;
+                    }
+                    // color: "transparent"
                     color: {
                         if (wsItem.haveClients) {
                             if (wsItem.active) {
                                 return Theme.taskbar.ws_group.active.bg;
                             }
-
                             return Theme.taskbar.ws_group.inactive.bg;
                         }
                         if (wsItem.active) {
                             return Theme.taskbar.ws_group.active.no_items;
                         }
-                        if (mouseArea.containsMouse) {
-                            return Theme.taskbar.ws_group.hover.bg;
-                        }
+
                         return Theme.taskbar.ws_group.inactive.no_items;
                     }
-                    radius: parent.height
+                    radius: parent.height / 4
 
                     Behavior on color {
                         ColorAnimation {}

@@ -35,7 +35,7 @@ Item {
 
             return Theme.taskbar.item.normal.bg;
         }
-        radius: parent.height
+        radius: parent.height / 4
 
         Behavior on color {
             ColorAnimation {}
@@ -94,10 +94,10 @@ Item {
                     opacity: mouseArea.containsMouse ? 1 : 0
                     color: Theme.taskbar.item.hover.bg
                     border.color: Theme.border
-                    property int padding: 4
-                    height: parent.height + padding
-                    width: Math.max(parent.height, parent.width) + padding
-                    radius: parent.height
+
+                    height: parent.height
+                    width: Math.max(parent.height, parent.width)
+                    radius: parent.height / 4
 
                     Behavior on opacity {
                         NumberAnimation {}
@@ -162,6 +162,7 @@ Item {
 
                 MouseArea {
                     id: mouseArea
+                    enabled: taskbar.expanded
                     anchors.fill: parent
                     hoverEnabled: true
 
