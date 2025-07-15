@@ -119,7 +119,9 @@ Item {
                         implicitWidth: iconSize
                         IconImage {
                             anchors.centerIn: parent
-                            implicitSize: parent.iconSize
+                            implicitSize: parent.iconSize * 1.5
+                            scale: 1 / 1.5
+                            mipmap: true
                             source: Quickshell.iconPath(wsClient.entry.icon)
                         }
                     }
