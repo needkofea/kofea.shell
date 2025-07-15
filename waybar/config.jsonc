@@ -1,7 +1,9 @@
 {
   "layer": "top",
-  "output": ["*"],
-  "position": "bottom",
+  "output": [
+    "*"
+  ],
+  "position": "top",
   "mod": "dock",
   "height": 32,
   "exclusive": true,
@@ -34,14 +36,15 @@
     "hyprland/workspaces",
     "custom/r_end",
     "custom/l_end",
-    "wlr/taskbar",
+    // "wlr/taskbar",
     "custom/r_end",
     "custom/padd",
   ],
   "modules-center": [
     "custom/padd",
     "custom/l_end",
-    "hyprland/window",
+    "idle_inhibitor",
+    "clock",
     "custom/r_end",
     "custom/padd",
   ],
@@ -58,10 +61,6 @@
     "privacy",
     "tray",
     "battery",
-    "custom/r_end",
-    "custom/l_end",
-    "idle_inhibitor",
-    "clock",
     "custom/r_end",
   ],
   // sourced from modules based on config.ctl //
@@ -86,7 +85,9 @@
     "tooltip-format": "{title}",
     "on-click": "activate",
     "on-click-middle": "close",
-    "ignore-list": ["Alacritty"],
+    "ignore-list": [
+      "Alacritty"
+    ],
     "app_ids-mapping": {
       "firefoxdeveloperedition": "firefox-developer-edition",
       "jetbrains-datagrip": "DataGrip",
@@ -167,13 +168,35 @@
     "format-charging": " {capacity}%",
     "format-plugged": " {capacity}%",
     "format-alt": "{time} {icon}",
-    "format-icons": ["󰂎", "󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"],
+    "format-icons": [
+      "󰂎",
+      "󰁺",
+      "󰁻",
+      "󰁼",
+      "󰁽",
+      "󰁾",
+      "󰁿",
+      "󰂀",
+      "󰂁",
+      "󰂂",
+      "󰁹"
+    ],
   },
   "backlight": {
     "device": "intel_backlight",
     "rotate": 0,
     "format": "{icon} {percent}%",
-    "format-icons": ["", "", "", "", "", "", "", "", "󰃠"],
+    "format-icons": [
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "󰃠"
+    ],
     "on-scroll-up": "brightnessctl set 1%+",
     "on-scroll-down": "brightnessctl set 1%-",
     "min-length": 6,
@@ -206,7 +229,11 @@
       "phone": "",
       "portable": "",
       "car": "",
-      "default": ["", " ", " "],
+      "default": [
+        "",
+        " ",
+        " "
+      ],
     },
   },
   "pulseaudio#microphone": {
