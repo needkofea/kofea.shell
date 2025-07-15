@@ -14,7 +14,7 @@ PanelWindow {
 
     color: Theme.background
 
-    implicitHeight: 32
+    implicitHeight: 38
 
     WrapperItem {
         anchors.fill: parent

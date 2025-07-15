@@ -22,7 +22,7 @@ Item {
                 property int dotSize: 6
                 property int dotSizeHover: 10
 
-                property int activeHeight: 24
+                property int activeHeight: 28
                 property int activeWidth: activeContents.width
 
                 property HyprlandWorkspace wsData: Hyprland.workspaces.values.find(x => x.id == wsId)

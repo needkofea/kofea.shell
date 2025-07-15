@@ -138,11 +138,11 @@ Item {
                             text: trimmedText
                             font.weight: 500
                             color: {
-                                if (mouseArea.containsMouse) {
-                                    return Theme.taskbar.item.hover.fg;
-                                }
                                 if (topLevel.activated) {
                                     return Theme.taskbar.item.active.fg;
+                                }
+                                if (mouseArea.containsMouse) {
+                                    return Theme.taskbar.item.hover.fg;
                                 }
                                 return Theme.taskbar.item.normal.fg;
                             }
