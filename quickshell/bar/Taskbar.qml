@@ -79,12 +79,8 @@ Item {
                         }
                         return Theme.taskbar.ws_group.inactive.bg;
                     }
-                    // color: "transparent"
                     color: {
                         if (wsItem.haveClients) {
-                            if (wsItem.active) {
-                                return Theme.taskbar.ws_group.active.bg;
-                            }
                             return Theme.taskbar.ws_group.inactive.bg;
                         }
                         if (wsItem.active) {
