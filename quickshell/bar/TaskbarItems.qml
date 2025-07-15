@@ -13,7 +13,7 @@ Item {
     required property bool expanded
     required property int padding
 
-    implicitWidth: childrenRect.width
+    implicitWidth: items.width
 
     // Text{
     //     color: "white"
@@ -40,15 +40,14 @@ Item {
         Behavior on color {
             ColorAnimation {}
         }
+
         Behavior on x {
-            enabled: taskbar.expanded
             NumberAnimation {
                 duration: 200
                 easing.type: Easing.InOutQuad
             }
         }
         Behavior on width {
-            enabled: taskbar.expanded
             NumberAnimation {
                 duration: 200
                 easing.type: Easing.InOutQuad
@@ -57,6 +56,7 @@ Item {
     }
 
     RowLayout {
+        id: items
         height: parent.height
         spacing: 4
 
@@ -109,9 +109,9 @@ Item {
                     anchors.centerIn: parent
                     height: parent.height
                     spacing: 4
-
                     property string appId: taskbarItem.topLevel.wayland?.appId ?? ''
                     property DesktopEntry entry: DesktopEntries.byId(appId)
+
                     Rectangle {
                         color: "transparent"
                         property int iconSize: parent.height - 4
@@ -128,6 +128,8 @@ Item {
                         rightMargin: 4
 
                         visible: taskbar.expanded
+                        width: taskbar.expanded ? childrenRect.width : 0
+
                         Text {
                             property int max_len: 24
                             property bool loaded: taskbarItem.topLevel.title !== wsClient.appId
