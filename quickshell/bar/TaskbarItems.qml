@@ -140,7 +140,7 @@ Item {
                             text: trimmedText
                             font.weight: 500
                             color: {
-                                if (topLevel.activated) {
+                                if (taskbar.highlightTarget == taskbarItem) {
                                     return Theme.taskbar.item.active.fg;
                                 }
                                 if (mouseArea.containsMouse) {
