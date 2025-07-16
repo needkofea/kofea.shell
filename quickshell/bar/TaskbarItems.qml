@@ -82,7 +82,7 @@ Item {
                 }
 
                 function setHighlightTarget() {
-                    if (topLevel.activated) {
+                    if (topLevel.activated || !taskbar.highlightTarget) {
                         taskbar.highlightTarget = taskbarItem;
                         return;
                     }
