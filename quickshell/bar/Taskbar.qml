@@ -32,7 +32,7 @@ Item {
                 property HyprlandWorkspace wsData: Hyprland.workspaces.values.find(x => x.id == wsId)
 
                 property int haveClients: wsData?.toplevels?.values?.length ?? 0 > 0
-                property int active: Hyprland.focusedWorkspace.id == wsId
+                property int active: wsData?.active ?? false
 
                 implicitWidth: Math.max(activeWidth, 24)
                 implicitHeight: parent.height
