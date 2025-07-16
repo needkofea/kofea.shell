@@ -2,22 +2,26 @@ import QtQuick
 import QtQuick.Layouts
 import Quickshell.Hyprland
 import Quickshell.Widgets
-import "root:"
+import "../services"
+import ".."
 
 Item {
     id: root
     width: childrenRect.width
+
+    required property HyprlandMonitor monitor
+
     RowLayout {
         height: parent.height
 
         Repeater {
             id: list
-            property int max_ws_index: Hyprland.workspaces.values[Hyprland.workspaces.values.length - 1].id
-            model: max_ws_index
+        
+            model: TaskbarServices.getWorkspaces(root.monitor)
             delegate: Item {
                 id: wsItem
-                required property int index
-                property int wsId: index + 1
+                required property int modelData
+                property int wsId: modelData
 
                 property int dotSize: 6
                 property int dotSizeHover: 10
@@ -58,7 +62,7 @@ Item {
 
                 Rectangle {
                     anchors.centerIn: parent
-
+                    
                     property int enlargedDot: mouseArea.containsMouse && !haveClients
                     property int dotSize: enlargedDot ? wsItem.dotSizeHover : wsItem.dotSize
 

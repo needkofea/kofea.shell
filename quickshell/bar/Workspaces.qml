@@ -7,16 +7,21 @@ import "root:"
 Item {
     id: root
     width: childrenRect.width
+
+    required property var workspaces
+
     RowLayout {
         height: parent.height
 
         Repeater {
             id: list
-            model: Hyprland.workspaces
+            model: root.workspaces
             delegate: Item {
                 id: rect
                 property int size: 8
                 property int activeSize: 18
+                required property HyprlandWorkspace modelData
+
                 implicitWidth: modelData.active ? Math.max(32, label.width + 18) : size
                 implicitHeight: activeSize + 4
 

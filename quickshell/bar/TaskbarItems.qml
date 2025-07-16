@@ -130,7 +130,7 @@ Item {
                         rightMargin: 4
 
                         visible: taskbar.expanded
-                        width: taskbar.expanded ? childrenRect.width : 0
+                        // width: taskbar.expanded ? childrenRect.width : 0
 
                         Text {
                             property int max_len: 24
