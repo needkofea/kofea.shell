@@ -2,10 +2,12 @@ pragma Singleton
 
 import Quickshell
 import QtQuick
+import Qt.labs.folderlistmodel 2.9
 
 Singleton {
     id: root
     property string clockFont: "Poppins"
+
 
     FontLoader {
         source: "../fonts/Poppins/Poppins-Regular.ttf"

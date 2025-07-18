@@ -25,7 +25,7 @@ Singleton {
         // for (let i = 0; i < length; i++) {
         //     arr.push(i);
         // }
-        return Hyprland.workspaces.values.filter(x => x.monitor.id == monitor.id).map(x => x.id);
+        return Hyprland.workspaces.values.filter(x => x.monitor?.id == monitor?.id).map(x => x?.id);
     }
 
     function findEntryBestEffort(appid) {

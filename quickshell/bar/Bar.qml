@@ -25,7 +25,7 @@ PanelWindow {
         rightMargin: 8
 
         Item {
-            property var workspaces: Hyprland.workspaces.values.filter(x => x.monitor.id == window.monitor.id)
+            property var workspaces: Hyprland.workspaces.values.filter(x => x.monitor?.id == window.monitor?.id)
 
             Workspaces {
                 implicitHeight: parent.height
