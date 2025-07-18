@@ -23,7 +23,7 @@ Item {
 
     Rectangle {
         visible: taskbar.highlightTarget != undefined && taskbar.expanded
-
+        anchors.verticalCenter: parent.verticalCenter
         x: taskbar.highlightTarget?.x ?? 0
         width: taskbar.highlightTarget?.width ?? 0
         height: parent.height
@@ -94,9 +94,9 @@ Item {
                     color: Theme.taskbar.item.hover.bg
                     border.color: Theme.border
 
-                    height: parent.height
-                    width: Math.max(parent.height, parent.width)
-                    radius: parent.height / 4
+                    height: parent.height - 2
+                    width: Math.max(parent.height, parent.width) - 3
+                    radius: parent.height / 3.5
 
                     Behavior on opacity {
                         NumberAnimation {}

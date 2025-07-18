@@ -15,7 +15,7 @@ Item {
 
         Repeater {
             id: list
-        
+
             model: TaskbarServices.getWorkspaces(root.monitor)
             delegate: Item {
                 id: wsItem
@@ -61,20 +61,20 @@ Item {
 
                 Rectangle {
                     anchors.centerIn: parent
-                    
+
                     property int enlargedDot: mouseArea.containsMouse && !haveClients
                     property int dotSize: enlargedDot ? wsItem.dotSizeHover : wsItem.dotSize
 
                     implicitHeight: wsItem.haveClients ? wsItem.activeHeight : dotSize
                     implicitWidth: {
                         if (wsItem.haveClients) {
-                            return wsItem.activeWidth + 4;
+                            return wsItem.activeWidth;
                         }
 
                         return dotSize;
                     }
                     border.color: {
-                        if (wsItem.haveClients && mouseArea.containsMouse) {
+                        if (wsItem.haveClients && mouseArea.containsMouse && !wsItem.active) {
                             return Theme.taskbar.ws_group.hover.bg;
                         }
                         if (wsItem.haveClients && wsItem.active) {
