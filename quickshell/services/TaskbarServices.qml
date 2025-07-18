@@ -14,7 +14,7 @@ Singleton {
     function getWorkspaces(monitor) {
         if (Hyprland.monitors == 1 || mirrorTaskbar) {
             let arr = [];
-            let max_id = Hyprland.workspaces.values[Hyprland.workspaces.values.length-1].id
+            let max_id = Hyprland.workspaces.values[Hyprland.workspaces.values.length - 1].id;
             for (let i = 0; i < max_id; i++) {
                 arr.push(i + 1);
             }
@@ -25,6 +25,15 @@ Singleton {
         // for (let i = 0; i < length; i++) {
         //     arr.push(i);
         // }
-        return Hyprland.workspaces.values.filter(x => x.monitor.id == monitor.id).map(x=>x.id);
+        return Hyprland.workspaces.values.filter(x => x.monitor.id == monitor.id).map(x => x.id);
+    }
+
+    function findEntryBestEffort(appid) {
+        const maybe = DesktopEntries.byId(appid);
+        if (maybe) {
+            return maybe;
+        }
+
+        return DesktopEntries.applications.values.find(x => x.id.includes(appid.toLowerCase()));
     }
 }

@@ -3,7 +3,6 @@ import QtQuick.Layouts
 import Quickshell.Hyprland
 import Quickshell.Widgets
 import Quickshell
-import ".."
 import "../services"
 
 Item {
@@ -108,13 +107,13 @@ Item {
                     id: wsClient
                     anchors.centerIn: parent
                     height: parent.height
-                    spacing: 4
+                    spacing: 6
                     property string appId: taskbarItem.topLevel.wayland?.appId ?? ''
-                    property DesktopEntry entry: DesktopEntries.byId(appId)
+                    property DesktopEntry entry: TaskbarServices.findEntryBestEffort(appId)
 
                     Rectangle {
                         color: "transparent"
-                        property int iconSize: parent.height - 4
+                        property int iconSize: parent.height - 8
                         implicitHeight: iconSize
                         implicitWidth: iconSize
                         IconImage {
@@ -122,20 +121,20 @@ Item {
                             implicitSize: parent.iconSize * 1.5
                             scale: 1 / 1.5
                             mipmap: true
-                            source: Quickshell.iconPath(wsClient.entry.icon)
+                            source: Quickshell.iconPath(wsClient.entry?.icon)
                         }
                     }
 
                     WrapperItem {
-                        rightMargin: 4
+                        rightMargin: 4 
 
-                        visible: taskbar.expanded
+                        visible: taskbar.expanded && taskbarItem.topLevel.title.length > 0
                         // width: taskbar.expanded ? childrenRect.width : 0
 
                         Text {
                             property int max_len: 24
                             property bool loaded: taskbarItem.topLevel.title !== wsClient.appId
-                            property string label: loaded ? taskbarItem.topLevel.title : ''
+                            property string label: loaded ? taskbarItem.topLevel.title : taskbarItem.topLevel.title[0].toUpperCase() + taskbarItem.topLevel.title.slice(1)
                             property string trimmedText: label.length > max_len ? label.slice(0, max_len - 3) + "..." : label
                             text: trimmedText
                             font.weight: 500

@@ -3,7 +3,6 @@ import QtQuick.Layouts
 import Quickshell.Hyprland
 import Quickshell.Widgets
 import "../services"
-import ".."
 
 Item {
     id: root
@@ -26,7 +25,7 @@ Item {
                 property int dotSize: 6
                 property int dotSizeHover: 10
 
-                property int activeHeight: 28
+                property int activeHeight: 32
                 property int activeWidth: activeContents.width
 
                 property HyprlandWorkspace wsData: Hyprland.workspaces.values.find(x => x.id == wsId)

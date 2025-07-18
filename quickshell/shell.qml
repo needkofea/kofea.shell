@@ -1,3 +1,4 @@
+//@ pragma UseQApplication
 import Quickshell
 import Quickshell.Io
 import QtQuick
@@ -7,16 +8,14 @@ Scope {
     Variants {
         model: Quickshell.screens
 
-        delegate: Component {
-            Bar {
-                property var modelData
+        delegate: Bar {
+            property var modelData
 
-                screen: modelData
-                anchors {
-                    bottom: true
-                    left: true
-                    right: true
-                }
+            screen: modelData
+            anchors {
+                bottom: true
+                left: true
+                right: true
             }
         }
     }
