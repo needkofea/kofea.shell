@@ -17,7 +17,7 @@ Item {
         color: mouse.containsMouse ? Theme.clock.bg_hover : Theme.clock.bg
         anchors.centerIn: parent
 
-        property int margin: 12
+        property int margin: Theme.barMargin
         implicitWidth: layout.width + 18
         height: parent.height - margin
 
@@ -29,7 +29,7 @@ Item {
 
             ColumnLayout {
                 id: layout
-                spacing: -4
+                spacing: -2
                 RowLayout {
                     spacing: 2
                     property var font_family: FontServices.clockFont

@@ -2,6 +2,8 @@ pragma Singleton
 
 import Quickshell
 import Quickshell.Hyprland
+import Quickshell.Bluetooth
+import Quickshell.Services.Pipewire
 import QtQuick
 
 Singleton {
@@ -35,5 +37,71 @@ Singleton {
         }
 
         return DesktopEntries.applications.values.find(x => x.id.includes(appid.toLowerCase()));
+    }
+
+    property BluetoothAdapter bluetoothAdapter: Bluetooth.defaultAdapter
+    property string bluetoothIcon: {
+        // const x = bluetoothDevice?.icon ?? "bluetooth-hardware-disabled-symbolic";
+
+        if (!bluetoothAdapter) {
+            return "bluetooth-hardware-disabled-symbolic";
+        }
+
+        if (!bluetoothAdapter.enabled) {
+            return "bluetooth-disabled-symbolic";
+        }
+
+        if (bluetoothAdapter.discovering) {
+            return "bluetooth-acquiring-symbolic";
+        }
+
+        if (bluetoothAdapter.devices?.values?.length == 0) {
+            return "bluetooth-disconnected-symbolic";
+        }
+
+        return "bluetooth-active-symbolic";
+    }
+
+    property string networkIcon: getNetworkIcon(Network.active?.strength)
+
+    function getNetworkIcon(strength: int): string {
+        if (strength == null) {
+            return "network-wireless-offline-symbolic";
+        }
+        if (strength > 80)
+            return "network-wireless-signal-excellent-symbolic";
+        if (strength > 60)
+            return "network-wireless-signal-good-symbolic";
+        if (strength > 40)
+            return "network-wireless-signal-ok-symbolic";
+        if (strength > 20)
+            return "network-wireless-signal-weak-symbolic";
+        return "network-wireless-signal-none-symbolic";
+    }
+
+    PwObjectTracker {
+        objects: [Pipewire.defaultAudioSink, Pipewire.defaultAudioSink.audio]
+    }
+
+    property bool audioReady: Pipewire.defaultAudioSink.ready
+    property PwNodeAudio currentAudio: Pipewire.defaultAudioSink.audio
+
+    property string volumeIcon: {
+        if (!audioReady) {
+            return "content-loading-symbolic";
+        }
+        if (currentAudio.muted) {
+            return "audio-volume-muted-symbolic";
+        }
+        if (currentAudio.volume > .75) {
+            return "audio-volume-high-symbolic";
+        }
+        if (currentAudio.volume > .4) {
+            return "audio-volume-medium-symbolic";
+        }
+        if (currentAudio.volume > 0) {
+            return "audio-volume-low-symbolic";
+        }
+        return "audio-volume-muted-symbolic";
     }
 }

@@ -27,10 +27,20 @@ PanelWindow {
         Item {
             property var workspaces: Hyprland.workspaces.values.filter(x => x.monitor?.id == window.monitor?.id)
 
-            Workspaces {
+            RowLayout {
+                anchors.left: parent.left
                 implicitHeight: parent.height
-                workspaces: parent.workspaces
+                spacing: 8
+
+                Status {
+                    implicitHeight: parent.height
+                }
+                Workspaces {
+                    implicitHeight: parent.height
+                    workspaces: parent.parent.workspaces
+                }
             }
+
             Taskbar {
                 monitor: window.monitor
                 anchors.centerIn: parent

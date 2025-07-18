@@ -7,6 +7,8 @@ import QtQuick
 Singleton {
     id: root
 
+    property int barMargin: 8
+
     property color accent: "#1100ff"
 
     property color bright: Qt.hsla(accent.hslHue, 0.4, 0.85, 1)
@@ -65,7 +67,7 @@ Singleton {
     }
 
     property var clock: QtObject {
-        property color bg: Qt.hsla(root.black.hslHue, 0.1, 0.3, 1)
+        property color bg: Qt.hsla(root.black.hslHue, 0.2, 0.3, 1)
         property color bg_hover: Qt.hsla(bg.hslHue, bg.hslSaturation, bg.hslLightness + 0.1, 1)
         property color fg: "white"
         property color date_fg: Qt.hsla(root.bright.hslHue, root.bright.hslSaturation, .9, 1)
@@ -76,5 +78,9 @@ Singleton {
             property color bg: "transparent"
             property color bg_hover: Qt.hsla(root.black.hslHue, 0.1, 0.3, 1)
         }
+    }
+
+    property var network_status: QtObject {
+        property color bg: Qt.hsla(root.black.hslHue, 0.2, 0.3, 1)
     }
 }
