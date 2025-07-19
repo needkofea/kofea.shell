@@ -30,13 +30,26 @@ Singleton {
         return Hyprland.workspaces.values.filter(x => x.monitor?.id == monitor?.id).map(x => x?.id);
     }
 
-    function findEntryBestEffort(appid) {
+    function findEntryBestEffort(appid, title) {
         const maybe = DesktopEntries.byId(appid);
         if (maybe) {
             return maybe;
         }
 
-        return DesktopEntries.applications.values.find(x => x.id.includes(appid.toLowerCase()));
+        let bestEffort = DesktopEntries.applications.values.find(x => x.id.toLowerCase().includes(appid.toLowerCase()));
+        if (!bestEffort){
+            bestEffort = DesktopEntries.applications.values.find(x => x.name.toLowerCase().includes(title.toLowerCase()));
+        }
+        console.log("Using best effort for ", title, appid, bestEffort?.id)
+        return bestEffort
+    }
+
+    function iconPath(icon_source: string): string {
+        if (icon_source.includes("?path=")) {
+            const [name, path] = icon.split("?path=");
+            return `file://${path}/${name.slice(name.lastIndexOf("/") + 1)}`;
+        }
+        return Quickshell.iconPath(icon_source);
     }
 
     property BluetoothAdapter bluetoothAdapter: Bluetooth.defaultAdapter

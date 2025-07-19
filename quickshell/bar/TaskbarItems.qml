@@ -109,7 +109,8 @@ Item {
                     height: parent.height
                     spacing: 6
                     property string appId: taskbarItem.topLevel.wayland?.appId ?? ''
-                    property DesktopEntry entry: TaskbarServices.findEntryBestEffort(appId)
+                    property string appTitle: taskbarItem.topLevel.title
+                    property DesktopEntry entry: TaskbarServices.findEntryBestEffort(appId, appTitle)
 
                     Rectangle {
                         color: "transparent"
@@ -121,7 +122,7 @@ Item {
                             implicitSize: parent.iconSize * 1.5
                             scale: 1 / 1.5
                             mipmap: true
-                            source: Quickshell.iconPath(wsClient.entry?.icon)
+                            source: TaskbarServices.iconPath(wsClient.entry?.icon)
                         }
                     }
 
