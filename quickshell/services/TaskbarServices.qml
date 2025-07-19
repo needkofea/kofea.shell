@@ -10,6 +10,7 @@ Singleton {
     id: root
 
     property bool mirrorTaskbar: false
+    property bool alwaysExpandWsGroup: true
     readonly property list<DesktopEntry> list: DesktopEntries.applications.values.filter(a => !a.noDisplay).sort((a, b) => a.name.localeCompare(b.name))
 
     // Returns a list of workspace ids for the taskbar for the current monitor
@@ -40,7 +41,7 @@ Singleton {
         if (!bestEffort){
             bestEffort = DesktopEntries.applications.values.find(x => x.name.toLowerCase().includes(title.toLowerCase()));
         }
-        console.log("Using best effort for ", title, appid, bestEffort?.id)
+        console.log(`Using best effort for (title: ${title}; id: ${appid}) -> ${bestEffort?.id}`)
         return bestEffort
     }
 

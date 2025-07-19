@@ -23,6 +23,7 @@ Item {
 
     Rectangle {
         visible: taskbar.highlightTarget != undefined && taskbar.expanded
+        opacity: taskbar.ws.active ? 1 : 0
         anchors.verticalCenter: parent.verticalCenter
         x: taskbar.highlightTarget?.x ?? 0
         width: taskbar.highlightTarget?.width ?? 0
@@ -41,17 +42,19 @@ Item {
         }
 
         Behavior on x {
-            NumberAnimation {
-                duration: 200
-                easing.type: Easing.InOutQuad
-            }
+            NumberAnim {}
         }
         Behavior on width {
-            NumberAnimation {
-                duration: 200
-                easing.type: Easing.InOutQuad
-            }
+            NumberAnim {}
         }
+        Behavior on opacity {
+            NumberAnim {}
+        }
+    }
+
+    component NumberAnim: NumberAnimation {
+        duration: 200
+        easing.type: Easing.InOutQuad
     }
 
     RowLayout {
@@ -127,7 +130,7 @@ Item {
                     }
 
                     WrapperItem {
-                        rightMargin: 4 
+                        rightMargin: 4
 
                         visible: taskbar.expanded && taskbarItem.topLevel.title.length > 0
                         // width: taskbar.expanded ? childrenRect.width : 0
@@ -140,7 +143,7 @@ Item {
                             text: trimmedText
                             font.weight: 500
                             color: {
-                                if (taskbar.highlightTarget == taskbarItem) {
+                                if (taskbar.highlightTarget == taskbarItem && taskbar.ws.active) {
                                     return Theme.taskbar.item.active.fg;
                                 }
                                 if (mouseArea.containsMouse) {

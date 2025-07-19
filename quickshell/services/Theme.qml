@@ -51,7 +51,8 @@ Singleton {
 
         property var ws_group: QtObject {
             property var inactive: QtObject {
-                property color bg: "transparent"
+                property color bg: Qt.hsla(root.bright.hslHue, root.bright.hslSaturation, .5, 0.1)
+                property color border: Qt.hsla(root.bright.hslHue, root.bright.hslSaturation, 0.8, 0.2)
                 property color no_items: Qt.hsla(root.black.hslHue, root.black.hslSaturation, 0.15, 1)
             }
 
@@ -61,7 +62,8 @@ Singleton {
             }
 
             property var hover: QtObject {
-                property color bg: Qt.hsla(root.bright.hslHue, root.bright.hslSaturation, root.bright.hslLightness, 0.2)
+                property color border: Qt.hsla(root.bright.hslHue, root.bright.hslSaturation, root.bright.hslLightness, 0.2)
+                
             }
         }
     }

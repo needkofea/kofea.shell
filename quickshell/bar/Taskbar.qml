@@ -75,12 +75,12 @@ Item {
                     }
                     border.color: {
                         if (wsItem.haveClients && mouseArea.containsMouse && !wsItem.active) {
-                            return Theme.taskbar.ws_group.hover.bg;
+                            return Theme.taskbar.ws_group.hover.border;
                         }
                         if (wsItem.haveClients && wsItem.active) {
                             return Theme.taskbar.ws_group.active.bg;
                         }
-                        return Theme.taskbar.ws_group.inactive.bg;
+                        return Theme.taskbar.ws_group.inactive.border;
                     }
                     color: {
                         if (wsItem.haveClients) {
@@ -111,7 +111,7 @@ Item {
                         implicitHeight: wsItem.activeHeight
                         opacity: wsItem.haveClients ? 1 : 0
                         visible: wsItem.wsData && wsItem.haveClients
-                        expanded: wsItem.active && wsItem.haveClients
+                        expanded: (wsItem.active && wsItem.haveClients) || TaskbarServices.alwaysExpandWsGroup
                         padding: 4
 
                         Behavior on opacity {
