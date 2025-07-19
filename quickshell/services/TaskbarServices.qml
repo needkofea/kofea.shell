@@ -38,11 +38,11 @@ Singleton {
         }
 
         let bestEffort = DesktopEntries.applications.values.find(x => x.id.toLowerCase().includes(appid.toLowerCase()));
-        if (!bestEffort){
+        if (!bestEffort) {
             bestEffort = DesktopEntries.applications.values.find(x => x.name.toLowerCase().includes(title.toLowerCase()));
         }
-        console.log(`Using best effort for (title: ${title}; id: ${appid}) -> ${bestEffort?.id}`)
-        return bestEffort
+        console.log(`Using best effort for (title: ${title}; id: ${appid}) -> ${bestEffort?.id}`);
+        return bestEffort;
     }
 
     function iconPath(icon_source: string): string {
@@ -54,6 +54,17 @@ Singleton {
     }
 
     property BluetoothAdapter bluetoothAdapter: Bluetooth.defaultAdapter
+    property list<BluetoothDevice> connectedBtDevices: Bluetooth.devices.values.filter(x => x.connected)
+    property string currentBluetoothTooltip: {
+        const deviceList = connectedBtDevices.map((x, idx) => {
+            let s = `${idx + 1}. ${x.name}`;
+            if (x.batteryAvailable){
+                s += ` (🔋 ${x.battery * 100}%)`
+            }
+            return s
+        });
+        return `Connected Devices:\n` + deviceList;
+    }
     property string bluetoothIcon: {
         // const x = bluetoothDevice?.icon ?? "bluetooth-hardware-disabled-symbolic";
 
@@ -77,7 +88,13 @@ Singleton {
     }
 
     property string networkIcon: getNetworkIcon(Network.active?.strength)
-
+    property string currentNetworkTooltip: {
+        const network = Network.active;
+        if (!network) {
+            return "No network active!";
+        }
+        return `${network.ssid} (${network.strength}%)`;
+    }
     function getNetworkIcon(strength: int): string {
         if (strength == null) {
             return "network-wireless-offline-symbolic";

@@ -32,7 +32,7 @@ PanelWindow {
                 implicitHeight: parent.height
                 spacing: 8
 
-                Status {
+                QuickControls {
                     implicitHeight: parent.height
                 }
                 Workspaces {

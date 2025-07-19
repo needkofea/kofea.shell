@@ -16,6 +16,11 @@ Singleton {
 
     property color border: Qt.hsla(0, 0, 1, 0.3)
 
+    property var bar_widget: QtObject {
+        property color bg: Qt.hsla(root.black.hslHue, 0.2, 0.3, 1)
+        property color bg_hover: Qt.hsla(bg.hslHue, bg.hslSaturation, bg.hslLightness + 0.1, 1)
+    }
+
     property color background: root.black
 
     property var workspace: QtObject {
@@ -63,14 +68,13 @@ Singleton {
 
             property var hover: QtObject {
                 property color border: Qt.hsla(root.bright.hslHue, root.bright.hslSaturation, root.bright.hslLightness, 0.2)
-                
             }
         }
     }
 
     property var clock: QtObject {
-        property color bg: Qt.hsla(root.black.hslHue, 0.2, 0.3, 1)
-        property color bg_hover: Qt.hsla(bg.hslHue, bg.hslSaturation, bg.hslLightness + 0.1, 1)
+        property color bg: root.bar_widget.bg
+        property color bg_hover: root.bar_widget.bg_hover
         property color fg: "white"
         property color date_fg: Qt.hsla(root.bright.hslHue, root.bright.hslSaturation, .9, 1)
     }
@@ -82,7 +86,8 @@ Singleton {
         }
     }
 
-    property var network_status: QtObject {
-        property color bg: Qt.hsla(root.black.hslHue, 0.2, 0.3, 1)
+    property var quick_controls: QtObject {
+        property color bg: root.bar_widget.bg
+        property color bg_hover: root.bar_widget.bg_hover
     }
 }
