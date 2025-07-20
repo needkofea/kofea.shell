@@ -1,5 +1,5 @@
-
 import QtQuick
+import QtQuick.Controls
 import QtQuick.Layouts
 import Quickshell
 import Quickshell.Widgets
@@ -38,22 +38,36 @@ ColumnLayout {
         }
     }
 
-    Repeater {
-        id: repeater
-        property var selected: null
+    ScrollView {
 
-        model: Network.networks
-        delegate: Item {
-            implicitWidth: child.width
-            implicitHeight: child.height
-            NetworkMenuItem {
-                id: child
-                name: modelData.ssid.length > 0 ? modelData.ssid : "No SSID"
-                desc: `${modelData.frequency / 1000} Ghz`
-                label: modelData.active ? "Disconnect" : "Connect"
-                expanded: repeater.selected == child
-                onToggleExpanded: {
-                    repeater.selected = child;
+        implicitHeight: 400
+        implicitWidth: layout2.width
+
+        ColumnLayout {
+            id: layout2
+            Repeater {
+                id: repeater
+                property var selected: null
+
+                model: Network.networks
+                delegate: Item {
+                    implicitWidth: child.width
+                    implicitHeight: child.height
+                    NetworkMenuItem {
+                        id: child
+                        name: modelData.ssid.length > 0 ? modelData.ssid : "No SSID"
+                        desc: `${modelData.frequency / 1000} Ghz`
+                        label: modelData.active ? "Disconnect" : "Connect"
+                        expanded: repeater.selected == child
+
+                        onClicked: {
+                            console.error("WIP");
+                            // Waiting for proper NetworkManager support from Quickshell or until I find one sufficiently good
+                        }
+                        onToggleExpanded: {
+                            repeater.selected = child;
+                        }
+                    }
                 }
             }
         }

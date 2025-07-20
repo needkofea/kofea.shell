@@ -18,7 +18,7 @@ Rectangle {
     required property string name
     required property string desc
     required property string label
-    signal clicked(mouse: MouseEvent)
+    signal clicked()
     signal toggleExpanded()
 
     property bool expanded: false

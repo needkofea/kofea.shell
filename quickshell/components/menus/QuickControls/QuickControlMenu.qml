@@ -23,6 +23,8 @@ PopupWindow {
     visible: implicitHeight > 1
     color: "transparent"
 
+    property bool rootAnim: true
+
     HyprlandFocusGrab {
         id: grab
         windows: [root]
@@ -33,29 +35,37 @@ PopupWindow {
 
     onActiveChanged: {
         grab.active = root.active;
-        layout.popToIndex(0);
+        stack.popToIndex(0);
+
+        // Re-enable root animation for closing
+        root.rootAnim = true;
     }
 
     Rectangle {
         id: ctn
         anchors.top: parent.top
 
-        implicitWidth: layout.width + 16
-        implicitHeight: layout.height + 16
+        implicitWidth: stack.width + 16
+        implicitHeight: stack.height + 16
 
         color: Theme.panel.bg
         border.color: Theme.panel.border
         radius: Theme.panel.radius
 
         StackView {
-            id: layout
+            id: stack
             anchors.centerIn: parent
 
-            implicitWidth: layout.currentItem ? layout.currentItem.implicitWidth : 100
-            implicitHeight: layout.currentItem ? layout.currentItem.implicitHeight : 100
+            implicitWidth: stack.currentItem ? stack.currentItem.implicitWidth : 100
+            implicitHeight: stack.currentItem ? stack.currentItem.implicitHeight : 100
             clip: true
 
             initialItem: viewMainMenu
+
+            onCurrentItemChanged: {
+                // Turn off root animation to prevent double animation
+                root.rootAnim = false;
+            }
 
             Behavior on implicitWidth {
                 NumberAnim {}
@@ -71,7 +81,7 @@ PopupWindow {
                 onActivateNetworkMenu: () => {
                     if (!root.active)
                         return;
-                    layout.push(viewNetworkMenu);
+                    stack.push(viewNetworkMenu);
                 }
             }
         }
@@ -80,18 +90,19 @@ PopupWindow {
             id: viewNetworkMenu
             NetworkMenu {
                 onBackClicked: () => {
-                    layout.pop();
+                    stack.pop();
                 }
             }
         }
     }
 
     component NumberAnim: NumberAnimation {
-        duration: 150
-        easing.type: Easing.InOutQuart
+        duration: 200
+        easing.type: Easing.InOutExpo
     }
 
     Behavior on implicitHeight {
+        enabled: root.rootAnim
         NumberAnim {}
     }
 }
