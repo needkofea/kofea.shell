@@ -27,7 +27,7 @@ restore() {
         echo "Error: Could not find last wallpaper!"
         exit 1
     fi
-    mpvpaper --fork -p -o "no-audio loop-file" "*" $CURRENT_WALLPAPER_PATH
+    mpvpaper --fork -p -o "no-audio loop-file" "*" $CURRENT_WALLPAPER_PATH --gpu-api=vulkan
     echo "Restored wallpaper from $CURRENT_WALLPAPER_PATH"
 }
 
@@ -65,7 +65,7 @@ main() {
             set_wallpaper "$2"
             ;;
         *)
-            echo "Usage: $0 {kill|set <image_path>}"
+            echo "Usage: $0 {restore|kill|set <image_path>}"
             exit 1
             ;;
     esac
