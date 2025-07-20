@@ -6,7 +6,8 @@ import Qt.labs.folderlistmodel 2.9
 
 Singleton {
     id: root
-    property string clockFont: "Poppins"
+    property string fontPoppins: "Poppins"
+    property string clockFont: root.fontPoppins
 
 
     FontLoader {

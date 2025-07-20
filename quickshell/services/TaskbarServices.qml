@@ -32,16 +32,23 @@ Singleton {
     }
 
     function findEntryBestEffort(appid, title) {
+        if (appid.length == 0) {
+            return null;
+        }
+
         const maybe = DesktopEntries.byId(appid);
         if (maybe) {
+            // console.debug(`Find DesktopEntry: exact for (id: ${appid}) -> ${maybe.id}`);
             return maybe;
         }
 
         let bestEffort = DesktopEntries.applications.values.find(x => x.id.toLowerCase().includes(appid.toLowerCase()));
         if (!bestEffort) {
             bestEffort = DesktopEntries.applications.values.find(x => x.name.toLowerCase().includes(title.toLowerCase()));
+            // console.log(`Find DesktopEntry: best effort for (title: ${title};) -> ${bestEffort?.id}`);
+        } else {
+            // console.log(`Find DesktopEntry: best effort for (id: ${appid}) -> ${bestEffort?.id}`);
         }
-        console.log(`Using best effort for (title: ${title}; id: ${appid}) -> ${bestEffort?.id}`);
         return bestEffort;
     }
 
@@ -58,10 +65,10 @@ Singleton {
     property string currentBluetoothTooltip: {
         const deviceList = connectedBtDevices.map((x, idx) => {
             let s = `${idx + 1}. ${x.name}`;
-            if (x.batteryAvailable){
-                s += ` (🔋 ${x.battery * 100}%)`
+            if (x.batteryAvailable) {
+                s += ` (🔋 ${x.battery * 100}%)`;
             }
-            return s
+            return s;
         });
         return `Connected Devices:\n` + deviceList;
     }

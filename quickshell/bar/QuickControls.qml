@@ -5,10 +5,18 @@ import Quickshell
 
 import "../services"
 import "../components"
+import "../components/menus/QuickControls"
 
 Item {
     id: root
     implicitWidth: container.width
+
+    QuickControlMenu {
+        id: menu
+        anchor.item: root
+
+        anchor.rect.x: -(this.width / 2)
+    }
 
     Rectangle {
         id: container
@@ -25,6 +33,12 @@ Item {
             id: mouse
             anchors.fill: parent
             hoverEnabled: true
+            onClicked: mouse => {
+                if (mouse.button !== Qt.LeftButton) {
+                    return;
+                }
+                menu.active = !menu.active;
+            }
 
             RowLayout {
                 id: layout

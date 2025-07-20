@@ -13,19 +13,21 @@ MouseArea {
         // propagate mouse event to parent
         mouse.accepted = false;
     }
+    onClicked: mouse => {
+        mouse.accepted = false;
+    }
 
     property bool tooltipActive: false
 
     onEntered: () => {
         timer.restart();
-        timer.running = true
+        timer.running = true;
     }
 
-    onExited: ()=>{
-        timer.running = false
-        root.tooltipActive = false
+    onExited: () => {
+        timer.running = false;
+        root.tooltipActive = false;
     }
-    
 
     PopupWindow {
         anchor.item: root
@@ -45,8 +47,8 @@ MouseArea {
     Timer {
         id: timer
         interval: 500
-        onTriggered: () =>{
-            root.tooltipActive = true
+        onTriggered: () => {
+            root.tooltipActive = true;
         }
     }
 }

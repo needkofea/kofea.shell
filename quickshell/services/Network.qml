@@ -1,4 +1,4 @@
-// Taken straight from https://github.com/caelestia-dots/shell/blob/4320904a39bbfd72d36f220137c873e034981701/services/Network.qml
+// Originally from https://github.com/caelestia-dots/shell/blob/4320904a39bbfd72d36f220137c873e034981701/services/Network.qml
 
 pragma Singleton
 
@@ -73,7 +73,10 @@ Singleton {
         readonly property int strength: lastIpcObject.strength
         readonly property int frequency: lastIpcObject.frequency
         readonly property bool active: lastIpcObject.active
+        
     }
+
+    
 
     Component {
         id: apComp

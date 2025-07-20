@@ -13,10 +13,15 @@ PanelWindow {
         left: true
         right: true
     }
-
-    color: Theme.background
-
+    color: Theme.panel.bg
     implicitHeight: 42
+    Rectangle {
+        anchors.top: parent.top
+        width: parent.width
+        color: Theme.panel.border
+        height: 1
+        
+    }
 
     property HyprlandMonitor monitor: Hyprland.monitorFor(window.screen)
     WrapperItem {
