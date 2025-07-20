@@ -1,5 +1,8 @@
 # kofea.shell
 
+> [!WARNING]
+> This branch is more or less unmaintained.
+
 > [!CAUTION]
 > These dots file are designed for use in arch environment.
 > There is also no guarantee that they will not break your system.
