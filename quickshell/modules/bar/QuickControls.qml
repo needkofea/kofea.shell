@@ -3,9 +3,9 @@ import QtQuick.Layouts
 import Quickshell.Widgets
 import Quickshell
 
-import "../services"
-import "../components"
-import "../components/menus/QuickControls"
+import "../../services"
+import "../../components"
+import "../../components/menus/QuickControls"
 
 Item {
     id: root

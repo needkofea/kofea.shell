@@ -4,7 +4,7 @@ import Quickshell.Io
 import Quickshell
 import QtQuick.Layouts
 import QtQuick
-import "../services"
+import "../../services"
 
 PanelWindow {
     id: window

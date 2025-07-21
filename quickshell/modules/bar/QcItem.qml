@@ -5,7 +5,7 @@ import Quickshell.Hyprland
 import Quickshell.Widgets
 import Qt5Compat.GraphicalEffects
 import QtQuick.Controls
-import "../services"
+import "../../services"
 
 IconImage {
 

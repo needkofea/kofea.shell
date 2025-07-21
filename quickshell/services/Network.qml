@@ -9,6 +9,8 @@ import QtQuick
 Singleton {
     id: root
 
+    Component.onCompleted: NetworkSettingsManager.services.type = NetworkSettingsType.Wifi
+
     readonly property list<AccessPoint> networks: []
     readonly property AccessPoint active: networks.find(n => n.active) ?? null
 
@@ -73,10 +75,7 @@ Singleton {
         readonly property int strength: lastIpcObject.strength
         readonly property int frequency: lastIpcObject.frequency
         readonly property bool active: lastIpcObject.active
-        
     }
-
-    
 
     Component {
         id: apComp

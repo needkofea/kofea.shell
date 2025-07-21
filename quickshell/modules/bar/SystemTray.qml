@@ -6,7 +6,7 @@ import Quickshell.Services.SystemTray
 import Quickshell.Widgets
 import Quickshell.Io
 import Quickshell
-import "../services"
+import "../../services"
 
 Item {
     id: root

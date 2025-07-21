@@ -3,7 +3,7 @@ import QtQuick.Layouts
 import Quickshell.Hyprland
 import Quickshell.Widgets
 import Quickshell
-import "../services"
+import "../../services"
 
 Item {
     id: taskbar
