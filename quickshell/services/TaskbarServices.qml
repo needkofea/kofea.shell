@@ -118,11 +118,11 @@ Singleton {
     }
 
     PwObjectTracker {
-        objects: [Pipewire.defaultAudioSink, Pipewire.defaultAudioSink.audio]
+        objects: [Pipewire.defaultAudioSink, Pipewire.defaultAudioSink?.audio]
     }
 
-    property bool audioReady: Pipewire.defaultAudioSink.ready
-    property PwNodeAudio currentAudio: Pipewire.defaultAudioSink.audio
+    property bool audioReady: Pipewire.defaultAudioSink?.ready
+    property PwNodeAudio currentAudio: Pipewire.defaultAudioSink?.audio
     property PwNode currentAudioSink: Pipewire.defaultAudioSink
 
     property string volumeIcon: {

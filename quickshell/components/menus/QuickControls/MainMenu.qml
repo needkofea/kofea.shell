@@ -47,7 +47,7 @@ GridLayout {
         leftIconSource: Quickshell.iconPath(TaskbarServices.bluetoothIcon)
     }
     SplitButton {
-        toggled: !TaskbarServices.currentAudio.muted
+        toggled: !TaskbarServices.currentAudio?.muted
         onClickedLeft: mouse => {
             const audio = TaskbarServices.currentAudio;
             if (!audio) {
@@ -75,7 +75,7 @@ GridLayout {
         }
     }
     WText {
-        text: `Output (${Math.round(TaskbarServices.currentAudio.volume * 100)}%)`
+        text: `Output (${Math.round((TaskbarServices.currentAudio?.volume ?? 0) * 100)}%)`
     }
 
     RowLayout {
@@ -87,9 +87,9 @@ GridLayout {
             color: Theme.widget.fg
             font.pointSize: 8
             text: {
-                let s = TaskbarServices.currentAudioSink.nickname
+                let s = TaskbarServices.currentAudioSink?.nickname
                 if (s.length == 0) {
-                  s = TaskbarServices.currentAudioSink.description
+                  s = TaskbarServices.currentAudioSink?.description
                 }
                 return "TODO, List of audio sources (apps)"
             }
@@ -108,9 +108,10 @@ GridLayout {
         Slider {
             Layout.fillWidth: true
             from: 0
-            value: TaskbarServices.currentAudio.volume
+            value: TaskbarServices.currentAudio?.volume ?? 0
             to: 1.5
             onValueChanged: {
+                if (!TaskbarServices.currentAudio) return
                 TaskbarServices.currentAudio.volume = value;
             }
         }
