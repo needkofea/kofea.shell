@@ -8,11 +8,12 @@ NetworkMenuItem {
     property bool _expanded
     name: btDevice.name
     iconSource: {
-        if (btDevice.icon)
-            return Quickshell.iconPath(btDevice.icon + "-bluetooth-symbolic");
+        if (btDevice.icon) {
+            return Quickshell.iconPath(btDevice.icon);
+        }
         return Quickshell.iconPath("bluetooth-symbolic");
     }
-    colorised: true
+    colorised: false
     desc: {
         let s = "";
 
