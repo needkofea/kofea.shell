@@ -20,6 +20,7 @@ Rectangle {
     required property string label
     property string iconSource
     property bool colorised
+    property bool disableBtn: false
     signal clicked
     signal toggleExpanded
 
@@ -105,6 +106,7 @@ Rectangle {
                 implicitHeight: 32
                 implicitWidth: 100
                 font.weight: 600
+                disabled: root.disableBtn
                 text: label
 
                 onClicked: () => {

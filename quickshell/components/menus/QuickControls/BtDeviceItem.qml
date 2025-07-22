@@ -17,7 +17,7 @@ NetworkMenuItem {
         let s = "";
 
         if (btDevice.state == BluetoothDeviceState.Disconnecting) {
-            s = "Disconnecting";
+            s = "Disconnecting...";
         }
         if (btDevice.state == BluetoothDeviceState.Disconnected) {
             s = "Disconnected";
@@ -26,7 +26,7 @@ NetworkMenuItem {
             s = "Connected";
         }
         if (btDevice.state == BluetoothDeviceState.Connecting) {
-            s = "Connecting";
+            s = "Connecting...";
         }
 
         if (btDevice.batteryAvailable) {
@@ -36,6 +36,7 @@ NetworkMenuItem {
     }
     label: btDevice.connected ? "Disconnect" : "Connect"
     expanded: root._expanded
+    disableBtn: btDevice.state == BluetoothDeviceState.Disconnecting || btDevice.state == BluetoothDeviceState.Connecting
     onClicked: {
         if (btDevice.state == BluetoothDeviceState.Disconnecting) {
             return;
