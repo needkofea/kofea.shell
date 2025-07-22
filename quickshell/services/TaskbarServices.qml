@@ -123,6 +123,7 @@ Singleton {
 
     property bool audioReady: Pipewire.defaultAudioSink.ready
     property PwNodeAudio currentAudio: Pipewire.defaultAudioSink.audio
+    property PwNode currentAudioSink: Pipewire.defaultAudioSink
 
     property string volumeIcon: {
         if (!audioReady) {

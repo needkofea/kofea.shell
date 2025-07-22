@@ -13,11 +13,15 @@ Rectangle {
     radius: 4
 
     property string text
+    property bool disabled: false
     property alias font: label.font
 
     signal clicked(mouse: MouseEvent)
 
     color: {
+        if (ctn.disabled) {
+            return Theme.controls.bg_disabled;
+        }
         if (mouseArea.containsPress) {
             return Theme.controls.bg_pressed;
         }
@@ -48,7 +52,7 @@ Rectangle {
             ctn.clicked(mouse);
         }
     }
-    Text{
+    Text {
         id: label
         color: Theme.controls.fg
         anchors.centerIn: parent

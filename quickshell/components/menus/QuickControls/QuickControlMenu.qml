@@ -83,6 +83,11 @@ PopupWindow {
                         return;
                     stack.push(viewNetworkMenu);
                 }
+                onActivateBluetoothMenu: () => {
+                    if (!root.active)
+                        return;
+                    stack.push(viewBluetoothMenu);
+                }
             }
         }
 
@@ -94,11 +99,19 @@ PopupWindow {
                 }
             }
         }
+        Component {
+            id: viewBluetoothMenu
+            BluetoothMenu {
+                onBackClicked: () => {
+                    stack.pop();
+                }
+            }
+        }
     }
 
     component NumberAnim: NumberAnimation {
-        duration: 200
-        easing.type: Easing.InOutExpo
+        duration: 300
+        easing.type: Easing.OutExpo
     }
 
     Behavior on implicitHeight {
