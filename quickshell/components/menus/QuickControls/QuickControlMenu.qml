@@ -14,16 +14,22 @@ PopupWindow {
     id: root
     property bool active: false
 
-    implicitHeight: active ? (ctn.height ?? 1) : 1
+    implicitHeight: ctn.height ?? 1
     implicitWidth: ctn.width ?? 1
 
-    anchor.rect.y: -(this.height + 8)
+    readonly property int activeYPos: -(this.height + 8)
+    property int relY: active ? activeYPos : this.height
+
+    anchor.rect.y: relY
     anchor.adjustment: PopupAdjustment.SlideX
 
-    visible: implicitHeight > 1
+    visible: true
     color: "transparent"
 
-    property bool rootAnim: true
+    Behavior on relY {
+
+        NumberAnim {}
+    }
 
     HyprlandFocusGrab {
         id: grab
@@ -35,10 +41,10 @@ PopupWindow {
 
     onActiveChanged: {
         grab.active = root.active;
-        stack.popToIndex(0);
-
         // Re-enable root animation for closing
-        root.rootAnim = true;
+        if (root.active) {
+            stack.popToIndex(0);
+        }
     }
 
     Rectangle {
@@ -47,6 +53,11 @@ PopupWindow {
 
         implicitWidth: stack.width + 16
         implicitHeight: stack.height + 16
+        opacity: root.active ? 1 : 0
+
+        Behavior on opacity {
+            NumberAnim {}
+        }
 
         color: Theme.panel.bg
         border.color: Theme.panel.border
@@ -62,15 +73,7 @@ PopupWindow {
 
             initialItem: viewMainMenu
 
-            onCurrentItemChanged: {
-                // Turn off root animation to prevent double animation
-                root.rootAnim = false;
-            }
-
             Behavior on implicitWidth {
-                NumberAnim {}
-            }
-            Behavior on implicitHeight {
                 NumberAnim {}
             }
         }
@@ -111,11 +114,7 @@ PopupWindow {
 
     component NumberAnim: NumberAnimation {
         duration: 300
+        // velocity: 200
         easing.type: Easing.OutExpo
-    }
-
-    Behavior on implicitHeight {
-        enabled: root.rootAnim
-        NumberAnim {}
     }
 }
