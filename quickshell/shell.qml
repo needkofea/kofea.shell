@@ -17,8 +17,8 @@ ShellRoot {
     PanelWindow {
         screen: PanelServices.mouseBlockerActiveScreen
         visible: !!PanelServices.mouseBlockerActiveScreen
-        width: screen?.width
-        height: screen?.height
+        implicitWidth: screen?.width
+        implicitHeight: screen?.height
         exclusiveZone: 0
 
         color: "transparent"
