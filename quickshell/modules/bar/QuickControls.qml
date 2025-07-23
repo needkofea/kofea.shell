@@ -10,13 +10,7 @@ import "../../components/menus/QuickControls"
 Item {
     id: root
     implicitWidth: container.width
-
-    QuickControlMenu {
-        id: menu
-        anchor.item: root
-
-        anchor.rect.x: -(this.width / 2)
-    }
+    required property ShellScreen screen
 
     Rectangle {
         id: container
@@ -37,7 +31,7 @@ Item {
                 if (mouse.button !== Qt.LeftButton) {
                     return;
                 }
-                menu.active = !menu.active;
+                PanelServices.toggleQuickControls(root.screen)
             }
 
             RowLayout {

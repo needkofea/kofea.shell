@@ -10,111 +10,54 @@ import Quickshell.Hyprland
 import Qt5Compat.GraphicalEffects
 import "../../../services"
 
-PopupWindow {
-    id: root
-    property bool active: false
+Rectangle {
+    // id: root
 
-    implicitHeight: ctn.height ?? 1
-    implicitWidth: ctn.width ?? 1
+    implicitWidth: stack?.width + 16
+    implicitHeight: stack?.height + 16
 
-    readonly property int activeYPos: -(this.height + 8)
-    property int relY: active ? activeYPos : this.height
+    color: Theme.panel.bg
+    border.color: Theme.panel.border
+    radius: Theme.panel.radius
 
-    anchor.rect.y: relY
-    anchor.adjustment: PopupAdjustment.SlideX
+    StackView {
+        id: stack
+        anchors.centerIn: parent
 
-    visible: true
-    color: "transparent"
+        implicitWidth: stack.currentItem ? stack.currentItem.implicitWidth : 100
+        implicitHeight: stack.currentItem ? stack.currentItem.implicitHeight : 100
+        clip: true
 
-    Behavior on relY {
-
-        NumberAnim {}
+        initialItem: viewMainMenu
     }
 
-    HyprlandFocusGrab {
-        id: grab
-        windows: [root]
-        onCleared: {
-            root.active = false;
-        }
-    }
-
-    onActiveChanged: {
-        grab.active = root.active;
-        // Re-enable root animation for closing
-        if (root.active) {
-            stack.popToIndex(0);
-        }
-    }
-
-    Rectangle {
-        id: ctn
-        anchors.top: parent.top
-
-        implicitWidth: stack.width + 16
-        implicitHeight: stack.height + 16
-        opacity: root.active ? 1 : 0
-
-        Behavior on opacity {
-            NumberAnim {}
-        }
-
-        color: Theme.panel.bg
-        border.color: Theme.panel.border
-        radius: Theme.panel.radius
-
-        StackView {
-            id: stack
-            anchors.centerIn: parent
-
-            implicitWidth: stack.currentItem ? stack.currentItem.implicitWidth : 100
-            implicitHeight: stack.currentItem ? stack.currentItem.implicitHeight : 100
-            clip: true
-
-            initialItem: viewMainMenu
-
-            Behavior on implicitWidth {
-                NumberAnim {}
+    Component {
+        id: viewMainMenu
+        MainMenu {
+            onActivateNetworkMenu: () => {
+                stack.push(viewNetworkMenu);
             }
-        }
-
-        Component {
-            id: viewMainMenu
-            MainMenu {
-                onActivateNetworkMenu: () => {
-                    if (!root.active)
-                        return;
-                    stack.push(viewNetworkMenu);
-                }
-                onActivateBluetoothMenu: () => {
-                    if (!root.active)
-                        return;
-                    stack.push(viewBluetoothMenu);
-                }
-            }
-        }
-
-        Component {
-            id: viewNetworkMenu
-            NetworkMenu {
-                onBackClicked: () => {
-                    stack.pop();
-                }
-            }
-        }
-        Component {
-            id: viewBluetoothMenu
-            BluetoothMenu {
-                onBackClicked: () => {
-                    stack.pop();
-                }
+            onActivateBluetoothMenu: () => {
+                stack.push(viewBluetoothMenu);
             }
         }
     }
 
-    component NumberAnim: NumberAnimation {
-        duration: 300
-        // velocity: 200
-        easing.type: Easing.OutExpo
+    Component {
+        id: viewNetworkMenu
+        NetworkMenu {
+            onBackClicked: () => {
+                stack.pop();
+            }
+        }
     }
+    Component {
+        id: viewBluetoothMenu
+        BluetoothMenu {
+            onBackClicked: () => {
+                stack.pop();
+            }
+        }
+    }
+
 }

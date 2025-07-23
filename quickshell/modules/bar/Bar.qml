@@ -39,6 +39,7 @@ PanelWindow {
 
                 QuickControls {
                     implicitHeight: parent.height
+                    screen: window.screen
                 }
                 Workspaces {
                     implicitHeight: parent.height
